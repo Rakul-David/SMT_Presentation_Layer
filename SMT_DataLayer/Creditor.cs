@@ -8,6 +8,12 @@ namespace SMT_DataLayer
 {
     public class Creditor
     {
+        static int i = 0;
+        public Creditor()
+        {
+            i++;
+        }
+        public int id = i;
         public string name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }

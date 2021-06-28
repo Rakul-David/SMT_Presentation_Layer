@@ -75,15 +75,18 @@
     <Compile Include="Creditor.cs" />
     <Compile Include="Data\SMT_DataContext.cs" />
     <Compile Include="Deptor.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SMT_DataRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\Creditor Details\" />
     <Folder Include="Data\Deptor Details\" />
+    <Folder Include="Data\Invoice Details\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="AppSettings.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

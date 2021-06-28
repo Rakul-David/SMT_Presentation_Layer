@@ -8,6 +8,12 @@ namespace SMT_DataLayer
 {
     public class Deptor
     {
+        static int i = 0;
+        public Deptor()
+        {
+            i++;
+        }
+        public int id = i; 
         public string name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }
