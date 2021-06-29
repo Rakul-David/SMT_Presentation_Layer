@@ -133,7 +133,9 @@ namespace SMT_DataLayer.Repository
                     {
                         invoice.invoiceId = invoiceId;
                         invoice.forId = id;
+                        _context.Invoices.Add(invoice);
                     }
+                    _context.SaveChange();
                     return true;
                 }
                 return false;
@@ -154,7 +156,9 @@ namespace SMT_DataLayer.Repository
                     {
                         invoice.invoiceId = invoiceId;
                         invoice.forId = id;
+                        _context.Invoices.Add(invoice);
                     }
+                    _context.SaveChange();
                     return true;
                 }
                 return false;
@@ -164,6 +168,28 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-        
+        public List<Invoice> SearchInvoice(string name)
+        {
+            try
+            {
+                if (_context.Invoices.Count > 0 && _context.Invoices != null)
+                {
+                    List<Invoice> result = new List<Invoice>();
+                    foreach(Invoice invoice in _context.Invoices)
+                    {
+                        if (invoice.name.ToLower().Contains(name.ToLower()))
+                        {
+                            result.Add(invoice);
+                        }
+                    }
+                    return result;
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
