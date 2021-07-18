@@ -76,7 +76,9 @@
     <Compile Include="Data\SMT_DataContext.cs" />
     <Compile Include="Deptor.cs" />
     <Compile Include="Invoice.cs" />
+    <Compile Include="PayIn_Out.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Enumeration.cs" />
     <Compile Include="Repository\SMT_DataRepository.cs" />
   </ItemGroup>
   <ItemGroup>

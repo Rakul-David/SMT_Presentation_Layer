@@ -15,6 +15,7 @@ namespace SMT_DataLayer
         }
         public int invoiceId { get; set; }
         public int forId { get; set; }
+        public Guid forGuid { get; set; }
         public string name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }
