@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SMT_UI.Pages;
 
-namespace SMT_UI
+namespace SMT_UI.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Creditor_Debtor.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Creditor_Debtor : Page
     {
-        public MainWindow()
+        public Creditor_Debtor()
         {
             InitializeComponent();
-            MainPage mainPage = new MainPage();
-            MainFrame.NavigationService.Navigate(mainPage);
         }
     }
 }

@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SMT_UI.Pages;
 
-namespace SMT_UI
+namespace SMT_UI.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PayIn_PayOut.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PayIn_PayOut : Page
     {
-        public MainWindow()
+        public PayIn_PayOut()
         {
             InitializeComponent();
-            MainPage mainPage = new MainPage();
-            MainFrame.NavigationService.Navigate(mainPage);
         }
     }
 }
