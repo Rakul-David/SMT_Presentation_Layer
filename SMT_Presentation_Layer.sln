@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMT_Presentation_Layer", "SMT_Presentation_Layer\SMT_Presentation_Layer.csproj", "{0507DB86-B5CF-4C6D-B920-B90B1C8AC72A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMT_DataLayer", "SMT_DataLayer\SMT_DataLayer.csproj", "{98C5AAD1-5147-47DE-BBA4-3B1FB8B1DA4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMT_UI", "SMT_UI\SMT_UI.csproj", "{16F43CE9-2403-48DC-87AA-337FD08927A2}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0507DB86-B5CF-4C6D-B920-B90B1C8AC72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0507DB86-B5CF-4C6D-B920-B90B1C8AC72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0507DB86-B5CF-4C6D-B920-B90B1C8AC72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0507DB86-B5CF-4C6D-B920-B90B1C8AC72A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{98C5AAD1-5147-47DE-BBA4-3B1FB8B1DA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98C5AAD1-5147-47DE-BBA4-3B1FB8B1DA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98C5AAD1-5147-47DE-BBA4-3B1FB8B1DA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
