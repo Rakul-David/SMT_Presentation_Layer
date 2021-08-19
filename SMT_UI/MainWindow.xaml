@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SMT_UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1280" 
+        Title="SMT" Height="800" Width="1280" 
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized"
-        >
+        WindowState="Maximized" Icon="Images/SMT_LOGO.ico">
+    
     <Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

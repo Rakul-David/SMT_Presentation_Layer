@@ -123,20 +123,23 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Deptor.png" />
-    <Resource Include="Images\Invoice.png" />
-    <Resource Include="Images\Invoice2.png" />
-    <Resource Include="Images\PayIn.png" />
-    <Resource Include="Images\PayOut.png" />
+    <Resource Include="Images\Pay_In.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Creditor2.png" />
+    <Resource Include="Images\Pay_Out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Credit_Invoice.png" />
+    <Resource Include="Images\Deptor_Invoice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SMT_LOGO.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Deptor.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Creditor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\MicrosoftTeams-image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
