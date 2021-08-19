@@ -6,103 +6,116 @@
       xmlns:local="clr-namespace:SMT_UI.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1280"
-      Title="MainPage" Background="White">
-    <Viewbox Stretch="Uniform" StretchDirection="Both">
-        <Grid Height="auto" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+      Title="SMT" 
+        Height="800" Width="1280">
 
-            <Button Content="CREDITOR" Grid.Row="0" Grid.Column="0" BorderBrush="#FF241414" AutomationProperties.Name="CREDITOR" HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="300" FontSize="36" FontFamily="Times New Roman" Foreground="White" FontWeight="Bold" Click="Creditor_Click" Margin="100,50,25,50" Cursor="Hand">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="30"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#FFC712E4" Opacity="1"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Content="PAY-IN" Grid.Row="0" Grid.Column="1" BorderBrush="#FF241414" AutomationProperties.Name="PAY-IN" HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="300" FontFamily="Times New Roman" FontSize="36" FontStyle="Normal" FontWeight="Bold" FontStretch="Normal" Foreground="White" Margin="25,50" Click="PayIn_Click" Cursor="Hand">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="30"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#FF2A1C81" Opacity="1"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="2" BorderBrush="#FF241414" AutomationProperties.Name="CREDITORINVOICE" VerticalAlignment="Center" Height="180" Width="300" FontFamily="Times New Roman" FontSize="36" FontStretch="Normal" Foreground="White" FontWeight="Bold" Margin="25,50,100,50" Click="Creditor_Invoice_Click" HorizontalAlignment="Center" Cursor="Hand">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="30"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#FF1440D6" Opacity="1"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-                <Button.Content>
-                    <TextBlock TextWrapping="Wrap" Text="CREDITOR INVOICE" TextAlignment="Center"/>
-                </Button.Content>
-            </Button>
-            <Button Content="DEBITOR" Grid.Row="1" Grid.Column="0" BorderBrush="#FF241414" AutomationProperties.Name="DEBITOR" HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="300" FontFamily="Times New Roman" FontSize="36" Foreground="White" FontWeight="Bold" Margin="100,50,25,50" Click="Debtor_Click" Cursor="Hand">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="30"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0B6AAC" Opacity="1"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Content="PAY-OUT" Grid.Row="1" Grid.Column="1" BorderBrush="#FF241414" AutomationProperties.Name="PAY-OUT" HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="300" FontFamily="Times New Roman" FontSize="36" Foreground="White" FontWeight="Bold" Margin="25,50" Click="PayOut_Click" Cursor="Hand">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="30"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#FF0BACAC" Opacity="1"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Grid.Row="1" Grid.Column="2" BorderBrush="#FF241414" AutomationProperties.Name="DEBITORINVOICE" HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="300" FontFamily="Times New Roman" FontSize="36" Foreground="#FF060000" FontWeight="Bold" Margin="25,50,100,50" Click="Deptor_Invoice_Click" Cursor="Hand">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="30"/>
-                    </Style>
-                </Button.Resources>
-                <Button.Background>
-                    <SolidColorBrush Color="#FFF0AB68" Opacity="1"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-                <Button.Content>
-                    <TextBlock TextWrapping="Wrap" Text="DEBITOR INVOICE" TextAlignment="Center"/>
-                </Button.Content>
-            </Button>
-        </Grid>
-    </Viewbox>
+    <Page.Resources>
+        <Style x:Key="InnerButton" TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.8">
+                        <GradientStop Color="#FFC5F5F3" Offset="0"/>
+                        <GradientStop Color="White"  Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="120"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style x:Key="ButtonsColor" TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.3">
+                        <GradientStop Color="#FF3A1EB8" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="3"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <!--<Setter Property="BitmapEffect">
+                <Setter.Value>
+                    <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.2" ShadowDepth="4" Opacity="0.7" />
+                </Setter.Value>
+            </Setter>-->
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="30"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <!--<Style  x:Key="ButtonShadow" TargetType="Button">
+            <Setter Property="BitmapEffect">
+                <Setter.Value>
+                    <DropShadowBitmapEffect Color="Black" Direction="0" Softness="0.2" ShadowDepth="4" Opacity="0.7" />
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+    </Page.Resources>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#6CCCFFFF" Offset="0"/>
+            <GradientStop Color="#6C748F8F" Offset="0.72"/>
+        </LinearGradientBrush>
+        </Page.Background>
+    <Viewbox StretchDirection="Both" Stretch="Uniform" Height="800" Width="1280">
+            <Grid Height="800" Width="1280">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Style="{StaticResource ButtonsColor}" Height="280" Width="280" Grid.Row="0" VerticalAlignment="Top" Margin="0,26,0,0" >
+                    <Button Height="198" Width="198" Style="{StaticResource InnerButton}">
+                        <Image Source="/SMT_UI;component/Images/MicrosoftTeams-image.png" Height="150" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Button>
+                </Button>
+                <Button Style="{StaticResource ButtonsColor}" Height="280" Width="280" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="0,26,0,0" >
+                    <Button Style="{StaticResource InnerButton}" Height="198" Width="198">
+                        <Image Source="/SMT_UI;component/Images/PayIn.png" Height="150" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Button>
+                </Button>
+                <Button Style="{StaticResource ButtonsColor}" Height="280" Width="280" Grid.Row="1" VerticalAlignment="Top" Margin="0,23,0,0"  >
+                    <Button Style="{StaticResource InnerButton}" Height="198" Width="198">
+                        <Image Source="/SMT_UI;component/Images/Deptor.png" Height="150" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Button>
+                </Button>
+                <Button Style="{StaticResource ButtonsColor}" Height="280" Width="280" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="0,23,0,0" >
+                    <Button Style="{StaticResource InnerButton}" Height="198" Width="198">
+                        <Image Source="/SMT_UI;component/Images/PayOut.png" Height="150" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Button>
+                </Button>
+                <Button Style="{StaticResource ButtonsColor}" Height="280" Width="280" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,26,0,0" >
+                    <Button Style="{StaticResource InnerButton}" Height="198" Width="198">
+                        <Image Source="/SMT_UI;component/Images/Invoice.png" Height="150" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Button>
+                </Button>
+                <Button Style="{StaticResource ButtonsColor}" Height="280" Width="280" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0">
+                    <Button Style="{StaticResource InnerButton}" Height="198" Width="198">
+                        <Image Source="/SMT_UI;component/Images/Invoice.png" Height="150" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                    </Button>
+                </Button>
+                <Button Style="{StaticResource ButtonsColor}" Height="72" Width="280" Grid.Column="0" Grid.Row="0" Content="CREDITOR" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,311,0,0" FontSize="35" FontFamily="Times New Roman" FontWeight="Bold"/>
+                <Button Style="{StaticResource ButtonsColor}" Height="72" Width="280" Grid.Column="1" Grid.Row="0" Content="PAY-IN" VerticalAlignment="Top" Margin="0,311,0,0"  FontSize="35" FontFamily="Times New Roman" FontWeight="Bold"/>
+                <Button Style="{StaticResource ButtonsColor}" Height="72" Width="280" Grid.Column="2" Grid.Row="0" Content="CREDITOR" HorizontalAlignment="Center" Margin="0,311,0,0" VerticalAlignment="Top" FontSize="35" FontFamily="Times New Roman" FontWeight="Bold"/>
+                <Button Style="{StaticResource ButtonsColor}" Height="72" Width="280" Grid.Row="1" Content="DEPTOR" Margin="0,308,0,0" VerticalAlignment="Top" FontSize="35" FontFamily="Times New Roman" FontWeight="Bold"/>
+                <Button Style="{StaticResource ButtonsColor}" Height="72" Width="280" Grid.Column="1" Grid.Row="1" Content="PAY-OUT" Margin="0,308,0,0" VerticalAlignment="Top" FontSize="35" FontWeight="Bold" FontFamily="Times New Roman"/>
+                <Button Style="{StaticResource ButtonsColor}" Height="72" Width="280" Grid.Column="2" Grid.Row="1" Content="DEPTOR"  Margin="0,308,0,0" VerticalAlignment="Top" FontSize="35" FontFamily="Times New Roman" FontWeight="Bold"/>
+            </Grid>
+        </Viewbox>
 </Page>
+
+
