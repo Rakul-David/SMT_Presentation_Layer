@@ -130,13 +130,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Credit_Invoice.png" />
-    <Resource Include="Images\Deptor_Invoice.png" />
+    <Resource Include="Images\Debtor_Invoice.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\SMT_LOGO.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Deptor.png" />
+    <Resource Include="Images\Debtor.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Creditor.png" />
