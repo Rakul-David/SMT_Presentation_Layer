@@ -5,11 +5,117 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SMT_UI.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1280"
-      Title="Creditor_Debtor" Background="White">
-    <Viewbox Stretch="Uniform" StretchDirection="Both">
-        <Grid Height="auto" Width="auto">
+      d:DesignHeight="800" d:DesignWidth="1280">
+    <Page.Resources>
+        <Style x:Key="RadioCircle" TargetType="RadioButton">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="110"/>
+        </Style>
+        <Style x:Key="Combo" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="BorderBrush" Value="#FF030408"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="IsTextSearchEnabled" Value="True"/>
+
+        </Style>
+        <Style x:Key="Labels" TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="240"/>
+        </Style>
+        <Style x:Key="Textboxes" TargetType="TextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="640"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="BorderBrush" Value="#FF030408"/>
+            <Setter Property="VerticalAlignment" Value="top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="BottomButton" TargetType="Button">
+            <Setter Property="Width" Value="125"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#FF9DC8EC"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Page.Resources>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="White" Offset="1.5"/>
+            <GradientStop Color="#FFE2EEF7" Offset="0.004"/>
+        </LinearGradientBrush>
+    </Page.Background>
+    <Viewbox StretchDirection="Both" Stretch="Uniform">
+        <Grid Height="800" Width="1280">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="121*"/>
+                <RowDefinition Height="279*"/>
+            </Grid.RowDefinitions>
+            <Label Style="{StaticResource Labels}" Content="CREDITOR DETAILS" HorizontalAlignment="Center" FontSize="38" Width="388"/>
+            <Button Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="25"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Content>
+                    <Grid>
+                        <Image Stretch="Fill" Width="35" Source="/SMT_UI;component/Images/b-arrow.png"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Line X1="0" X2="1260" Stroke="Black" Margin="0,60,0,10" HorizontalAlignment="Center" Grid.RowSpan="2"></Line>
+            <Line X1="0" X2="1260" Stroke="Black" Margin="0,498,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"></Line>
+            <Line Y1="0" Y2="800" Stroke="Black" Margin="10,60,0,60" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2"></Line>
+            <Line Y1="0" Y2="800" Stroke="Black" Margin="0,60,10,60" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2"></Line>
+            <RadioButton Style="{StaticResource RadioCircle}" Content="ADD" Margin="45,86,0,0"></RadioButton>
+            <RadioButton Style="{StaticResource RadioCircle}" Content="EDIT"  Margin="196,86,0,0"/>
+            <RadioButton Style="{StaticResource RadioCircle}" Content="DELETE"  Margin="344,86,0,0" Width="133"/>
+            <Label Style="{StaticResource Labels}" Content="FULL NAME :"  Margin="45,225,0,0" Grid.RowSpan="2"/>
+            <Label Style="{StaticResource Labels}" Content="ADDRESS :"  Margin="45,53,0,0" Grid.Row="1" />
+            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="45,220,0,0" Grid.Row="1" />
+            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="45,290,0,0" Grid.Row="1"/>
+            <Label Style="{StaticResource Labels}" Content="BALANCE AMOUNT :"  Margin="45,360,0,0" Grid.Row="1"/>
+            <TextBox Style="{StaticResource Textboxes}" Margin="0,225,0,0" Grid.RowSpan="2" />
+            <TextBox Style="{StaticResource Textboxes}" Margin="0,53,0,0" Height="135" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Grid.Row="1"/>
+            <TextBox Style="{StaticResource Textboxes}" Margin="0,223,0,0" Grid.Row="1" />
+            <TextBox Style="{StaticResource Textboxes}" Margin="0,293,0,0" Grid.Row="1" />
+            <TextBox Style="{StaticResource Textboxes}" Margin="0,363,0,0" Grid.Row="1" />
+            <ComboBox Style="{StaticResource Combo}" Margin="45,131,320,0" Height="45">
+                List 1
+            </ComboBox>
+            <Button Style="{StaticResource BottomButton}" Content="SAVE"  Margin="0,0,350,85" Grid.Row="1"/>
+            <Button Style="{StaticResource BottomButton}" Content="UPDATE" Margin="0,0,200,85" Grid.Row="1"/>
+            <Button Style="{StaticResource BottomButton}" Content="DELETE" Margin="0,0,50,85" Grid.Row="1"/>
 
         </Grid>
     </Viewbox>
+
 </Page>
