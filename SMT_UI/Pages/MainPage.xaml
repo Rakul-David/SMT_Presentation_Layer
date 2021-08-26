@@ -85,7 +85,7 @@
     <Page.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="White" Offset="1"/>
-            <GradientStop Color="#FFB5D6F1" Offset="0.004"/>
+            <GradientStop Color="#FFB5D6F1" Offset="0"/>
         </LinearGradientBrush>
     </Page.Background>
 
@@ -102,7 +102,7 @@
             </Grid.RowDefinitions>
 
             <!--#region Main Button -->
-            <Button Style="{StaticResource MainButton}" Grid.Column="0" Grid.Row="0">
+            <Button Style="{StaticResource MainButton}" Grid.Column="0" Grid.Row="0" Click="Creditor_Click">
                 <Button.Content>
                     <Grid>
                         <Ellipse Style="{StaticResource Circle}"/>
@@ -110,7 +110,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Style="{StaticResource MainButton}" Grid.Column="1" Grid.Row="0">
+            <Button Style="{StaticResource MainButton}" Grid.Column="1" Grid.Row="0" Click="PayIn_Click">
                 <Button.Content>
                     <Grid>
                         <Ellipse Style="{StaticResource Circle}"/>
@@ -118,7 +118,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Style="{StaticResource MainButton}" Grid.Column="2" Grid.Row="0">
+            <Button Style="{StaticResource MainButton}" Grid.Column="2" Grid.Row="0" Click="Creditor_Invoice_Click">
                 <Button.Content>
                     <Grid>
                         <Ellipse Style="{StaticResource Circle}"/>
@@ -126,7 +126,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Style="{StaticResource MainButton}" Grid.Column="0" Grid.Row="1">
+            <Button Style="{StaticResource MainButton}" Grid.Column="0" Grid.Row="1" Click="Debtor_Click">
                 <Button.Content>
                     <Grid>
                         <Ellipse Style="{StaticResource Circle}"/>
@@ -134,7 +134,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Style="{StaticResource MainButton}" Grid.Column="1" Grid.Row="1">
+            <Button Style="{StaticResource MainButton}" Grid.Column="1" Grid.Row="1" Click="PayOut_Click">
                 <Button.Content>
                     <Grid>
                         <Ellipse Style="{StaticResource Circle}"/>
@@ -142,7 +142,7 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button Style="{StaticResource MainButton}" Grid.Column="2" Grid.Row="1">
+            <Button Style="{StaticResource MainButton}" Grid.Column="2" Grid.Row="1" Click="Deptor_Invoice_Click">
                 <Button.Content>
                     <Grid>
                         <Ellipse Style="{StaticResource Circle}"/>
@@ -154,12 +154,12 @@
 
 
             <!--#region Bottom Button -->
-            <Button Style="{StaticResource BottomButton}" Grid.Column="0" Grid.Row="0" Content="CREDITOR" />
-            <Button Style="{StaticResource BottomButton}" Grid.Column="1" Grid.Row="0" Content="PAY-IN"/>
-            <Button Style="{StaticResource BottomButton}" Grid.Column="2" Grid.Row="0" Content="CRED-INVOICE" />
-            <Button Style="{StaticResource BottomButton}" Grid.Column="0" Grid.Row="1" Content="DEBTOR"/>
-            <Button Style="{StaticResource BottomButton}" Grid.Column="1" Grid.Row="1" Content="PAY-OUT"/>
-            <Button Style="{StaticResource BottomButton}" Grid.Column="2" Grid.Row="1" Content="DEBT-INVOICE"/>
+            <Button Style="{StaticResource BottomButton}" Grid.Column="0" Grid.Row="0" Content="CREDITOR" Click="Creditor_Click"/>
+            <Button Style="{StaticResource BottomButton}" Grid.Column="1" Grid.Row="0" Content="PAY-IN" Click="PayIn_Click"/>
+            <Button Style="{StaticResource BottomButton}" Grid.Column="2" Grid.Row="0" Content="CRED-INVOICE" Click="Creditor_Invoice_Click"/>
+            <Button Style="{StaticResource BottomButton}" Grid.Column="0" Grid.Row="1" Content="DEBTOR" Click="Debtor_Click"/>
+            <Button Style="{StaticResource BottomButton}" Grid.Column="1" Grid.Row="1" Content="PAY-OUT" Click="PayOut_Click"/>
+            <Button Style="{StaticResource BottomButton}" Grid.Column="2" Grid.Row="1" Content="DEBT-INVOICE" Click="Deptor_Invoice_Click"/>
             <!--#endregion-->
 
         </Grid>

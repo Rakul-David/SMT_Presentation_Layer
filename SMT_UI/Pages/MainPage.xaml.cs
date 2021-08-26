@@ -33,11 +33,13 @@ namespace SMT_UI.Pages
         private void Creditor_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(creditor_deptor);
+            creditor_deptor.staticDetails("CREDITOR");
         }
 
         private void Debtor_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(creditor_deptor);
+            creditor_deptor.staticDetails("DEBTOR");
         }
 
         private void PayIn_Click(object sender, RoutedEventArgs e)
