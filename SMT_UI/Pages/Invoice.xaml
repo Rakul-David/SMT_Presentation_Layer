@@ -9,11 +9,10 @@
     <Page.Resources>
         <Style x:Key="labels" TargetType="Label">
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="auto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Cambria"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
@@ -21,38 +20,67 @@
         </Style>
         <Style x:Key="TextBoxes" TargetType="TextBox">
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="200"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Cambria"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
         </Style>
         <Style x:Key="Buttons" TargetType="Button">
-            <Setter Property="Height" Value="28"/>
-            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Cambria"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" Value="#FF9DC8EC"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Style.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
+                    <Setter Property="CornerRadius" Value="25"/>
                 </Style>
             </Style.Resources>
         </Style>
+        <Style x:Key="RadioCircle" TargetType="RadioButton">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
     </Page.Resources>
 
     <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <Grid>
+        <Grid Height="670" Width="1300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="125"/>
+                <RowDefinition Height="350"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+                <Label Style="{StaticResource labels}" x:Name="Title" FontSize="34" FontWeight="Bold" Width="316" Height="54" Margin="485,-2,479,148" HorizontalAlignment="Center" Grid.RowSpan="2"/>
+
+            <Label Style="{StaticResource labels}" Content="CREDITOR INVOICE" FontSize="34" FontWeight="Bold" Height="auto" Margin="0" HorizontalAlignment="Center"/>
             <!--#region HomeButton -->
-            <Button Margin="25,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
+            <Button Margin="25,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="25"/>
@@ -60,91 +88,100 @@
                 </Button.Resources>
                 <Button.Content>
                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image Width="25" Source="/SMT_UI;component/Images/Home.png" Cursor="Hand"/>
+                        <Image Width="25" Source="/./Images/Home.png"/>
                     </Grid>
                 </Button.Content>
             </Button>
             <!--#endregion-->
+            <Rectangle  Stroke="Black" StrokeThickness="1.5" Grid.Row="0" Grid.RowSpan="4" Margin="10,55,10,0"/>
 
-            <Grid Height="700" Width="1280">
-
+            <Grid  Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.75*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="300"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
+                <ComboBox FontSize="20" FontFamily="Cambria" Height="30" BorderBrush="Black" Grid.Row="0" Grid.ColumnSpan="3" Margin="30,0,10,0" Cursor="Hand" IsEditable="True" IsTextSearchEnabled="True" BorderThickness="1"/>
+                <Label Style="{StaticResource labels}" Content="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalContentAlignment="Center" Margin="30,0" BorderBrush="Black" BorderThickness="1"/>
 
-                <Label Style="{StaticResource labels}" x:Name="Title" FontSize="34" FontWeight="Bold" Width="316" Height="54" Margin="485,-2,479,148" HorizontalAlignment="Center" Grid.RowSpan="2"/>
-
-                <Grid Grid.Row="1" Height="150" VerticalAlignment="Bottom">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.75*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <ComboBox FontSize="20" FontFamily="Cambria" Height="30" OpacityMask="#FF080808" BorderBrush="Black" BorderThickness="2" Grid.Row="0" Grid.ColumnSpan="3" Margin="25,0,10,0" Cursor="Hand"/>
-                    <TextBox Style="{StaticResource TextBoxes}" Text="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
-
-                    <Label Style="{StaticResource labels}" Content="NAME :" Grid.Row="1" Grid.ColumnSpan="2" Margin="25,0,0,0"/>
-                    <!--<Label Style="{StaticResource labels}" Content="DATE :" Grid.Row="1" Grid.Column="2"/>-->
-                    <Label Style="{StaticResource labels}" Content="QNTY :" Grid.Row="2" Grid.Column="0" Margin="25,0,0,0"/>
-                    <Label Style="{StaticResource labels}" Content="UNITS :" Grid.Row="2" Grid.Column="1"/>
-                    <Label Style="{StaticResource labels}" Content="PRICE/UNIT :" Grid.Row="2" Grid.Column="2"/>
+                <Label Style="{StaticResource labels}" Content="NAME :" Grid.Row="1" Grid.ColumnSpan="2" Margin="30,0,0,0"/>
+                <Label Style="{StaticResource labels}" Content="QNTY :" Grid.Row="2" Grid.Column="0" Margin="30,0,0,0"/>
+                <Label Style="{StaticResource labels}" Content="UNITS :" Grid.Row="2" Grid.Column="1"/>
+                <Label Style="{StaticResource labels}" Content="PRICE/UNIT :" Grid.Row="2" Grid.Column="2"/>
 
 
-                    <TextBox Style="{StaticResource TextBoxes}" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,0,0" Width="588"/>
-                    <DatePicker Grid.Row="1"  Grid.Column="2" Margin="10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="15" FontFamily="Calibri" SelectedDateFormat="Short" Text="SELECT A DATE" AutomationProperties.Name="Invoice_Date"/>
+                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
+                <DatePicker Grid.Row="1" Grid.Column="2" Margin="10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand"/>
 
-                    <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2"  Grid.Column="0" Margin="85,0,0,0" Width="251"/>
-                    <ComboBox SelectedIndex="0" Grid.Row="2" Grid.Column="1" Margin="75,0,10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand">
-                        <ListBoxItem Content="Gram"/>
-                        <ListBoxItem Content="Dozen"/>
-                        <ListBoxItem Content="Kilogram"/>
-                        <ListBoxItem Content="Tonne"/>
-                    </ComboBox>
-                    <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2"  Grid.Column="2" Margin="115,10,0,10" Width="216"/>
+                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2"  Grid.Column="0" Margin="85,0,10,0" Width="252"/>
+                <ComboBox SelectedIndex="0" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="75,0,10,0" VerticalContentAlignment="Center" Height="30">
+                    <ListBoxItem Content="Gram" Cursor="Hand"/>
+                    <ListBoxItem Content="Dozen" Cursor="Hand"/>
+                    <ListBoxItem Content="Kilogram" Cursor="Hand"/>
+                    <ListBoxItem Content="Tonne" Cursor="Hand"/>
+                </ComboBox>
+                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="115,0,10,0"/>
 
-                    <Button Style="{StaticResource Buttons}" Content="ADD" Margin="0,122,30,117" RenderTransformOrigin="0.468,2.022" Width="208"/>
-                    <Button Style="{StaticResource Buttons}" Content="EDIT" Margin="0,173,143,66" Width="95"/>
-                    <Button Style="{StaticResource Buttons}" Content="DEL" Margin="0,173,30,66" Width="96" />
-
-
-                </Grid>
-                <ScrollViewer Grid.Row="2">
-                    <DataGrid x:Name="DataGridXaml" HorizontalAlignment="Center" Margin="0,0,0,0" Width="1214" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="FontSize" Value="16"/>
-                                <Setter Property="FontWeight" Value="Black"/>
-                                <Setter Property="FontFamily" Value="Cambria"/>
-                                <Setter Property="BorderThickness" Value="1,1,1,1"/>
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                        </DataGrid.Resources>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="SR NO." Width="80"/>
-                            <DataGridTextColumn Header="NAME OF THE PRODUCT" Width="500"/>
-                            <DataGridTextColumn Header="QNTY" Width="140"/>
-                            <DataGridTextColumn Header="UNITS" Width="140"/>
-                            <DataGridTextColumn Header="UNIT/PRICE" Width="140"/>
-                            <DataGridTextColumn Header="SUB-TOTAL" Width="280"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
-
-                <Button Grid.Row="3" Style="{StaticResource Buttons}" Content="SAVE" VerticalAlignment="Bottom" Margin="0,0,50,62" Width="96" Height="28" HorizontalAlignment="Right" Cursor="Hand"/>
+                <Button Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,0"/>
+                <Button Style="{StaticResource Buttons}" Content="UPDATE" Grid.Row="2" Grid.Column="3" Margin="30,0,135,0"/>
+                <Button Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0"/>
             </Grid>
+
+            <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"></Line>
+            <DataGrid Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2">
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontWeight" Value="Black"/>
+                        <Setter Property="FontFamily" Value="Cambria"/>
+                        <Setter Property="BorderThickness" Value="1,1,1,1"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="SR NO." MaxWidth="70" MinWidth="70"/>
+                    <DataGridTextColumn Header="NAME OF THE PRODUCT" MaxWidth="450" MinWidth="450"/>
+                    <DataGridTextColumn Header="QNTY" MaxWidth="100" MinWidth="100"/>
+                    <DataGridTextColumn Header="UNITS" MaxWidth="150" MinWidth="150"/>
+                    <DataGridTextColumn Header="UNIT/PRICE" MaxWidth="150" MinWidth="150"/>
+                    <DataGridTextColumn Header="DATE" MaxWidth="100" MinWidth="100"/>
+                    <DataGridTextColumn Header="SUB-TOTAL" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2"></Line>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.25*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Style="{StaticResource labels}" Content="Do you want SGST(9%) and CGST(9%) to be added to the Invoice?" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" Height="18"/>
+                <RadioButton x:Name="Yes_radio" Style="{StaticResource RadioCircle}" Content="YES" Margin="200,0,0,55" Grid.Column="0" Grid.ColumnSpan="2"/>
+                <RadioButton x:Name="No_radio" Style="{StaticResource RadioCircle}" Content="NO" IsChecked="True" Margin="300,0,0,55" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                <Label Style="{StaticResource labels}" Content="TOTAL :" Grid.Column="0" Margin="30,0,0,0"/>
+                <Label Style="{StaticResource labels}" Content="SGST :" Grid.Column="1"  Margin="0"/>
+                <Label Style="{StaticResource labels}" Content="CGST :" Grid.Column="2"  Margin="0"/>
+                <Label Style="{StaticResource labels}" Content="GRAND TOTAL :" Grid.Column="3"  Margin="0"/>
+
+                <Label Style="{StaticResource labels}" Grid.Column="0" Margin="90,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label Style="{StaticResource labels}" Grid.Column="1" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label Style="{StaticResource labels}" Grid.Column="2" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label Style="{StaticResource labels}" Grid.Column="3" Margin="115,0,30,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+
+            </Grid>
+            <Button Grid.Row="4" Style="{StaticResource Buttons}" Content="SAVE" HorizontalAlignment="Right" Margin="0,0,30,0" Width="125" Height="40"/>
         </Grid>
     </Viewbox>
 </Page>
