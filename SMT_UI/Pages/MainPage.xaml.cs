@@ -54,6 +54,7 @@ namespace SMT_UI.Pages
         private void Creditor_Invoice_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(invoice);
+            invoice.staticDetails("CREDITOR");
         }
         private void Deptor_Invoice_Click(object sender, RoutedEventArgs e)
         {

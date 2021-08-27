@@ -60,7 +60,7 @@
             </Grid.RowDefinitions>
 
 
-            <Label Style="{StaticResource labels}" Content="CREDITOR INVOICE" FontSize="34" FontWeight="Bold" Width="322" Height="55" Margin="0" HorizontalAlignment="Center"/>
+            <Label Style="{StaticResource labels}" x:Name="Title" FontSize="34" FontWeight="Bold" Width="322" Height="55" Margin="0" HorizontalAlignment="Center"/>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

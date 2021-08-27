@@ -20,9 +20,15 @@ namespace SMT_UI.Pages
     /// </summary>
     public partial class Invoice : Page
     {
+        String CredorDebt = "";
         public Invoice()
         {
             InitializeComponent();
+        }
+        public void staticDetails(String type)
+        {
+            this.CredorDebt = type;
+            this.Title.Content = type + " INVOICE";
         }
     }
 }
