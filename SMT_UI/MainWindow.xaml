@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SMT_UI"
         mc:Ignorable="d"
-        Title="SMT" Height="800" Width="1280" 
+        Title="SMT" Height="auto" Width="auto" 
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized" Icon="Images/SMT_LOGO.ico">
     <Window.Background>
@@ -14,8 +14,9 @@
             <GradientStop Color="#FFB5D6F1" Offset="0"/>
         </LinearGradientBrush>
     </Window.Background>
-
-    <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-    </Grid>
+    <Viewbox Stretch="Uniform" StretchDirection="Both">
+        <Grid VerticalAlignment="Top">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        </Grid>
+    </Viewbox>
 </Window>

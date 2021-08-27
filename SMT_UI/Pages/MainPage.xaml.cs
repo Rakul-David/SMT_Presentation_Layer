@@ -20,7 +20,6 @@ namespace SMT_UI.Pages
     /// </summary>
     public partial class MainPage : Page
     {
-
         Creditor_Debtor creditor_deptor = new Creditor_Debtor();
         PayIn_PayOut payIn_payOut = new PayIn_PayOut();
         Invoice invoice = new Invoice();

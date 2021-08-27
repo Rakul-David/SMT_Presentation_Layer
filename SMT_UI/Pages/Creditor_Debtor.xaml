@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SMT_UI.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1280" Background="Transparent">
+      mc:Ignorable="d"
+      Background="Transparent">
+    
     <Page.Resources>
         <Style x:Key="RadioCircle" TargetType="RadioButton">
             <Setter Property="RenderTransform">
@@ -28,6 +29,7 @@
             <Setter Property="BorderBrush" Value="#FF030408"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="IsEditable" Value="True"/>
             <Setter Property="IsTextSearchEnabled" Value="True"/>
             <Setter Property="IsEnabled" Value="False"/>
@@ -42,7 +44,6 @@
             <Setter Property="Height" Value="35"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
-
         </Style>
         <Style x:Key="Textboxes" TargetType="TextBox">
             <Setter Property="Height" Value="35"/>
@@ -68,7 +69,7 @@
             <Setter Property="FontFamily" Value="Cambria"/>
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,0,250,75"/>
+            <Setter Property="Margin" Value="0,0,65,50"/>
             <Setter Property="Visibility" Value="Hidden"/>
             <Setter Property="IsEnabled" Value="False"/>
             <Style.Resources>
@@ -78,10 +79,14 @@
             </Style.Resources>
         </Style>
     </Page.Resources>
+    
     <Viewbox StretchDirection="Both" Stretch="Uniform">
-        <Grid Height="800" Width="1280">
-            <Label x:Name="Title_lbl" Style="{StaticResource Labels}" HorizontalAlignment="Center" FontSize="38" Width="auto"  VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="466,10,466,0" Height="60"/>
-            <Button Margin="50,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
+        <Grid Width="1280" Height="700">
+            
+            <Label x:Name="Title_lbl" Style="{StaticResource Labels}" HorizontalAlignment="Center" FontSize="38" Width="auto"  VerticalAlignment="Top" Height="60" Margin="0,5,0,0"/>
+
+            <!--#region HomeButton -->
+            <Button Margin="50,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="25"/>
@@ -89,36 +94,49 @@
                 </Button.Resources>
                 <Button.Content>
                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image Width="35" Source="/./Images/Home.png"/>
+                        <Image Width="25" Source="/./Images/Home.png"/>
                     </Grid>
                 </Button.Content>
             </Button>
-
-            <Rectangle Margin="35,75,35,50" Stroke="Black" StrokeThickness="3"/>
-
+            <!--#endregion-->
+            
+            <!--#region RadioButton -->
             <RadioButton x:Name="Add_radio" Style="{StaticResource RadioCircle}" Margin="100,100,0,0" Checked="Add_radio_Checked"/>
             <RadioButton x:Name="Edit_radio" Style="{StaticResource RadioCircle}" Margin="350,100,0,0" Checked="Edit_radio_Checked"/>
             <RadioButton x:Name="Delete_radio" Style="{StaticResource RadioCircle}" Margin="600,100,0,0" Checked="Delete_radio_Checked"/>
-            <Label x:Name="ComboBox_lbl" Style="{StaticResource Labels}" Margin="100,150,240,0" FontSize="14" FontFamily="Arial" Foreground="Gray"/>
-            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,175,240,0" Height="35">
+            <!--#endregion-->
+
+            <!--#region DropDown -->
+            <Label x:Name="ComboBox_lbl" Style="{StaticResource Labels}" Margin="100,125,0,0" FontSize="14" FontFamily="Arial" Foreground="Gray"/>
+            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" Width="965" Height="35">
                 List 1
             </ComboBox>
+            <!--#endregion-->
 
-            <Label Style="{StaticResource Labels}" Content="FULL NAME :"  Margin="100,250,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="ADDRESS :"  Margin="100,300,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="100,500,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="100,550,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="BALANCE AMOUNT :"  Margin="100,600,0,0"/>
+            <!--#region Labels -->
+            <Label Style="{StaticResource Labels}" Content="FULL NAME :"  Margin="100,200,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="ADDRESS :"  Margin="100,250,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="100,450,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="100,500,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="BALANCE AMOUNT :"  Margin="100,550,0,0"/>
+            <!--#endregion-->
 
-            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="100,250,0,0"/>
-            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="100,300,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top"/>
-            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="100,500,0,0"/>
-            <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="100,550,0,0"/>
-            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="100,600,0,0"/>
+            <!--#region TextContent -->
+            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0"/>
+            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="150,250,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
+            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="150,450,0,0"/>
+            <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="150,500,0,0"/>
+            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0"/>
+            <!--#endregion-->
+            
+            <!--#region Logic Button -->
+            <Button x:Name="Add_Logic_btn" Content="ADD" Style="{StaticResource BottomButton}"/>
+            <Button x:Name="Update_Logic_btn" Content="UPDATE" Style="{StaticResource BottomButton}"/>
+            <Button x:Name="Delete_Logic_btn" Content="DELETE" Style="{StaticResource BottomButton}"/>
+            <!--#endregion-->
+            
+            <Rectangle Margin="35,75,35,35" Stroke="Black" StrokeThickness="1.5"/>
 
-            <Button x:Name="Add_Logic_btn" Style="{StaticResource BottomButton}"/>
-            <Button x:Name="Update_Logic_btn" Style="{StaticResource BottomButton}"/>
-            <Button x:Name="Delete_Logic_btn" Style="{StaticResource BottomButton}"/>
         </Grid>
     </Viewbox>
 
