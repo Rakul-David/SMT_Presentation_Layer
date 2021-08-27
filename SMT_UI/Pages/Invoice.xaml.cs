@@ -30,5 +30,13 @@ namespace SMT_UI.Pages
             this.CredorDebt = type;
             this.Title.Content = type + " INVOICE";
         }
+
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage mainPage = new MainPage();
+            this.NavigationService.Navigate(mainPage);
+        }
+
+      
     }
 }
