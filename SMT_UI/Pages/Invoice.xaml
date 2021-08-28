@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SMT_UI.Pages"
       mc:Ignorable="d"
       Title="Invoice" Background="White">
+    
     <Page.Resources>
         <Style x:Key="labels" TargetType="Label">
             <Setter Property="Height" Value="30"/>
@@ -55,14 +56,13 @@
             </Setter>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontFamily" Value="Cambria"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="auto"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
-
     </Page.Resources>
 
     <Viewbox StretchDirection="Both" Stretch="Uniform">
@@ -74,11 +74,9 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-
-                <Label Style="{StaticResource labels}" x:Name="Title" FontSize="34" FontWeight="Bold" Width="316" Height="54" Margin="485,-2,479,148" HorizontalAlignment="Center" Grid.RowSpan="2"/>
-
-            <Label Style="{StaticResource labels}" Content="CREDITOR INVOICE" FontSize="34" FontWeight="Bold" Height="auto" Margin="0" HorizontalAlignment="Center"/>
+            
+            <Label Style="{StaticResource labels}" Content="CREDITOR INVOICE" FontSize="34" FontWeight="Bold" Height="auto" HorizontalAlignment="Center"/>
+            
             <!--#region HomeButton -->
             <Button Margin="25,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
                 <Button.Resources>
@@ -93,8 +91,10 @@
                 </Button.Content>
             </Button>
             <!--#endregion-->
+            
             <Rectangle  Stroke="Black" StrokeThickness="1.5" Grid.Row="0" Grid.RowSpan="4" Margin="10,55,10,0"/>
 
+            <!--#region InputDetails -->
             <Grid  Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -108,33 +108,40 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
+                <!--#region DropDown -->
                 <ComboBox FontSize="20" FontFamily="Cambria" Height="30" BorderBrush="Black" Grid.Row="0" Grid.ColumnSpan="3" Margin="30,0,10,0" Cursor="Hand" IsEditable="True" IsTextSearchEnabled="True" BorderThickness="1"/>
-                <Label Style="{StaticResource labels}" Content="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalContentAlignment="Center" Margin="30,0" BorderBrush="Black" BorderThickness="1"/>
+                <!--#endregion-->
 
+                <!--#region InputLabels -->
+                <Label Style="{StaticResource labels}" Content="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalContentAlignment="Center" Margin="30,0" BorderBrush="Black" BorderThickness="1"/>
                 <Label Style="{StaticResource labels}" Content="NAME :" Grid.Row="1" Grid.ColumnSpan="2" Margin="30,0,0,0"/>
                 <Label Style="{StaticResource labels}" Content="QNTY :" Grid.Row="2" Grid.Column="0" Margin="30,0,0,0"/>
                 <Label Style="{StaticResource labels}" Content="UNITS :" Grid.Row="2" Grid.Column="1"/>
                 <Label Style="{StaticResource labels}" Content="PRICE/UNIT :" Grid.Row="2" Grid.Column="2"/>
+                <!--#endregion-->
 
-
+                <!--#region InputFields -->
                 <TextBox Style="{StaticResource TextBoxes}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
                 <DatePicker Grid.Row="1" Grid.Column="2" Margin="10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand"/>
-
-                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2"  Grid.Column="0" Margin="85,0,10,0" Width="252"/>
-                <ComboBox SelectedIndex="0" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="75,0,10,0" VerticalContentAlignment="Center" Height="30">
+                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0"/>
+                <ComboBox SelectedIndex="0" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" VerticalContentAlignment="Center" Height="30">
                     <ListBoxItem Content="Gram" Cursor="Hand"/>
                     <ListBoxItem Content="Dozen" Cursor="Hand"/>
                     <ListBoxItem Content="Kilogram" Cursor="Hand"/>
                     <ListBoxItem Content="Tonne" Cursor="Hand"/>
                 </ComboBox>
-                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="115,0,10,0"/>
+                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0"/>
+                <!--#endregion-->
 
+                <!--#region AddUpdateDeleteButton -->
                 <Button Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,0"/>
                 <Button Style="{StaticResource Buttons}" Content="UPDATE" Grid.Row="2" Grid.Column="3" Margin="30,0,135,0"/>
                 <Button Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0"/>
+                <!--#endregion-->
             </Grid>
-
-            <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"></Line>
+            <!--#endregion-->
+            
+            <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
             <DataGrid Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -156,8 +163,9 @@
                     <DataGridTextColumn Header="SUB-TOTAL" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2"></Line>
+            <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2"/>
 
+            <!--#region TotalDetails -->
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -165,22 +173,29 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1.25*"/>
                 </Grid.ColumnDefinitions>
-
+                
+                <!--#region GSTyes/no -->
                 <Label Style="{StaticResource labels}" Content="Do you want SGST(9%) and CGST(9%) to be added to the Invoice?" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" Height="18"/>
-                <RadioButton x:Name="Yes_radio" Style="{StaticResource RadioCircle}" Content="YES" Margin="200,0,0,55" Grid.Column="0" Grid.ColumnSpan="2"/>
-                <RadioButton x:Name="No_radio" Style="{StaticResource RadioCircle}" Content="NO" IsChecked="True" Margin="300,0,0,55" Grid.Column="0" Grid.ColumnSpan="2"/>
-
+                <RadioButton x:Name="Yes_radio" Style="{StaticResource RadioCircle}" Content="YES" Margin="75,0,0,55" Grid.Column="1"/>
+                <RadioButton x:Name="No_radio" Style="{StaticResource RadioCircle}" Content="NO" IsChecked="True" Margin="125,0,0,55" Grid.Column="1"/>
+                <!--#endregion-->
+                
+                <!--#region TotalLables -->
                 <Label Style="{StaticResource labels}" Content="TOTAL :" Grid.Column="0" Margin="30,0,0,0"/>
                 <Label Style="{StaticResource labels}" Content="SGST :" Grid.Column="1"  Margin="0"/>
                 <Label Style="{StaticResource labels}" Content="CGST :" Grid.Column="2"  Margin="0"/>
                 <Label Style="{StaticResource labels}" Content="GRAND TOTAL :" Grid.Column="3"  Margin="0"/>
-
+                <!--#endregion-->
+                
+                <!--#region TotalTextBox -->
                 <Label Style="{StaticResource labels}" Grid.Column="0" Margin="90,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
                 <Label Style="{StaticResource labels}" Grid.Column="1" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
                 <Label Style="{StaticResource labels}" Grid.Column="2" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
                 <Label Style="{StaticResource labels}" Grid.Column="3" Margin="115,0,30,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
-
+                <!--#endregion-->
             </Grid>
+            <!--#endregion-->
+
             <Button Grid.Row="4" Style="{StaticResource Buttons}" Content="SAVE" HorizontalAlignment="Right" Margin="0,0,30,0" Width="125" Height="40"/>
         </Grid>
     </Viewbox>
