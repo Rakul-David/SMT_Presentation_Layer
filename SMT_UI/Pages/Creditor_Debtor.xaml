@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SMT_UI.Pages"
       mc:Ignorable="d"
       Background="Transparent">
-    
+
     <Page.Resources>
         <Style x:Key="RadioCircle" TargetType="RadioButton">
             <Setter Property="RenderTransform">
@@ -78,12 +78,29 @@
                 </Style>
             </Style.Resources>
         </Style>
+        <Style x:Key="RequiredFields" TargetType="Label">
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="Content" Value="*"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="#FFE81A1A"/>
+        </Style>
     </Page.Resources>
-    
+
     <Viewbox StretchDirection="Both" Stretch="Uniform">
         <Grid Width="1280" Height="700">
-            
-            <Label x:Name="Title_lbl" Style="{StaticResource Labels}" HorizontalAlignment="Center" FontSize="38" Width="auto"  VerticalAlignment="Top" Height="60" Margin="0,5,0,0"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="314.4"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="Title_lbl" Style="{StaticResource Labels}" HorizontalAlignment="Center" FontSize="38" Width="auto"  VerticalAlignment="Top" Height="60" Margin="635,5,635,0"/>
 
             <!--#region HomeButton -->
             <Button Margin="50,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
@@ -99,7 +116,7 @@
                 </Button.Content>
             </Button>
             <!--#endregion-->
-            
+
             <!--#region RadioButton -->
             <RadioButton x:Name="Add_radio" Style="{StaticResource RadioCircle}" Margin="100,100,0,0" Checked="Add_radio_Checked"/>
             <RadioButton x:Name="Edit_radio" Style="{StaticResource RadioCircle}" Margin="350,100,0,0" Checked="Edit_radio_Checked"/>
@@ -116,26 +133,30 @@
             <!--#region Labels -->
             <Label Style="{StaticResource Labels}" Content="FULL NAME :"  Margin="100,200,0,0"/>
             <Label Style="{StaticResource Labels}" Content="ADDRESS :"  Margin="100,250,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="100,450,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="100,500,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="BALANCE AMOUNT :"  Margin="100,550,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="100,64,0,0" Grid.Row="1"/>
+            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="100,114,0,0" Grid.Row="1"/>
+            <Label Style="{StaticResource Labels}" Content="BALANCE AMOUNT :"  Margin="100,164,0,0" Grid.Row="1"/>
             <!--#endregion-->
 
             <!--#region TextContent -->
-            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0"/>
-            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="150,250,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
-            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="150,450,0,0"/>
-            <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="150,500,0,0"/>
-            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0"/>
+            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="365,200,215,0"/>
+            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="365,250,215,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Grid.RowSpan="2"/>
+            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="365,64,215,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" MaxLength="10" Grid.Row="1"/>
+            <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="365,114,215,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" MaxLength="10" Grid.Row="1"/>
+            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="365,164,215,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" Grid.Row="1"/>
             <!--#endregion-->
-            
+
             <!--#region Logic Button -->
-            <Button x:Name="Add_Logic_btn" Content="ADD" Style="{StaticResource BottomButton}"/>
-            <Button x:Name="Update_Logic_btn" Content="UPDATE" Style="{StaticResource BottomButton}"/>
-            <Button x:Name="Delete_Logic_btn" Content="DELETE" Style="{StaticResource BottomButton}"/>
+            <Button x:Name="Add_Logic_btn" Content="ADD" Style="{StaticResource BottomButton}" Grid.Row="1"/>
+            <Button x:Name="Update_Logic_btn" Content="UPDATE" Style="{StaticResource BottomButton}" Grid.Row="1"/>
+            <Button x:Name="Delete_Logic_btn" Content="DELETE" Style="{StaticResource BottomButton}" Grid.Row="1"/>
+            <Label  Margin="86,195,0,0" Style="{StaticResource RequiredFields}"/>
+            <Label Margin="86,246,0,0" Style="{StaticResource RequiredFields}"/>
+            <Label Margin="86,60,0,0" Style="{StaticResource RequiredFields}" Grid.Row="1"/>
+            <Label Margin="86,160.5,0,0" Style="{StaticResource RequiredFields}" Grid.Row="1"/>
             <!--#endregion-->
-            
-            <Rectangle Margin="35,75,35,35" Stroke="Black" StrokeThickness="1.5"/>
+
+            <!--<Rectangle Margin="35,75,35,35" Stroke="Black" StrokeThickness="1.5"/>-->
 
         </Grid>
     </Viewbox>
