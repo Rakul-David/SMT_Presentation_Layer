@@ -46,7 +46,91 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-        public double UpdateCreditorBalance(int id,double price)
+        public bool EditCreditor(Creditor creditor)
+        {
+            try
+            {
+                if (_context.Creditors != null && _context.Creditors.Count > 0)
+                {
+                    if (creditor != null)
+                    {
+                        var credi = _context.Creditors.Where(x => x.id == creditor.id).FirstOrDefault();
+                        if (credi != null)
+                        {
+                            credi = creditor;
+                            _context.SaveChange((int)Details.Creditor);
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool EditDeptor(Deptor deptor)
+        {
+            try
+            {
+                if (_context.Deptors != null && _context.Deptors.Count > 0)
+                {
+                    if (deptor != null)
+                    {
+                        var dept = _context.Deptors.Where(x => x.id == deptor.id).FirstOrDefault();
+                        if (dept != null)
+                        {
+                            dept = deptor;
+                            _context.SaveChange((int)Details.Deptor);
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool DeleteCreditor(Creditor creditor)
+        {
+            try
+            {
+                if (_context.Creditors != null&& _context.Creditors.Count > 0)
+                {
+                    if (creditor != null)
+                    {
+                       return  _context.Creditors.Remove(creditor);
+                    }
+                }
+                return false;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public bool DeleteDeptor(Deptor deptor)
+        {
+            try
+            {
+                if (_context.Deptors != null && _context.Deptors.Count > 0)
+                {
+                    if (deptor != null)
+                    {
+                        return _context.Deptors.Remove(deptor);
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+            public double UpdateCreditorBalance(int id,double price)
         {
             try
             {
