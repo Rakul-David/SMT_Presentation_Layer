@@ -23,9 +23,10 @@ namespace SMT_DataLayer.Data
         private int invoiceLength;
         public SMT_DataContext()
         {
-            creditorFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
-            deptorFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
-            invoiceFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
+       
+            creditorFilepath = "C:\\Users\\Ramesh Baheti\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
+            deptorFilepath = "C:\\Users\\Ramesh Baheti\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
+            invoiceFilepath = "C:\\Users\\Ramesh Baheti\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
             if (!File.Exists(creditorFilepath + "\\CreditorDetails.txt"))
             {
                 FileStream fileStream = new FileStream(creditorFilepath + "\\CreditorDetails.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);

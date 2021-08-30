@@ -95,12 +95,8 @@
 
     <Viewbox StretchDirection="Both" Stretch="Uniform">
         <Grid Width="1280" Height="700">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="314.4"/>
-            </Grid.RowDefinitions>
-
-            <Label x:Name="Title_lbl" Style="{StaticResource Labels}" HorizontalAlignment="Center" FontSize="38" Width="auto"  VerticalAlignment="Top" Height="60" Margin="635,5,635,0"/>
+            <Rectangle Margin="35,75,35,35" Stroke="Black" StrokeThickness="1.5"/>
+            <Label x:Name="Title_lbl" Style="{StaticResource Labels}" HorizontalAlignment="Center" FontSize="38" Width="auto"  VerticalAlignment="Top" Height="60" Margin="0,5,0,0"/>
 
             <!--#region HomeButton -->
             <Button Margin="50,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
@@ -125,38 +121,44 @@
 
             <!--#region DropDown -->
             <Label x:Name="ComboBox_lbl" Style="{StaticResource Labels}" Margin="100,125,0,0" FontSize="14" FontFamily="Arial" Foreground="Gray"/>
-            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" Width="965" Height="35">
-                List 1
+            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" Width="965" Height="35" SelectionChanged="Dropdown_Cmbx_SelectionChanged">
+                <ListBoxItem Content="ASIAN PAINTS"/>
+                <ListBoxItem Content="BAJAJ FINANCE"/>
+                <ListBoxItem Content="HINDUSTAN PETROLEUM"/>
+                <ListBoxItem Content="TATA STEEL"/>
+                <ListBoxItem Content="UNION BANK OF INDIA"/>
+                <ListBoxItem Content="AJANTA PHARMA"/>
+                <ListBoxItem Content="INDIABULLS HOUSING FINANCE"/>
+                <ListBoxItem Content="JP MORGAN CHASE"/>
             </ComboBox>
             <!--#endregion-->
 
             <!--#region Labels -->
+            <Label Margin="85,195,0,0" Style="{StaticResource RequiredFields}"/>
+            <Label Margin="85,245,0,0" Style="{StaticResource RequiredFields}"/>
+            <Label Margin="85,445,0,0" Style="{StaticResource RequiredFields}"/>
+            <Label Margin="85,545,0,0" Style="{StaticResource RequiredFields}"/>
             <Label Style="{StaticResource Labels}" Content="FULL NAME :"  Margin="100,200,0,0"/>
             <Label Style="{StaticResource Labels}" Content="ADDRESS :"  Margin="100,250,0,0"/>
-            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="100,64,0,0" Grid.Row="1"/>
-            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="100,114,0,0" Grid.Row="1"/>
-            <Label Style="{StaticResource Labels}" Content="BALANCE AMOUNT :"  Margin="100,164,0,0" Grid.Row="1"/>
+            <Label Style="{StaticResource Labels}" Content="MOBILE NO. :" Margin="100,450,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="ALTERNATE NO. :" Margin="100,500,0,0"/>
+            <Label Style="{StaticResource Labels}" Content="STANDING BALANCE :"  Margin="100,550,0,0"/>
             <!--#endregion-->
 
             <!--#region TextContent -->
-            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="365,200,215,0"/>
-            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="365,250,215,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Grid.RowSpan="2"/>
-            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="365,64,215,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" MaxLength="10" Grid.Row="1"/>
-            <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="365,114,215,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" MaxLength="10" Grid.Row="1"/>
-            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="365,164,215,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" Grid.Row="1"/>
+            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0"/>
+            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="150,250,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
+            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="150,450,0,0" MaxLength="10"/>
+            <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="150,500,0,0"/>
+            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0"/>
             <!--#endregion-->
 
             <!--#region Logic Button -->
-            <Button x:Name="Add_Logic_btn" Content="ADD" Style="{StaticResource BottomButton}" Grid.Row="1"/>
-            <Button x:Name="Update_Logic_btn" Content="UPDATE" Style="{StaticResource BottomButton}" Grid.Row="1"/>
-            <Button x:Name="Delete_Logic_btn" Content="DELETE" Style="{StaticResource BottomButton}" Grid.Row="1"/>
-            <Label  Margin="86,195,0,0" Style="{StaticResource RequiredFields}"/>
-            <Label Margin="86,246,0,0" Style="{StaticResource RequiredFields}"/>
-            <Label Margin="86,60,0,0" Style="{StaticResource RequiredFields}" Grid.Row="1"/>
-            <Label Margin="86,160.5,0,0" Style="{StaticResource RequiredFields}" Grid.Row="1"/>
+            <Button x:Name="Add_Logic_btn" Content="ADD" Style="{StaticResource BottomButton}" Click="Add_Logic_btn_Click"/>
+            <Button x:Name="Update_Logic_btn" Content="UPDATE" Style="{StaticResource BottomButton}" Click="Update_Logic_btn_Click"/>
+            <Button x:Name="Delete_Logic_btn" Content="DELETE" Style="{StaticResource BottomButton}" Click="Delete_Logic_btn_Click"/>
             <!--#endregion-->
 
-            <!--<Rectangle Margin="35,75,35,35" Stroke="Black" StrokeThickness="1.5"/>-->
 
         </Grid>
     </Viewbox>

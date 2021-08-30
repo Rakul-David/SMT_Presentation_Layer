@@ -144,5 +144,11 @@
   <ItemGroup>
     <Resource Include="Images\Home.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SMT_DataLayer\SMT_DataLayer.csproj">
+      <Project>{98c5aad1-5147-47de-bba4-3b1fb8b1da4b}</Project>
+      <Name>SMT_DataLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
