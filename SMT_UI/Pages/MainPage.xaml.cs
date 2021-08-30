@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SMT_DataLayer;
 
 namespace SMT_UI.Pages
 {
@@ -26,38 +27,87 @@ namespace SMT_UI.Pages
 
         public MainPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Creditor_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(creditor_deptor);
-            creditor_deptor.staticDetails("CREDITOR");
+            try
+            {
+                this.NavigationService.Navigate(creditor_deptor);
+                creditor_deptor.staticDetails("CREDITOR");
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Debtor_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(creditor_deptor);
-            creditor_deptor.staticDetails("DEBTOR");
+            try
+            {
+                this.NavigationService.Navigate(creditor_deptor);
+                creditor_deptor.staticDetails("DEBTOR");
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void PayIn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(payIn_payOut);
+            try
+            {
+                this.NavigationService.Navigate(payIn_payOut);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void PayOut_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(payIn_payOut);
+            try
+            {
+                this.NavigationService.Navigate(payIn_payOut);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Creditor_Invoice_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(invoice);
+            try
+            {
+                this.NavigationService.Navigate(invoice);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
         private void Deptor_Invoice_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(invoice);
+            try
+            {
+                this.NavigationService.Navigate(invoice);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -43,6 +44,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -67,6 +69,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -91,6 +94,7 @@ namespace SMT_DataLayer.Repository
             }
             catch (Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -109,6 +113,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -127,6 +132,7 @@ namespace SMT_DataLayer.Repository
             }
             catch (Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -146,6 +152,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return 0;
             }
         }
@@ -165,6 +172,7 @@ namespace SMT_DataLayer.Repository
             }
             catch (Exception ex)
             {
+                ErrorLog.Log(ex);
                 return 0;
             }
         }
@@ -179,7 +187,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
-
+                ErrorLog.Log(ex);
             }
             return null;
         }
@@ -194,7 +202,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
-
+                ErrorLog.Log(ex);
             }
             return null;
         }
@@ -215,6 +223,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return null;
             }
         }
@@ -235,6 +244,7 @@ namespace SMT_DataLayer.Repository
             }
             catch (Exception ex)
             {
+                ErrorLog.Log(ex);
                 return null;
             }
         }
@@ -259,6 +269,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -283,6 +294,7 @@ namespace SMT_DataLayer.Repository
             }
             catch (Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
@@ -306,6 +318,7 @@ namespace SMT_DataLayer.Repository
             }
             catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return null;
             }
         }
@@ -338,8 +351,10 @@ namespace SMT_DataLayer.Repository
                 p.Date = DateTime.Now;
                 _context.Payee.Add(p);
                 return true;
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
+                ErrorLog.Log(ex);
                 return false;
             }
         }
