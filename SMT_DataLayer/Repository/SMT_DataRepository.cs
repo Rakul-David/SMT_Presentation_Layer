@@ -170,7 +170,33 @@ namespace SMT_DataLayer.Repository
         }
         public List<Creditor> GetAllCreditor()
         {
-            return _context.Creditors;
+            try
+            {
+                if (_context.Creditors != null && _context.Creditors.Count > 0)
+                {
+                    return _context.Creditors;
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return null;
+        }
+        public List<Deptor> GetAllDeptor()
+        {
+            try
+            {
+                if (_context.Deptors != null && _context.Deptors.Count > 0)
+                {
+                    return _context.Deptors;
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return null;
         }
         public Invoice GetInvoiceforCreditor(int Id)
         {
