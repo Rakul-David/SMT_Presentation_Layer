@@ -40,7 +40,6 @@ namespace SMT_UI.Pages
             this.Add_radio.Content = "ADD " + type;
             this.Edit_radio.Content = "EDIT " + type;
             this.Delete_radio.Content = "DELETE " + type;
-
         }
 
         private void Add_radio_Checked(object sender, RoutedEventArgs e)
