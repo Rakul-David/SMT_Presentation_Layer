@@ -24,11 +24,6 @@ namespace SMT_UI.Pages
     public partial class Creditor_Debtor : Page
     {
         String CreditorOrDebtor = "";
-        String name;
-        String address;
-        String mob;
-        String altno;
-        String bal;
 
         String[] CreditorNames;
         String[] DebtorNames;
@@ -141,29 +136,33 @@ namespace SMT_UI.Pages
 
         public String Textbox_Text()
         {
-            name = FullName_txt.Text;
-            address = Address_txt.Text;
-            mob = MobileNo_txt.Text;
-            altno = AlternateNo_txt.Text;
-            bal = Balance_txt.Text;
+            string name = FullName_txt.Text;
+            string address = Address_txt.Text;
+            string mob = MobileNo_txt.Text;
+            string altno = AlternateNo_txt.Text;
+            string bal = Balance_txt.Text;
             String temp="";
             if (name != "" && address != "" && mob != "" && bal != "" && mob.Length == 10 && (altno.Length == 10 || altno.Length == 0))
             {
                 temp = "yes";
             }
-            else if (FullName_txt.Text.Length < 2)
+            else if (name.Length < 2)
             {
                 MessageBox.Show("Enter a valid name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (Address_txt.Text.Length < 2)
+            else if (address.Length < 2)
             {
                 MessageBox.Show("Enter a valid address!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (MobileNo_txt.Text.Length != 10 || AlternateNo_txt.Text.Length != 10 || AlternateNo_txt.Text.Length != 0)
+            else if (mob.Length != 10)
             {
                 MessageBox.Show("Enter Valid mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            else if (altno.Length != 10 || altno.Length != 0 || altno != "")
+            {
+                MessageBox.Show("Enter Valid mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if(bal == "")
             {
                 MessageBox.Show("Enter a valid balance!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -246,6 +245,10 @@ namespace SMT_UI.Pages
                 this.Delete_Logic_btn.IsEnabled = true;
             }
             //clearAll();
+        }
+        private void Combokey(object sender, KeyEventArgs e)
+        {
+            Dropdown_Cmbx.IsDropDownOpen = true;
         }
     }
 }
