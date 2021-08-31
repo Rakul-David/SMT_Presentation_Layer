@@ -25,7 +25,7 @@ namespace SMT_UI.Pages
     {
         String CreditorOrDebtor = "";
 
-        String[] CreditorNames;
+        List<String> CreditorNames;
         String[] DebtorNames;
         List<Creditor> CreditorList;
         List<Deptor> DebtorList;
@@ -53,8 +53,9 @@ namespace SMT_UI.Pages
             this.Delete_radio.Content = "DELETE " + type;
             this.CreditorList = repository.GetAllCreditor();
             this.DebtorList = repository.GetAllDeptor();
-            this.CreditorNames = this.CreditorList.Select(x => x.name).ToArray();
-            
+            this.CreditorNames = this.CreditorList.Select(x => x.name).ToList();
+            this.Dropdown_Cmbx.ItemsSource = this.CreditorNames; //new List<string> { "Item1", "Item2", "Item3" };
+
         }
 
         private void Add_radio_Checked(object sender, RoutedEventArgs e)
@@ -63,7 +64,7 @@ namespace SMT_UI.Pages
             this.Update_Logic_btn.Visibility = Visibility.Hidden;
             this.Delete_Logic_btn.Visibility = Visibility.Hidden;
             this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
-            this.Add_Logic_btn.IsEnabled = true;
+            this.Add_Logic_btn.IsEnabled = false;
             this.Dropdown_Cmbx.IsEnabled = false;
             this.FullName_txt.IsEnabled = true;
             this.Address_txt.IsEnabled = true;
@@ -79,7 +80,7 @@ namespace SMT_UI.Pages
         {
 
             this.Add_Logic_btn.Visibility = Visibility.Hidden;
-           // this.Dropdown_Cmbx.IsEditable = false;
+            // this.Dropdown_Cmbx.IsEditable = false;
             this.Update_Logic_btn.Visibility = Visibility.Visible;
             this.Delete_Logic_btn.Visibility = Visibility.Hidden;
             this.Dropdown_Cmbx.Visibility = Visibility.Visible;
@@ -141,7 +142,7 @@ namespace SMT_UI.Pages
             string mob = MobileNo_txt.Text;
             string altno = AlternateNo_txt.Text;
             string bal = Balance_txt.Text;
-            String temp="";
+            String temp = "";
             if (name != "" && address != "" && mob != "" && bal != "" && mob.Length == 10 && (altno.Length == 10 || altno.Length == 0))
             {
                 temp = "yes";
@@ -158,11 +159,11 @@ namespace SMT_UI.Pages
             {
                 MessageBox.Show("Enter Valid mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (altno.Length != 10 || altno.Length != 0 || altno != "")
+            else if (altno == "" || altno.Length < 10)
             {
-                MessageBox.Show("Enter Valid mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Enter Valid Alternate mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if(bal == "")
+            else if (bal == "")
             {
                 MessageBox.Show("Enter a valid balance!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -182,8 +183,8 @@ namespace SMT_UI.Pages
                 TempObj.standingBalance = Double.Parse(Balance_txt.Text);
                 if (repository.AddCreditor(TempObj))
                 {
-                MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                clearAll();
+                    MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                    clearAll();
                 }
             }
 
@@ -210,14 +211,14 @@ namespace SMT_UI.Pages
             }
             else
             {
-                String Temp=Textbox_Text();
-                if(Temp=="yes")
+                String Temp = Textbox_Text();
+                if (Temp == "yes")
                 {
                     MessageBox.Show("Data for " + FullName_txt.Text + " client is updated! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information);
                     clearAll();
                 }
             }
-           
+
         }
 
         private void Dropdown_Cmbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -228,10 +229,10 @@ namespace SMT_UI.Pages
                 Address_txt.Text = "DELHI";
                 MobileNo_txt.Text = "8767878798";
                 AlternateNo_txt.Text = "8978563512";
-                Balance_txt.Text = "55000";                
+                Balance_txt.Text = "55000";
             }
 
-            if (Edit_radio.IsChecked==true && Dropdown_Cmbx.SelectedIndex!=-1)
+            if (Edit_radio.IsChecked == true && Dropdown_Cmbx.SelectedIndex != -1)
             {
                 this.FullName_txt.IsEnabled = true;
                 this.Address_txt.IsEnabled = true;
@@ -249,6 +250,25 @@ namespace SMT_UI.Pages
         private void Combokey(object sender, KeyEventArgs e)
         {
             Dropdown_Cmbx.IsDropDownOpen = true;
+        }
+        public void EnableButton(object sender, KeyEventArgs e)
+        {
+            if (FullName_txt.Text != "" && Address_txt.Text != "" && MobileNo_txt.Text != "" && Balance_txt.Text != "")
+            {                
+                if(this.Add_radio.IsChecked == true)
+                {
+                    this.Add_Logic_btn.IsEnabled = true;
+                }
+                else if (this.Edit_radio.IsChecked == true)
+                {
+                    this.Update_Logic_btn.IsEnabled = true;
+                }
+            }
+            else
+            {
+                this.Add_Logic_btn.IsEnabled = false;
+                this.Update_Logic_btn.IsEnabled = false;
+            }
         }
     }
 }

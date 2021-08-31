@@ -127,14 +127,7 @@
             <!--#region DropDown -->
             <Label x:Name="ComboBox_lbl" Style="{StaticResource Labels}" Margin="100,125,0,0" FontSize="14" FontFamily="Arial" Foreground="Gray"/>
             <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" Width="965" Height="35" SelectionChanged="Dropdown_Cmbx_SelectionChanged" Cursor="Hand">
-                <ListBoxItem Content="ASIAN PAINTS"/>
-                <ListBoxItem Content="BAJAJ FINANCE"/>
-                <ListBoxItem Content="HINDUSTAN PETROLEUM"/>
-                <ListBoxItem Content="TATA STEEL"/>
-                <ListBoxItem Content="UNION BANK OF INDIA"/>
-                <ListBoxItem Content="AJANTA PHARMA"/>
-                <ListBoxItem Content="INDIABULLS HOUSING FINANCE"/>
-                <ListBoxItem Content="JP MORGAN CHASE"/>
+                
             </ComboBox>
             <!--#endregion-->
 
@@ -151,11 +144,11 @@
             <!--#endregion-->
 
             <!--#region TextContent -->
-            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0"/>
-            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="150,250,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
-            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="150,450,0,0" MaxLength="10" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation"/>
+            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0" KeyUp="EnableButton"/>
+            <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="150,250,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" KeyUp="EnableButton"/>
+            <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="150,450,0,0" MaxLength="10" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" KeyUp="EnableButton"/>
             <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="150,500,0,0" MaxLength="10" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation"/>
-            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation"/>
+            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" KeyUp="EnableButton"/>
             <!--#endregion-->
 
             <!--#region Logic Button -->
