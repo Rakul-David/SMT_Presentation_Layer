@@ -223,6 +223,10 @@ namespace SMT_UI.Pages
 
         private void Dropdown_Cmbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Dropdown_Cmbx.IsDropDownOpen = true;
+            //if(this.Dropdown_Cmbx.Text != FullName_txt.Text)
+            //{
+            //}
             if (this.Dropdown_Cmbx.SelectedIndex == 0)
             {
                 FullName_txt.Text = "ASIAN PAINTS";
@@ -247,9 +251,9 @@ namespace SMT_UI.Pages
             }
             //clearAll();
         }
-        private void Combokey(object sender, KeyEventArgs e)
+        public void ComboFilter(object sender, KeyEventArgs e)
         {
-            Dropdown_Cmbx.IsDropDownOpen = true;
+            string a = Dropdown_Cmbx.Text.Substring(0,1);
         }
         public void EnableButton(object sender, KeyEventArgs e)
         {
