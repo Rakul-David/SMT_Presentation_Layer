@@ -25,9 +25,9 @@ namespace SMT_DataLayer.Data
         {
             try
             {
-                creditorFilepath = "D:\\SMT\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
-                deptorFilepath = "D:\\SMT\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
-                invoiceFilepath = "D:\\SMT\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
+                creditorFilepath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
+                deptorFilepath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
+                invoiceFilepath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
                 if (!File.Exists(creditorFilepath + "\\CreditorDetails.txt"))
                 {
                     FileStream fileStream = new FileStream(creditorFilepath + "\\CreditorDetails.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);

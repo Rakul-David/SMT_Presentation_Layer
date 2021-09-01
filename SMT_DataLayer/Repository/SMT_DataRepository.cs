@@ -18,14 +18,14 @@ namespace SMT_DataLayer.Repository
         {
             try
             {
-               if(_context.Creditors != null)
+                if (_context.Creditors != null)
                 {
                     _context.Creditors.Add(creditor);
                     _context.SaveChange();
                 }
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return false;
@@ -42,7 +42,7 @@ namespace SMT_DataLayer.Repository
                 }
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return false;
@@ -67,7 +67,7 @@ namespace SMT_DataLayer.Repository
                 }
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return false;
@@ -102,16 +102,16 @@ namespace SMT_DataLayer.Repository
         {
             try
             {
-                if (_context.Creditors != null&& _context.Creditors.Count > 0)
+                if (_context.Creditors != null && _context.Creditors.Count > 0)
                 {
                     if (creditor != null)
                     {
-                       return  _context.Creditors.Remove(creditor);
+                        return _context.Creditors.Remove(creditor);
                     }
                 }
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return false;
@@ -136,12 +136,12 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-            public double UpdateCreditorBalance(int id,double price)
+        public double UpdateCreditorBalance(int id, double price)
         {
             try
             {
                 double resprice = 0;
-               if(_context.Creditors!=null && _context.Creditors.Count > 0)
+                if (_context.Creditors != null && _context.Creditors.Count > 0)
                 {
                     var UpdatedCreditor = _context.Creditors.FirstOrDefault(x => x.id == id);
                     UpdatedCreditor.standingBalance -= price;
@@ -150,7 +150,7 @@ namespace SMT_DataLayer.Repository
                 }
                 return resprice;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return 0;
@@ -160,7 +160,7 @@ namespace SMT_DataLayer.Repository
         {
             try
             {
-                double resPrice=0;
+                double resPrice = 0;
                 if (_context.Deptors != null && _context.Deptors.Count > 0)
                 {
                     var UpdatedDeptor = _context.Deptors.FirstOrDefault(x => x.id == id);
@@ -185,7 +185,7 @@ namespace SMT_DataLayer.Repository
                     return _context.Creditors;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
             }
@@ -200,7 +200,7 @@ namespace SMT_DataLayer.Repository
                     return _context.Deptors;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
             }
@@ -221,7 +221,7 @@ namespace SMT_DataLayer.Repository
                 }
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return null;
@@ -248,14 +248,14 @@ namespace SMT_DataLayer.Repository
                 return null;
             }
         }
-        public bool AddInvoiceforCreditor(List<Invoice> invoicelist,int id)
+        public bool AddInvoiceforCreditor(List<Invoice> invoicelist, int id)
         {
             try
             {
                 if (invoicelist != null && invoicelist.Count > 0)
                 {
                     int invoiceId = invoicelist[0].generateId();
-                    foreach(Invoice invoice in invoicelist)
+                    foreach (Invoice invoice in invoicelist)
                     {
                         invoice.invoiceId = invoiceId;
                         invoice.forId = id;
@@ -267,7 +267,7 @@ namespace SMT_DataLayer.Repository
                 }
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return false;
@@ -305,7 +305,7 @@ namespace SMT_DataLayer.Repository
                 if (_context.Invoices.Count > 0 && _context.Invoices != null)
                 {
                     List<Invoice> result = new List<Invoice>();
-                    foreach(Invoice invoice in _context.Invoices)
+                    foreach (Invoice invoice in _context.Invoices)
                     {
                         if (invoice.name.ToLower().Contains(name.ToLower()))
                         {
@@ -316,29 +316,29 @@ namespace SMT_DataLayer.Repository
                 }
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return null;
             }
         }
-        public bool PayIn(int invoiceId,double amount)
+        public bool PayIn(int invoiceId, double amount)
         {
             try
             {
-                var Invoice=_context.Invoices.Find(x => x.invoiceId == invoiceId);
+                var Invoice = _context.Invoices.Find(x => x.invoiceId == invoiceId);
                 string name = "";
                 double balance = 0;
                 string payee = "";
                 if (Invoice.forGuid.Equals(Guid.Parse(Enumeration.Atributes[(int)Details.Creditor])))
                 {
-                    balance=this.UpdateCreditorBalance(Invoice.forId, amount);
+                    balance = this.UpdateCreditorBalance(Invoice.forId, amount);
                     name = _context.Creditors.Where(x => x.id == Invoice.forId).Select(x => x.name).FirstOrDefault();
                     payee = "Creditor";
                 }
                 else if (Invoice.forGuid.Equals(Guid.Parse(Enumeration.Atributes[(int)Details.Deptor])))
                 {
-                    balance=this.UpdateDeptorBalance(Invoice.forId, amount);
+                    balance = this.UpdateDeptorBalance(Invoice.forId, amount);
                     name = _context.Deptors.Where(x => x.id == Invoice.forId).Select(x => x.name).FirstOrDefault();
                     payee = "Deptor";
                 }
@@ -352,7 +352,7 @@ namespace SMT_DataLayer.Repository
                 _context.Payee.Add(p);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
                 return false;
