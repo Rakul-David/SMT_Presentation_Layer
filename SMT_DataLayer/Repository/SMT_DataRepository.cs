@@ -59,7 +59,8 @@ namespace SMT_DataLayer.Repository
                         var credi = _context.Creditors.Where(x => x.id == creditor.id).FirstOrDefault();
                         if (credi != null)
                         {
-                            credi = creditor;
+                            _context.Creditors.Remove(credi);
+                            _context.Creditors.Add(creditor);
                             _context.SaveChange((int)Details.Creditor);
                             return true;
                         }
@@ -106,7 +107,9 @@ namespace SMT_DataLayer.Repository
                 {
                     if (creditor != null)
                     {
-                        return _context.Creditors.Remove(creditor);
+                        _context.Creditors.Remove(creditor);
+                        _context.SaveChange();
+                        return true;
                     }
                 }
                 return false;

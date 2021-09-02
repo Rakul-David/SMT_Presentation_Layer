@@ -25,9 +25,21 @@ namespace SMT_DataLayer.Data
         {
             try
             {
-                creditorFilepath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
-                deptorFilepath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
-                invoiceFilepath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
+                creditorFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
+                deptorFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
+                invoiceFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
+                if (!Directory.Exists(creditorFilepath))
+                {
+                    Directory.CreateDirectory(creditorFilepath);
+                }
+                if (!Directory.Exists(deptorFilepath))
+                {
+                    Directory.CreateDirectory(deptorFilepath);
+                }
+                if (!Directory.Exists(invoiceFilepath))
+                {
+                    Directory.CreateDirectory(invoiceFilepath);
+                }
                 if (!File.Exists(creditorFilepath + "\\CreditorDetails.txt"))
                 {
                     FileStream fileStream = new FileStream(creditorFilepath + "\\CreditorDetails.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -53,10 +65,10 @@ namespace SMT_DataLayer.Data
                 string deptorDetail = File.ReadAllText(deptorFilepath + "\\DeptorDetails.txt");
                 string invoicedetail = File.ReadAllText(invoiceFilepath + "\\InvoiceDetails.txt");
                 string payeeDetails = File.ReadAllText(invoiceFilepath + "\\Payee_Details.txt");
-                Creditors = (creditorDetail.Length == 0 || creditorDetail == null) ? new List<Creditor>() : JsonSerializer.Deserialize<List<Creditor>>(creditorDetail);
-                Deptors = (deptorDetail.Length == 0 || deptorDetail == null) ? new List<Deptor>() : JsonSerializer.Deserialize<List<Deptor>>(deptorDetail);
-                Invoices = (invoicedetail.Length == 0 || invoicedetail == null) ? new List<Invoice>() : JsonSerializer.Deserialize<List<Invoice>>(invoicedetail);
-                Payee = (payeeDetails.Length == 0 || payeeDetails == null) ? new List<PayIn_Out>() : JsonSerializer.Deserialize<List<PayIn_Out>>(payeeDetails);
+                Creditors = (creditorDetail.Trim().Length == 0 || creditorDetail == null) ? new List<Creditor>() : JsonSerializer.Deserialize<List<Creditor>>(creditorDetail);
+                Deptors = (deptorDetail.Trim().Length == 0 || deptorDetail == null) ? new List<Deptor>() : JsonSerializer.Deserialize<List<Deptor>>(deptorDetail);
+                Invoices = (invoicedetail.Trim().Length == 0 || invoicedetail == null) ? new List<Invoice>() : JsonSerializer.Deserialize<List<Invoice>>(invoicedetail);
+                Payee = (payeeDetails.Trim().Length == 0 || payeeDetails == null) ? new List<PayIn_Out>() : JsonSerializer.Deserialize<List<PayIn_Out>>(payeeDetails);
                 creditorLength = Creditors.Count;
                 deptorlength = Deptors.Count;
                 invoiceLength = Invoices.Count;
