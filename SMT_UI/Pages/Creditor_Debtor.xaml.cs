@@ -139,12 +139,17 @@ namespace SMT_UI.Pages
                         {
                             this.Edit_radio.IsChecked = false;
                             this.Delete_radio.IsChecked = false;
+                            this.Update_Logic_btn.Visibility = Visibility.Hidden;
+                            this.Delete_Logic_btn.Visibility = Visibility.Hidden;
+                            this.Add_Logic_btn.Visibility = Visibility.Hidden;
                             this.FullName_txt.IsEnabled = false;
                             this.Address_txt.IsEnabled = false;
                             this.MobileNo_txt.IsEnabled = false;
                             this.AlternateNo_txt.IsEnabled = false;
                             this.Balance_txt.IsEnabled = false;
                             this.Dropdown_Cmbx.IsEnabled = false;
+                            this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
+                            this.ComboBox_lbl.Visibility = Visibility.Hidden;
                         }
                         return;
                     }
@@ -161,12 +166,17 @@ namespace SMT_UI.Pages
                         {
                             this.Edit_radio.IsChecked = false;
                             this.Delete_radio.IsChecked = false;
+                            this.Update_Logic_btn.Visibility = Visibility.Hidden;
+                            this.Delete_Logic_btn.Visibility = Visibility.Hidden;
+                            this.Add_Logic_btn.Visibility = Visibility.Hidden;
                             this.FullName_txt.IsEnabled = false;
                             this.Address_txt.IsEnabled = false;
                             this.MobileNo_txt.IsEnabled = false;
                             this.AlternateNo_txt.IsEnabled = false;
                             this.Balance_txt.IsEnabled = false;
                             this.Dropdown_Cmbx.IsEnabled = false;
+                            this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
+                            this.ComboBox_lbl.Visibility = Visibility.Hidden;
                         }
                         return;
                     }
@@ -186,6 +196,7 @@ namespace SMT_UI.Pages
                 this.MobileNo_txt.IsEnabled = false;
                 this.AlternateNo_txt.IsEnabled = false;
                 this.Balance_txt.IsEnabled = false;
+                this.ComboBox_lbl.Visibility = Visibility.Visible;
                 this.ComboBox_lbl.Content = "Select the " + CreditorOrDebtor + " to " + radioChecked;
                 clearAll();
             }
