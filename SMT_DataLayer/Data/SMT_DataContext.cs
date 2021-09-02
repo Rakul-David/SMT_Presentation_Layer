@@ -25,9 +25,11 @@ namespace SMT_DataLayer.Data
         {
             try
             {
-                creditorFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Creditor Details";
-                deptorFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Deptor Details";
-                invoiceFilepath = "C:\\Users\\rakul\\source\\repos\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Invoice Details";
+                string dir = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName;
+                dir += "\\SMT_DataLayer\\Data";
+                creditorFilepath = dir+"\\Creditor Details";
+                deptorFilepath = dir+"\\Deptor Details";
+                invoiceFilepath = dir+"\\Invoice Details";
                 if (!Directory.Exists(creditorFilepath))
                 {
                     Directory.CreateDirectory(creditorFilepath);
