@@ -59,6 +59,14 @@ namespace SMT_UI.Pages
                 this.Add_radio.Content = "ADD " + type;
                 this.Edit_radio.Content = "EDIT " + type;
                 this.Delete_radio.Content = "DELETE " + type;
+                if (type == "CREDITOR")
+                {
+                    this.CreditorList = repository.GetAllCreditor();
+                }
+                else if (type == "DEBTOR")
+                {
+                    this.DebtorList = repository.GetAllDeptor();
+                }
             }
             catch (Exception ex)
             {
@@ -125,8 +133,7 @@ namespace SMT_UI.Pages
             {
                 if (this.CreditorOrDebtor == "CREDITOR")
                 {
-                    this.CreditorList = repository.GetAllCreditor();
-                    if (this.CreditorList == null)
+                    if (this.CreditorList == null || this.CreditorList.Count() == 0)
                     {
                         if (MessageBox.Show("No " + this.CreditorOrDebtor + " to " + radioChecked, "Error!", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
@@ -137,6 +144,7 @@ namespace SMT_UI.Pages
                             this.MobileNo_txt.IsEnabled = false;
                             this.AlternateNo_txt.IsEnabled = false;
                             this.Balance_txt.IsEnabled = false;
+                            this.Dropdown_Cmbx.IsEnabled = false;
                         }
                         return;
                     }
@@ -147,8 +155,7 @@ namespace SMT_UI.Pages
                 }
                 else if (this.CreditorOrDebtor == "DEBTOR")
                 {
-                    this.DebtorList = repository.GetAllDeptor();
-                    if (this.DebtorList == null)
+                    if (this.DebtorList == null || this.DebtorList.Count() == 0)
                     {
                         if (MessageBox.Show("No " + this.CreditorOrDebtor + " to " + radioChecked, "Error!", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
@@ -159,6 +166,7 @@ namespace SMT_UI.Pages
                             this.MobileNo_txt.IsEnabled = false;
                             this.AlternateNo_txt.IsEnabled = false;
                             this.Balance_txt.IsEnabled = false;
+                            this.Dropdown_Cmbx.IsEnabled = false;
                         }
                         return;
                     }
@@ -245,11 +253,12 @@ namespace SMT_UI.Pages
                         CreditorObj.standingBalance = Double.Parse(Balance_txt.Text);
                         if (repository.AddCreditor(CreditorObj))
                         {
+                            this.CreditorList = repository.GetAllCreditor();
                             MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
                             clearAll();
                         }
                     }
-                    else if (this.CreditorOrDebtor == "Deptor")
+                    else if (this.CreditorOrDebtor == "DEBTOR")
                     {
                         Deptor DebtorObj = new Deptor();
                         DebtorObj.name = FullName_txt.Text;
@@ -259,6 +268,7 @@ namespace SMT_UI.Pages
                         DebtorObj.standingBalance = Double.Parse(Balance_txt.Text);
                         if (repository.AddDeptor(DebtorObj))
                         {
+                            this.DebtorList = repository.GetAllDeptor();
                             MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
                             clearAll();
                         }
@@ -293,26 +303,13 @@ namespace SMT_UI.Pages
                         {
                             if (MessageBox.Show("Submitted!", "Update suceeded", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                             {
-                                if (this.CreditorList.Count() == 0)
-                                {
-                                    this.Edit_radio.IsChecked = false;
-                                    this.Update_Logic_btn.IsEnabled = false;
-                                    this.Dropdown_Cmbx.IsEnabled = false;
-                                    this.FullName_txt.IsEnabled = false;
-                                    this.Address_txt.IsEnabled = false;
-                                    this.MobileNo_txt.IsEnabled = false;
-                                    this.AlternateNo_txt.IsEnabled = false;
-                                    this.Balance_txt.IsEnabled = false;
-                                }
-                                else
-                                {
-                                    this.EditDeleteCommon("Edit");
-                                }
+                                this.CreditorList = repository.GetAllCreditor();
+                                this.EditDeleteCommon("Edit");
                                 clearAll();
                             }
-                       }
+                        }
                     }
-                    else if (this.CreditorOrDebtor == "Deptor")
+                    else if (this.CreditorOrDebtor == "DEBTOR")
                     {
                         Deptor DebtorObj = new Deptor();
                         DebtorObj.name = FullName_txt.Text;
@@ -324,21 +321,8 @@ namespace SMT_UI.Pages
                         {
                             if (MessageBox.Show("Submitted!", "Update suceeded", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                             {
-                                if (this.DebtorList.Count() == 0)
-                                {
-                                    this.Edit_radio.IsChecked = false;
-                                    this.Update_Logic_btn.IsEnabled = false;
-                                    this.Dropdown_Cmbx.IsEnabled = false;
-                                    this.FullName_txt.IsEnabled = false;
-                                    this.Address_txt.IsEnabled = false;
-                                    this.MobileNo_txt.IsEnabled = false;
-                                    this.AlternateNo_txt.IsEnabled = false;
-                                    this.Balance_txt.IsEnabled = false;
-                                }
-                                else
-                                {
-                                    this.EditDeleteCommon("Edit");
-                                }
+                                this.DebtorList = repository.GetAllDeptor();
+                                this.EditDeleteCommon("Edit");
                                 clearAll();
                             }
                         }
@@ -363,16 +347,8 @@ namespace SMT_UI.Pages
                     {
                         if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
-                            if (this.CreditorList.Count() == 0)
-                            {
-                                this.Delete_radio.IsChecked = false;
-                                this.Delete_Logic_btn.IsEnabled = false;
-                                this.Dropdown_Cmbx.IsEnabled = false;
-                            }
-                            else
-                            {
-                                this.EditDeleteCommon("Delete");
-                            }
+                            this.CreditorList = repository.GetAllCreditor();
+                            this.EditDeleteCommon("Delete");
                             clearAll();
                         }
                     }
@@ -385,16 +361,8 @@ namespace SMT_UI.Pages
                     {
                         if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
-                            if (this.CreditorList.Count() == 0)
-                            {
-                                this.Delete_radio.IsChecked = false;
-                                this.Delete_Logic_btn.IsEnabled = false;
-                                this.Dropdown_Cmbx.IsEnabled = false;
-                            }
-                            else
-                            {
-                                this.EditDeleteCommon("Delete");
-                            }
+                            this.DebtorList = repository.GetAllDeptor();
+                            this.EditDeleteCommon("Delete");
                             clearAll();
                         }
                     }
@@ -411,12 +379,12 @@ namespace SMT_UI.Pages
             try
             {
                 string name = FullName_txt.Text;
-                string address = Address_txt.Text.Replace(" ","").Replace("\r\n","");
+                string address = Address_txt.Text.Replace(" ", "").Replace("\r\n", "");
                 string mob = MobileNo_txt.Text;
                 string altno = AlternateNo_txt.Text;
                 string bal = Balance_txt.Text;
                 bool isValid = false;
-                
+
                 if (name.Length < 2)
                 {
                     MessageBox.Show("Enter a valid name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -429,7 +397,7 @@ namespace SMT_UI.Pages
                 {
                     MessageBox.Show("Enter Valid mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else if (altno != "" && altno.Length < 10 && altno.Length>0)
+                else if (altno != "" && altno.Length < 10 && altno.Length > 0)
                 {
                     MessageBox.Show("Enter Valid Alternate mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -501,10 +469,6 @@ namespace SMT_UI.Pages
             {
                 ErrorLog.Log(ex);
             }
-        }
-        public void ComboFilter(object sender, KeyEventArgs e)
-        {
-            
         }
         public void EnableButton(object sender, KeyEventArgs e)
         {
