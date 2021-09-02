@@ -85,7 +85,8 @@ namespace SMT_DataLayer.Repository
                         var dept = _context.Deptors.Where(x => x.id == deptor.id).FirstOrDefault();
                         if (dept != null)
                         {
-                            dept = deptor;
+                            _context.Deptors.Remove(dept);
+                            _context.Deptors.Add(deptor);
                             _context.SaveChange((int)Details.Deptor);
                             return true;
                         }
@@ -128,7 +129,9 @@ namespace SMT_DataLayer.Repository
                 {
                     if (deptor != null)
                     {
-                        return _context.Deptors.Remove(deptor);
+                         _context.Deptors.Remove(deptor);
+                        _context.SaveChange();
+                        return true;
                     }
                 }
                 return false;
