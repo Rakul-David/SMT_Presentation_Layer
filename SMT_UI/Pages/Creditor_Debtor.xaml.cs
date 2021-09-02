@@ -126,7 +126,7 @@ namespace SMT_UI.Pages
                 ErrorLog.Log(ex);
             }
         }
-
+       
         public void EditDeleteCommon(String radioChecked)
         {
             try
@@ -135,23 +135,7 @@ namespace SMT_UI.Pages
                 {
                     if (this.CreditorList == null || this.CreditorList.Count() == 0)
                     {
-                        if (MessageBox.Show("No " + this.CreditorOrDebtor + " to " + radioChecked, "Error!", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                        {
-                            this.Edit_radio.IsChecked = false;
-                            this.Delete_radio.IsChecked = false;
-                            this.Update_Logic_btn.Visibility = Visibility.Hidden;
-                            this.Delete_Logic_btn.Visibility = Visibility.Hidden;
-                            this.Add_Logic_btn.Visibility = Visibility.Hidden;
-                            this.FullName_txt.IsEnabled = false;
-                            this.Address_txt.IsEnabled = false;
-                            this.MobileNo_txt.IsEnabled = false;
-                            this.AlternateNo_txt.IsEnabled = false;
-                            this.Balance_txt.IsEnabled = false;
-                            this.Dropdown_Cmbx.IsEnabled = false;
-                            this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
-                            this.ComboBox_lbl.Visibility = Visibility.Hidden;
-                        }
-                        return;
+                        this.nullList(radioChecked);
                     }
                     else
                     {
@@ -162,23 +146,7 @@ namespace SMT_UI.Pages
                 {
                     if (this.DebtorList == null || this.DebtorList.Count() == 0)
                     {
-                        if (MessageBox.Show("No " + this.CreditorOrDebtor + " to " + radioChecked, "Error!", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                        {
-                            this.Edit_radio.IsChecked = false;
-                            this.Delete_radio.IsChecked = false;
-                            this.Update_Logic_btn.Visibility = Visibility.Hidden;
-                            this.Delete_Logic_btn.Visibility = Visibility.Hidden;
-                            this.Add_Logic_btn.Visibility = Visibility.Hidden;
-                            this.FullName_txt.IsEnabled = false;
-                            this.Address_txt.IsEnabled = false;
-                            this.MobileNo_txt.IsEnabled = false;
-                            this.AlternateNo_txt.IsEnabled = false;
-                            this.Balance_txt.IsEnabled = false;
-                            this.Dropdown_Cmbx.IsEnabled = false;
-                            this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
-                            this.ComboBox_lbl.Visibility = Visibility.Hidden;
-                        }
-                        return;
+                        this.nullList(radioChecked);
                     }
                     else
                     {
@@ -205,6 +173,28 @@ namespace SMT_UI.Pages
                 ErrorLog.Log(ex);
             }
         }
+
+        public void nullList(String radioChecked)
+        {
+            if (MessageBox.Show("No " + this.CreditorOrDebtor + " to " + radioChecked, "Error!", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                this.Edit_radio.IsChecked = false;
+                this.Delete_radio.IsChecked = false;
+                this.Update_Logic_btn.Visibility = Visibility.Hidden;
+                this.Delete_Logic_btn.Visibility = Visibility.Hidden;
+                this.Add_Logic_btn.Visibility = Visibility.Hidden;
+                this.FullName_txt.IsEnabled = false;
+                this.Address_txt.IsEnabled = false;
+                this.MobileNo_txt.IsEnabled = false;
+                this.AlternateNo_txt.IsEnabled = false;
+                this.Balance_txt.IsEnabled = false;
+                this.Dropdown_Cmbx.IsEnabled = false;
+                this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
+                this.ComboBox_lbl.Visibility = Visibility.Hidden;
+            }
+            return;
+        }
+
         public void clearAll()
         {
             try
@@ -481,6 +471,7 @@ namespace SMT_UI.Pages
                 ErrorLog.Log(ex);
             }
         }
+
         public void EnableButton(object sender, KeyEventArgs e)
         {
             try
