@@ -30,6 +30,16 @@ namespace SMT_UI.Pages
             MainPage mainPage = new MainPage();
             this.NavigationService.Navigate(mainPage);
         }
+        public class InvoiceData
+        {
+            public int SlNo { get; set; }
+            public string Name { get; set; }
+            public DateTime qnty { get; set; }
+            public string units { get; set; }
+            public bool price { get; set; }
+            public DateTime date { get; set; }
+        }
+
 
     }
 }

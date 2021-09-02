@@ -142,7 +142,7 @@
             <!--#endregion-->
             
             <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
-            <DataGrid Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2">
+            <DataGrid x:Name="FullInvoice" Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontSize" Value="14"/>

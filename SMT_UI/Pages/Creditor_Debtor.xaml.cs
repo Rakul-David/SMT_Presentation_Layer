@@ -126,7 +126,7 @@ namespace SMT_UI.Pages
                 ErrorLog.Log(ex);
             }
         }
-       
+
         public void EditDeleteCommon(String radioChecked)
         {
             try
@@ -136,6 +136,7 @@ namespace SMT_UI.Pages
                     if (this.CreditorList == null || this.CreditorList.Count() == 0)
                     {
                         this.nullList(radioChecked);
+                        return;
                     }
                     else
                     {
@@ -147,6 +148,7 @@ namespace SMT_UI.Pages
                     if (this.DebtorList == null || this.DebtorList.Count() == 0)
                     {
                         this.nullList(radioChecked);
+                        return;
                     }
                     else
                     {
@@ -192,7 +194,6 @@ namespace SMT_UI.Pages
                 this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
                 this.ComboBox_lbl.Visibility = Visibility.Hidden;
             }
-            return;
         }
 
         public void clearAll()
@@ -255,6 +256,7 @@ namespace SMT_UI.Pages
                         if (repository.AddCreditor(CreditorObj))
                         {
                             this.CreditorList = repository.GetAllCreditor();
+                            this.Add_Logic_btn.IsEnabled = false;
                             MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
                             clearAll();
                         }
@@ -270,6 +272,7 @@ namespace SMT_UI.Pages
                         if (repository.AddDeptor(DebtorObj))
                         {
                             this.DebtorList = repository.GetAllDeptor();
+                            this.Add_Logic_btn.IsEnabled = false;
                             MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
                             clearAll();
                         }
@@ -385,8 +388,12 @@ namespace SMT_UI.Pages
                 string altno = AlternateNo_txt.Text;
                 string bal = Balance_txt.Text;
                 bool isValid = false;
-
-                if (name.Length < 2)
+                List<String> duplicateName = this.CreditorList.Where(x => x.name == this.FullName_txt.Text).Select(x=>x.name).ToList();
+                if (duplicateName != null && duplicateName.Count() > 0)
+                {
+                    MessageBox.Show("Enter a valid name!", "Name " + FullName_txt.Text + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (name.Length < 2)
                 {
                     MessageBox.Show("Enter a valid name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                 }

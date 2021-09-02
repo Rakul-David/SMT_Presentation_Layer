@@ -186,7 +186,7 @@ namespace SMT_DataLayer.Repository
         {
             try
             {
-                if (_context.Creditors != null && _context.Creditors.Count > 0)
+                if (_context.Creditors != null)
                 {
                     return _context.Creditors;
                 }
