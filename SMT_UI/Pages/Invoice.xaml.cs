@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using SMT_DataLayer;
+using SMT_DataLayer.Repository;
 
 namespace SMT_UI.Pages
 {
@@ -30,14 +33,29 @@ namespace SMT_UI.Pages
             MainPage mainPage = new MainPage();
             this.NavigationService.Navigate(mainPage);
         }
-        public class InvoiceData
+
+        private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
-            public int SlNo { get; set; }
-            public string Name { get; set; }
-            public DateTime qnty { get; set; }
-            public string units { get; set; }
-            public bool price { get; set; }
-            public DateTime date { get; set; }
+            try
+            {
+                Regex regex = new Regex("[^0-9]+");
+                e.Handled = regex.IsMatch(e.Text);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+        }
+        private void No_Spaces(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                e.Handled = e.Key == Key.Space;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
 

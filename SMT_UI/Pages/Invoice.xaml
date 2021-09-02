@@ -109,34 +109,40 @@
                 </Grid.RowDefinitions>
 
                 <!--#region DropDown -->
-                <ComboBox FontSize="20" FontFamily="Cambria" Height="30" BorderBrush="Black" Grid.Row="0" Grid.ColumnSpan="3" Margin="30,0,10,0" Cursor="Hand" IsEditable="True" IsTextSearchEnabled="True" BorderThickness="1"/>
+                <ComboBox x:Name="Dropdown_Cmbx" FontSize="20" FontFamily="Cambria" Height="30" BorderBrush="Black" Grid.Row="0" Grid.ColumnSpan="3" Margin="30,0,10,0" Cursor="Hand" IsEditable="True" IsTextSearchEnabled="True" BorderThickness="1"/>
                 <!--#endregion-->
 
                 <!--#region InputLabels -->
                 <Label Style="{StaticResource labels}" Content="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalContentAlignment="Center" Margin="30,0" BorderBrush="Black" BorderThickness="1"/>
                 <Label Style="{StaticResource labels}" Content="NAME :" Grid.Row="1" Grid.ColumnSpan="2" Margin="30,0,0,0"/>
+                <Label Style="{StaticResource labels}" Content="DATE :" Grid.Row="1" Grid.Column="2"/>
                 <Label Style="{StaticResource labels}" Content="QNTY :" Grid.Row="2" Grid.Column="0" Margin="30,0,0,0"/>
                 <Label Style="{StaticResource labels}" Content="UNITS :" Grid.Row="2" Grid.Column="1"/>
                 <Label Style="{StaticResource labels}" Content="PRICE/UNIT :" Grid.Row="2" Grid.Column="2"/>
                 <!--#endregion-->
 
                 <!--#region InputFields -->
-                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
-                <DatePicker Grid.Row="1" Grid.Column="2" Margin="10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand"/>
-                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0"/>
-                <ComboBox SelectedIndex="0" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" VerticalContentAlignment="Center" Height="30">
-                    <ListBoxItem Content="Gram" Cursor="Hand"/>
-                    <ListBoxItem Content="Dozen" Cursor="Hand"/>
+                <TextBox x:Name="ItemName_txt" Style="{StaticResource TextBoxes}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
+                <DatePicker x:Name="Dates_dtd" Grid.Row="1" Grid.Column="2" Margin="110,0,10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="16" FontFamily="Cambria">
+                    <DatePicker.Resources>
+                        <Style TargetType = "DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewTextInput="NumberValidation" KeyDown="No_Spaces"/>
+                <ComboBox x:Name="Units_Cmbx" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" VerticalContentAlignment="Center" Height="30">
                     <ListBoxItem Content="Kilogram" Cursor="Hand"/>
-                    <ListBoxItem Content="Tonne" Cursor="Hand"/>
+                    <ListBoxItem Content="Dozen" Cursor="Hand"/>
+                    <ListBoxItem Content="Pieces" Cursor="Hand"/>
                 </ComboBox>
-                <TextBox Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0"/>
+                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" KeyDown="No_Spaces"/>
                 <!--#endregion-->
 
                 <!--#region AddUpdateDeleteButton -->
-                <Button Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,0"/>
-                <Button Style="{StaticResource Buttons}" Content="UPDATE" Grid.Row="2" Grid.Column="3" Margin="30,0,135,0"/>
-                <Button Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0"/>
+                <Button x:Name="Add_btn" Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,0"/>
+                <Button x:Name="Update_btn" Style="{StaticResource Buttons}" Content="UPDATE" Grid.Row="2" Grid.Column="3" Margin="30,0,135,0"/>
+                <Button x:Name="Delete_btn" Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0"/>
                 <!--#endregion-->
             </Grid>
             <!--#endregion-->
@@ -188,15 +194,15 @@
                 <!--#endregion-->
                 
                 <!--#region TotalTextBox -->
-                <Label Style="{StaticResource labels}" Grid.Column="0" Margin="90,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
-                <Label Style="{StaticResource labels}" Grid.Column="1" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
-                <Label Style="{StaticResource labels}" Grid.Column="2" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
-                <Label Style="{StaticResource labels}" Grid.Column="3" Margin="115,0,30,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label x:Name="TotalAmount_lbl" Style="{StaticResource labels}" Grid.Column="0" Margin="90,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label x:Name="SGST_lbl" Style="{StaticResource labels}" Grid.Column="1" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label x:Name="CGST_lbl" Style="{StaticResource labels}" Grid.Column="2" Margin="50,0,20,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
+                <Label x:Name="GrandTotal_lbl" Style="{StaticResource labels}" Grid.Column="3" Margin="115,0,30,0" Height="25" BorderBrush="Black" BorderThickness="1" Padding="5,0"/>
                 <!--#endregion-->
             </Grid>
             <!--#endregion-->
 
-            <Button Grid.Row="4" Style="{StaticResource Buttons}" Content="SAVE" HorizontalAlignment="Right" Margin="0,0,30,0" Width="125" Height="40"/>
+            <Button x:Name="Save_btn" Grid.Row="4" Style="{StaticResource Buttons}" Content="SAVE" HorizontalAlignment="Right" Margin="0,0,30,0" Width="125" Height="40"/>
         </Grid>
     </Viewbox>
 </Page>

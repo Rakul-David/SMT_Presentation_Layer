@@ -127,7 +127,7 @@ namespace SMT_UI.Pages
             }
         }
 
-        public void EditDeleteCommon(String radioChecked)
+        private void EditDeleteCommon(String radioChecked)
         {
             try
             {
@@ -176,7 +176,7 @@ namespace SMT_UI.Pages
             }
         }
 
-        public void nullList(String radioChecked)
+        private void nullList(String radioChecked)
         {
             if (MessageBox.Show("No " + this.CreditorOrDebtor + " to " + radioChecked, "Error!", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
@@ -196,7 +196,7 @@ namespace SMT_UI.Pages
             }
         }
 
-        public void clearAll()
+        private void clearAll()
         {
             try
             {
@@ -378,15 +378,15 @@ namespace SMT_UI.Pages
             }
         }
 
-        public bool FieldValidations()
+        private bool FieldValidations()
         {
             try
             {
-                string name = FullName_txt.Text;
-                string address = Address_txt.Text.Replace(" ", "").Replace("\r\n", "");
-                string mob = MobileNo_txt.Text;
-                string altno = AlternateNo_txt.Text;
-                string bal = Balance_txt.Text;
+                string name = this.FullName_txt.Text;
+                string address = this.Address_txt.Text.Replace(" ", "").Replace("\r\n", "");
+                string mob = this.MobileNo_txt.Text;
+                string altno = this.AlternateNo_txt.Text;
+                string bal = this.Balance_txt.Text;
                 bool isValid = false;
                 List<String> duplicateName = this.CreditorList.Where(x => x.name == this.FullName_txt.Text).Select(x=>x.name).ToList();
                 if (duplicateName != null && duplicateName.Count() > 0)
@@ -479,7 +479,7 @@ namespace SMT_UI.Pages
             }
         }
 
-        public void EnableButton(object sender, KeyEventArgs e)
+        private void EnableButton(object sender, KeyEventArgs e)
         {
             try
             {
