@@ -25,8 +25,7 @@ namespace SMT_DataLayer.Data
         {
             try
             {
-                string dir = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName;
-                dir += "\\SMT_DataLayer\\Data";
+                string dir = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName + "\\SMT_DataLayer\\Data";
                 creditorFilepath = dir+"\\Creditor Details";
                 deptorFilepath = dir+"\\Deptor Details";
                 invoiceFilepath = dir+"\\Invoice Details";

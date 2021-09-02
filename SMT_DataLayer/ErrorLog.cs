@@ -5,8 +5,7 @@ namespace SMT_DataLayer
 {
     public static class ErrorLog
     {
-        static String logDirectoryPath = "D:\\SMT_Presentation_Layer\\SMT_DataLayer\\Data\\Logger Details";
-        static ErrorLog()
+        static String logDirectoryPath = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName + "\\SMT_DataLayer\\Data\\Logger Details";        static ErrorLog()
         {
             if (!Directory.Exists(logDirectoryPath))
             {
