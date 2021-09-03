@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SMT_DataLayer;
+using SMT_DataLayer.Repository;
 
 namespace SMT_UI.Pages
 {
@@ -20,9 +22,51 @@ namespace SMT_UI.Pages
     /// </summary>
     public partial class PayIn_PayOut : Page
     {
+        String CreditorOrDebtor;
+        List<String> AllNames;
+        List<Creditor> CreditorList;
+        List<Deptor> DebtorList;
+        SMT_DataRepository repository;
         public PayIn_PayOut()
         {
             InitializeComponent();
+            CreditorList = new List<Creditor>();
+            DebtorList = new List<Deptor>();
+            repository = new SMT_DataRepository();
+            CreditorOrDebtor = "";
         }
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainPage mainPage = new MainPage();
+                this.NavigationService.Navigate(mainPage);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+        }
+
+        public void staticDetails(String type)
+        {
+            try
+            {
+                this.Title_lbl.Content = "PAY " + type;
+                if (type == "IN")
+                {
+                    this.CreditorList = repository.GetAllCreditor();
+                }
+                else if (type == "OUT")
+                {
+                    this.DebtorList = repository.GetAllDeptor();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+        }
+
     }
 }

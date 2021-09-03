@@ -39,9 +39,11 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="IsEditable" Value="True"/>
-            <Setter Property="IsTextSearchEnabled" Value="True"/>
+            <Setter Property="IsTextSearchEnabled" Value="False"/>
             <Setter Property="IsEnabled" Value="False"/>
             <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="MaxDropDownHeight" Value="185"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style x:Key="Labels" TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -130,9 +132,7 @@
 
             <!--#region DropDown -->
             <Label x:Name="ComboBox_lbl" Style="{StaticResource Labels}" Margin="100,125,0,0" FontSize="14" FontFamily="Arial" Foreground="Gray"/>
-            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" SelectionChanged="Dropdown_Cmbx_SelectionChanged">
-                
-            </ComboBox>
+            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" SelectionChanged="Dropdown_Cmbx_SelectionChanged" KeyUp="filterDropDown"/>
             <!--#endregion-->
 
             <!--#region Labels -->

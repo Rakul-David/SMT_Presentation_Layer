@@ -42,7 +42,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.NavigationService.Navigate(creditor_deptor);
-                creditor_deptor.staticDetails("CREDITOR");
+                this.creditor_deptor.staticDetails("CREDITOR");
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.NavigationService.Navigate(creditor_deptor);
-                creditor_deptor.staticDetails("DEBTOR");
+                this.creditor_deptor.staticDetails("DEBTOR");
             }
             catch (Exception ex)
             {
@@ -68,6 +68,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.NavigationService.Navigate(payIn_payOut);
+                this.payIn_payOut.staticDetails("IN");
             }
             catch (Exception ex)
             {
@@ -80,6 +81,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.NavigationService.Navigate(payIn_payOut);
+                this.payIn_payOut.staticDetails("OUT");
             }
             catch (Exception ex)
             {

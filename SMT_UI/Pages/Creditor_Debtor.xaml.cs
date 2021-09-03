@@ -91,7 +91,15 @@ namespace SMT_UI.Pages
                 this.Balance_txt.IsEnabled = true;
                 this.ComboBox_lbl.Content = "";
                 this.Dropdown_Cmbx.SelectedIndex = -1;
-                clearAll();
+                if (this.CreditorOrDebtor == "CREDITOR")
+                {
+                    this.CreditorList = repository.GetAllCreditor();
+                }
+                else if (this.CreditorOrDebtor == "DEBTOR")
+                {
+                    this.DebtorList = repository.GetAllDeptor();
+                }
+                this.clearAll();
             }
             catch (Exception ex)
             {
@@ -206,6 +214,8 @@ namespace SMT_UI.Pages
                 this.MobileNo_txt.Clear();
                 this.AlternateNo_txt.Clear();
                 this.Balance_txt.Clear();
+                this.Delete_Logic_btn.IsEnabled = false;
+                this.Update_Logic_btn.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -248,8 +258,8 @@ namespace SMT_UI.Pages
                     if (this.CreditorOrDebtor == "CREDITOR")
                     {
                         Creditor CreditorObj = new Creditor();
-                        CreditorObj.name = FullName_txt.Text;
-                        CreditorObj.address = Address_txt.Text;
+                        CreditorObj.name = FullName_txt.Text.ToUpper();
+                        CreditorObj.address = Address_txt.Text.ToUpper();
                         CreditorObj.phone = MobileNo_txt.Text;
                         CreditorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
                         CreditorObj.standingBalance = Double.Parse(Balance_txt.Text);
@@ -264,8 +274,8 @@ namespace SMT_UI.Pages
                     else if (this.CreditorOrDebtor == "DEBTOR")
                     {
                         Deptor DebtorObj = new Deptor();
-                        DebtorObj.name = FullName_txt.Text;
-                        DebtorObj.address = Address_txt.Text;
+                        DebtorObj.name = FullName_txt.Text.ToUpper();
+                        DebtorObj.address = Address_txt.Text.ToUpper();
                         DebtorObj.phone = MobileNo_txt.Text;
                         DebtorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
                         DebtorObj.standingBalance = Double.Parse(Balance_txt.Text);
@@ -295,11 +305,11 @@ namespace SMT_UI.Pages
                     if (this.CreditorOrDebtor == "CREDITOR")
                     {
                         Creditor CreditorObj = new Creditor();
-                        Creditor Obj = new Creditor();
-                        Obj = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
-                        CreditorObj.id = Obj.id;
-                        CreditorObj.name = FullName_txt.Text;
-                        CreditorObj.address = Address_txt.Text;
+                        Creditor ObjId = new Creditor();
+                        ObjId = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
+                        CreditorObj.id = ObjId.id;
+                        CreditorObj.name = FullName_txt.Text.ToUpper();
+                        CreditorObj.address = Address_txt.Text.ToUpper();
                         CreditorObj.phone = MobileNo_txt.Text;
                         CreditorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
                         CreditorObj.standingBalance = Double.Parse(Balance_txt.Text);
@@ -316,8 +326,11 @@ namespace SMT_UI.Pages
                     else if (this.CreditorOrDebtor == "DEBTOR")
                     {
                         Deptor DebtorObj = new Deptor();
-                        DebtorObj.name = FullName_txt.Text;
-                        DebtorObj.address = Address_txt.Text;
+                        Deptor ObjId = new Deptor();
+                        ObjId = (Deptor)this.DebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
+                        DebtorObj.id = ObjId.id;
+                        DebtorObj.name = FullName_txt.Text.ToUpper();
+                        DebtorObj.address = Address_txt.Text.ToUpper();
                         DebtorObj.phone = MobileNo_txt.Text;
                         DebtorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
                         DebtorObj.standingBalance = Double.Parse(Balance_txt.Text);
@@ -388,12 +401,16 @@ namespace SMT_UI.Pages
                 string altno = this.AlternateNo_txt.Text;
                 string bal = this.Balance_txt.Text;
                 bool isValid = false;
-                List<String> duplicateName = this.CreditorList.Where(x => x.name == this.FullName_txt.Text).Select(x=>x.name).ToList();
-                if (duplicateName != null && duplicateName.Count() > 0)
+                if (this.AllNames != null && this.AllNames.Count() > 0)
                 {
-                    MessageBox.Show("Enter a valid name!", "Name " + FullName_txt.Text + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string duplicateName = this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text).ToString();
+                    if (duplicateName != null && duplicateName != this.Dropdown_Cmbx.Text)
+                    {
+                        MessageBox.Show("Enter a valid name!", "Name " + FullName_txt.Text + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return false;
+                    }
                 }
-                else if (name.Length < 2)
+                if (name.Length < 2)
                 {
                     MessageBox.Show("Enter a valid name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -432,7 +449,6 @@ namespace SMT_UI.Pages
             {
                 if (this.Dropdown_Cmbx.SelectedIndex != -1)
                 {
-                    this.Dropdown_Cmbx.IsDropDownOpen = true;
                     if (this.CreditorOrDebtor == "CREDITOR")
                     {
                         Creditor creditorList = new Creditor();
@@ -505,5 +521,47 @@ namespace SMT_UI.Pages
                 ErrorLog.Log(ex);
             }
         }
+
+        private void filterDropDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                string keyPressed = e.Key.ToString();
+                if (this.FullName_txt.Text == "" && keyPressed != null && ((keyPressed.Length == 1 && char.IsLetterOrDigit(keyPressed[0])) || keyPressed == "Back"))
+                {
+                    if (this.Dropdown_Cmbx.Text != "")
+                    {
+                        List<String> filteredList = this.AllNames.FindAll(x => x.Contains(this.Dropdown_Cmbx.Text.ToUpper()));
+                        if (filteredList != null && filteredList.Count() > 0)
+                        {
+                            this.Dropdown_Cmbx.ItemsSource = filteredList;
+                            this.Dropdown_Cmbx.IsDropDownOpen = true;
+                        }
+                        else
+                        {
+                            this.Dropdown_Cmbx.IsDropDownOpen = false;
+                        }
+                    }
+                    else
+                    {
+                        this.Dropdown_Cmbx.IsDropDownOpen = false;
+                    }
+                }
+                else
+                {
+                    this.clearAll();
+                    this.FullName_txt.IsEnabled = false;
+                    this.Address_txt.IsEnabled = false;
+                    this.MobileNo_txt.IsEnabled = false;
+                    this.AlternateNo_txt.IsEnabled = false;
+                    this.Balance_txt.IsEnabled = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+        }
+
     }
 }
