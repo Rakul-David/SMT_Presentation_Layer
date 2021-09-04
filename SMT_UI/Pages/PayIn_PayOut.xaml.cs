@@ -24,14 +24,12 @@ namespace SMT_UI.Pages
     {
         String CreditorOrDebtor;
         List<String> AllNames;
-        List<Creditor> CreditorList;
-        List<Deptor> DebtorList;
+        List<CreditorOrDebtor> CreditorList;
         SMT_DataRepository repository;
         public PayIn_PayOut()
         {
             InitializeComponent();
-            CreditorList = new List<Creditor>();
-            DebtorList = new List<Deptor>();
+            CreditorList = new List<CreditorOrDebtor>();
             repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
         }
@@ -53,14 +51,14 @@ namespace SMT_UI.Pages
             try
             {
                 this.Title_lbl.Content = "PAY " + type;
-                if (type == "IN")
-                {
-                    this.CreditorList = repository.GetAllCreditor();
-                }
-                else if (type == "OUT")
-                {
-                    this.DebtorList = repository.GetAllDeptor();
-                }
+                //if (type == "IN")
+                //{
+                //    this.CreditorList = repository.GetAllCreditor();
+                //}
+                //else if (type == "OUT")
+                //{
+                //    this.DebtorList = repository.GetAllDeptor();
+                //}
             }
             catch (Exception ex)
             {

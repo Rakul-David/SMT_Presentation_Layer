@@ -10,11 +10,11 @@ namespace SMT_DataLayer.Data
 {
     public class SMT_DataContext
     {
-        public List<CreditorOrDebitor> CreditorOrDebitor;
+        public List<CreditorOrDebtor> CreditorOrDebtor;
      
         public List<Invoice> Invoices;
         public List<PayIn_Out> Payee;
-        private string creditorOrDebitorFilepath;
+        private string creditorOrDebtorFilepath;
         private string deptorFilepath;
         private string invoiceFilepath;
         private int payeeLength;
@@ -26,20 +26,19 @@ namespace SMT_DataLayer.Data
             try
             {
                 string dir = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName + "\\SMT_DataLayer\\Data";
-                creditorOrDebitorFilepath = dir+"\\Creditor Details";
-                deptorFilepath = dir+"\\Deptor Details";
+                creditorOrDebtorFilepath = dir+"\\Creditor Details";
                 invoiceFilepath = dir+"\\Invoice Details";
-                if (!Directory.Exists(creditorOrDebitorFilepath))
+                if (!Directory.Exists(creditorOrDebtorFilepath))
                 {
-                    Directory.CreateDirectory(creditorOrDebitorFilepath);
+                    Directory.CreateDirectory(creditorOrDebtorFilepath);
                 }
                 if (!Directory.Exists(invoiceFilepath))
                 {
                     Directory.CreateDirectory(invoiceFilepath);
                 }
-                if (!File.Exists(creditorOrDebitorFilepath + "\\CreditorDetails.txt"))
+                if (!File.Exists(creditorOrDebtorFilepath + "\\CreditorDetails.txt"))
                 {
-                    FileStream fileStream = new FileStream(creditorOrDebitorFilepath + "\\CreditorOrDebitorDetails.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    FileStream fileStream = new FileStream(creditorOrDebtorFilepath + "\\CreditorOrDebtorDetails.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     fileStream.Close();
                 }
                 if (!File.Exists(invoiceFilepath + "\\InvoiceDetails.txt"))
@@ -52,15 +51,15 @@ namespace SMT_DataLayer.Data
                     FileStream fileStream = new FileStream(invoiceFilepath + "\\Payee_Details.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     fileStream.Close();
                 }
-                string creditorDetail = File.ReadAllText(creditorOrDebitorFilepath + "\\CreditorDetails.txt");
+                string creditorDetail = File.ReadAllText(creditorOrDebtorFilepath + "\\CreditorOrDebtorDetails.txt");
               
                 string invoicedetail = File.ReadAllText(invoiceFilepath + "\\InvoiceDetails.txt");
                 string payeeDetails = File.ReadAllText(invoiceFilepath + "\\Payee_Details.txt");
-                CreditorOrDebitor = (creditorDetail.Trim().Length == 0 || creditorDetail == null) ? new List<CreditorOrDebitor>() : JsonSerializer.Deserialize<List<CreditorOrDebitor>>(creditorDetail);
+                CreditorOrDebtor = (creditorDetail.Trim().Length == 0 || creditorDetail == null) ? new List<CreditorOrDebtor>() : JsonSerializer.Deserialize<List<CreditorOrDebtor>>(creditorDetail);
                
                 Invoices = (invoicedetail.Trim().Length == 0 || invoicedetail == null) ? new List<Invoice>() : JsonSerializer.Deserialize<List<Invoice>>(invoicedetail);
                 Payee = (payeeDetails.Trim().Length == 0 || payeeDetails == null) ? new List<PayIn_Out>() : JsonSerializer.Deserialize<List<PayIn_Out>>(payeeDetails);
-                creditorLength = CreditorOrDebitor.Count;
+                creditorLength = CreditorOrDebtor.Count;
                 invoiceLength = Invoices.Count;
                 payeeLength = Payee.Count;
             }
@@ -73,14 +72,13 @@ namespace SMT_DataLayer.Data
         {
             try
             {
-                string CreditoModified = JsonSerializer.Serialize(this.CreditorOrDebitor);
+                string CreditoModified = JsonSerializer.Serialize(this.CreditorOrDebtor);
                 string InvoiceModified = JsonSerializer.Serialize(this.Invoices);
                 string PayeeModified = JsonSerializer.Serialize(this.Payee);
-                if (this.CreditorOrDebitor.Count != creditorLength )
+                if (this.CreditorOrDebtor.Count != creditorLength )
                 {
-
-                    File.WriteAllText(creditorOrDebitorFilepath + "\\CreditorDetails.txt", string.Empty);
-                    File.WriteAllText(creditorOrDebitorFilepath + "\\CreditorDetails.txt", CreditoModified);
+                    File.WriteAllText(creditorOrDebtorFilepath + "\\CreditorOrDebtorDetails.txt", string.Empty);
+                    File.WriteAllText(creditorOrDebtorFilepath + "\\CreditorOrDebtorDetails.txt", CreditoModified);
                 }
                 if (this.Invoices.Count != invoiceLength)
                 {
@@ -106,9 +104,9 @@ namespace SMT_DataLayer.Data
             {
                 if (n == 1)
                 {
-                    string CreditoModified = JsonSerializer.Serialize(this.CreditorOrDebitor);
-                    File.WriteAllText(creditorOrDebitorFilepath + "\\CreditorDetails.txt", string.Empty);
-                    File.WriteAllText(creditorOrDebitorFilepath + "\\CreditorDetails.txt", CreditoModified);
+                    string CreditoModified = JsonSerializer.Serialize(this.CreditorOrDebtor);
+                    File.WriteAllText(creditorOrDebtorFilepath + "\\CreditorOrDebtorDetails.txt", string.Empty);
+                    File.WriteAllText(creditorOrDebtorFilepath + "\\CreditorOrDebtorDetails.txt", CreditoModified);
                 }
                 else if (n == 2)
                 {

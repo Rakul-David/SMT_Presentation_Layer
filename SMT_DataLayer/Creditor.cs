@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SMT_DataLayer
 {
-    public class CreditorOrDebitor
+    public class CreditorOrDebtor
     {
         public Guid id = Guid.NewGuid();
         public Guid UserIdentity { get; set; }

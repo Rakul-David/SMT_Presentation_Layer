@@ -25,14 +25,12 @@ namespace SMT_UI.Pages
     {
         String CreditorOrDebtor;
         List<String> AllNames;
-        List<Creditor> CreditorList;
-        List<Deptor> DebtorList;
+        List<CreditorOrDebtor> CreditorOrDebtorList;
         SMT_DataRepository repository;
         public Creditor_Debtor()
         {
             InitializeComponent();
-            CreditorList = new List<Creditor>();
-            DebtorList = new List<Deptor>();
+            CreditorOrDebtorList = new List<CreditorOrDebtor>();
             repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
         }
@@ -59,14 +57,7 @@ namespace SMT_UI.Pages
                 this.Add_radio.Content = "ADD " + type;
                 this.Edit_radio.Content = "EDIT " + type;
                 this.Delete_radio.Content = "DELETE " + type;
-                if (type == "CREDITOR")
-                {
-                    this.CreditorList = repository.GetAllCreditor();
-                }
-                else if (type == "DEBTOR")
-                {
-                    this.DebtorList = repository.GetAllDeptor();
-                }
+                this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(type);
             }
             catch (Exception ex)
             {
@@ -83,7 +74,7 @@ namespace SMT_UI.Pages
                 this.Delete_Logic_btn.Visibility = Visibility.Hidden;
                 this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
                 this.Dropdown_txt.Visibility = Visibility.Hidden;
-                this.Add_Logic_btn.IsEnabled = false;                
+                this.Add_Logic_btn.IsEnabled = false;
                 this.FullName_txt.IsEnabled = true;
                 this.Address_txt.IsEnabled = true;
                 this.MobileNo_txt.IsEnabled = true;
@@ -91,14 +82,6 @@ namespace SMT_UI.Pages
                 this.Balance_txt.IsEnabled = true;
                 this.ComboBox_lbl.Content = "";
                 this.Dropdown_Cmbx.SelectedIndex = -1;
-                if (this.CreditorOrDebtor == "CREDITOR")
-                {
-                    this.CreditorList = repository.GetAllCreditor();
-                }
-                else if (this.CreditorOrDebtor == "DEBTOR")
-                {
-                    this.DebtorList = repository.GetAllDeptor();
-                }
                 this.clearAll();
             }
             catch (Exception ex)
@@ -139,29 +122,14 @@ namespace SMT_UI.Pages
         {
             try
             {
-                if (this.CreditorOrDebtor == "CREDITOR")
+                if (this.CreditorOrDebtorList == null || this.CreditorOrDebtorList.Count() == 0)
                 {
-                    if (this.CreditorList == null || this.CreditorList.Count() == 0)
-                    {
-                        this.nullList(radioChecked);
-                        return;
-                    }
-                    else
-                    {
-                        this.AllNames = this.CreditorList.Select(x => x.name).ToList();
-                    }
+                    this.nullList(radioChecked);
+                    return;
                 }
-                else if (this.CreditorOrDebtor == "DEBTOR")
+                else
                 {
-                    if (this.DebtorList == null || this.DebtorList.Count() == 0)
-                    {
-                        this.nullList(radioChecked);
-                        return;
-                    }
-                    else
-                    {
-                        this.AllNames = this.DebtorList.Select(x => x.name).ToList();
-                    }
+                    this.AllNames = this.CreditorOrDebtorList.Select(x => x.name).ToList();
                 }
                 this.Dropdown_Cmbx.ItemsSource = this.AllNames;
                 this.Add_Logic_btn.Visibility = Visibility.Hidden;
@@ -261,37 +229,19 @@ namespace SMT_UI.Pages
                 bool isValid = FieldValidations();
                 if (isValid == true)
                 {
-                    if (this.CreditorOrDebtor == "CREDITOR")
+                    CreditorOrDebtor CredOrDeptObj = new CreditorOrDebtor();
+                    CredOrDeptObj.UserIdentity = this.CreditorOrDebtor.Equals("CREDITOR") ? Guid.Parse(Enumeration.Atributes[(int)Details.Creditor]) : Guid.Parse(Enumeration.Atributes[(int)Details.Deptor]);
+                    CredOrDeptObj.name = FullName_txt.Text.ToUpper();
+                    CredOrDeptObj.address = Address_txt.Text.ToUpper();
+                    CredOrDeptObj.phone = MobileNo_txt.Text;
+                    CredOrDeptObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
+                    CredOrDeptObj.standingBalance = Double.Parse(Balance_txt.Text);
+                    if (repository.AddCreditorOrDebtor(CredOrDeptObj))
                     {
-                        Creditor CreditorObj = new Creditor();
-                        CreditorObj.name = FullName_txt.Text.ToUpper();
-                        CreditorObj.address = Address_txt.Text.ToUpper();
-                        CreditorObj.phone = MobileNo_txt.Text;
-                        CreditorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
-                        CreditorObj.standingBalance = Double.Parse(Balance_txt.Text);
-                        if (repository.AddCreditor(CreditorObj))
-                        {
-                            this.CreditorList = repository.GetAllCreditor();
-                            this.Add_Logic_btn.IsEnabled = false;
-                            MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                            clearAll();
-                        }
-                    }
-                    else if (this.CreditorOrDebtor == "DEBTOR")
-                    {
-                        Deptor DebtorObj = new Deptor();
-                        DebtorObj.name = FullName_txt.Text.ToUpper();
-                        DebtorObj.address = Address_txt.Text.ToUpper();
-                        DebtorObj.phone = MobileNo_txt.Text;
-                        DebtorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
-                        DebtorObj.standingBalance = Double.Parse(Balance_txt.Text);
-                        if (repository.AddDeptor(DebtorObj))
-                        {
-                            this.DebtorList = repository.GetAllDeptor();
-                            this.Add_Logic_btn.IsEnabled = false;
-                            MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                            clearAll();
-                        }
+                        this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                        this.Add_Logic_btn.IsEnabled = false;
+                        MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
+                        clearAll();
                     }
                 }
             }
@@ -308,46 +258,23 @@ namespace SMT_UI.Pages
                 bool isValid = FieldValidations();
                 if (isValid == true)
                 {
-                    if (this.CreditorOrDebtor == "CREDITOR")
+                    CreditorOrDebtor CredOrDeptObj = new CreditorOrDebtor();
+                    CreditorOrDebtor ObjId = new CreditorOrDebtor();
+                    ObjId = (CreditorOrDebtor)this.CreditorOrDebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
+                    CredOrDeptObj.id = ObjId.id;
+                    CredOrDeptObj.UserIdentity = this.CreditorOrDebtor.Equals("CREDITOR") ? Guid.Parse(Enumeration.Atributes[(int)Details.Creditor]) : Guid.Parse(Enumeration.Atributes[(int)Details.Deptor]);
+                    CredOrDeptObj.name = FullName_txt.Text.ToUpper();
+                    CredOrDeptObj.address = Address_txt.Text.ToUpper();
+                    CredOrDeptObj.phone = MobileNo_txt.Text;
+                    CredOrDeptObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
+                    CredOrDeptObj.standingBalance = Double.Parse(Balance_txt.Text);
+                    if (repository.EditCreditorOrDebtor(CredOrDeptObj))
                     {
-                        Creditor CreditorObj = new Creditor();
-                        Creditor ObjId = new Creditor();
-                        ObjId = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
-                        CreditorObj.id = ObjId.id;
-                        CreditorObj.name = FullName_txt.Text.ToUpper();
-                        CreditorObj.address = Address_txt.Text.ToUpper();
-                        CreditorObj.phone = MobileNo_txt.Text;
-                        CreditorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
-                        CreditorObj.standingBalance = Double.Parse(Balance_txt.Text);
-                        if (repository.EditCreditor(CreditorObj))
+                        if (MessageBox.Show("Submitted!", "Update suceeded", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
-                            if (MessageBox.Show("Submitted!", "Update suceeded", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                            {
-                                this.CreditorList = repository.GetAllCreditor();
-                                this.EditDeleteCommon("Edit");
-                                clearAll();
-                            }
-                        }
-                    }
-                    else if (this.CreditorOrDebtor == "DEBTOR")
-                    {
-                        Deptor DebtorObj = new Deptor();
-                        Deptor ObjId = new Deptor();
-                        ObjId = (Deptor)this.DebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
-                        DebtorObj.id = ObjId.id;
-                        DebtorObj.name = FullName_txt.Text.ToUpper();
-                        DebtorObj.address = Address_txt.Text.ToUpper();
-                        DebtorObj.phone = MobileNo_txt.Text;
-                        DebtorObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
-                        DebtorObj.standingBalance = Double.Parse(Balance_txt.Text);
-                        if (repository.EditDeptor(DebtorObj))
-                        {
-                            if (MessageBox.Show("Submitted!", "Update suceeded", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                            {
-                                this.DebtorList = repository.GetAllDeptor();
-                                this.EditDeleteCommon("Edit");
-                                clearAll();
-                            }
+                            this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                            this.EditDeleteCommon("Edit");
+                            clearAll();
                         }
                     }
                 }
@@ -362,32 +289,14 @@ namespace SMT_UI.Pages
         {
             try
             {
-                if (this.CreditorOrDebtor == "CREDITOR")
+                Guid credOrDeptId = this.CreditorOrDebtorList.Where(x => x.name == this.FullName_txt.Text).Select(x=>x.id).FirstOrDefault();
+                if (repository.DeleteCreditorOrDebtor(credOrDeptId))
                 {
-                    Creditor deleteCred = new Creditor();
-                    deleteCred = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.FullName_txt.Text);
-                    if (repository.DeleteCreditor(deleteCred))
+                    if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                     {
-                        if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                        {
-                            this.CreditorList = repository.GetAllCreditor();
-                            this.EditDeleteCommon("Delete");
-                            clearAll();
-                        }
-                    }
-                }
-                else if (this.CreditorOrDebtor == "DEBTOR")
-                {
-                    Deptor deleteDept = new Deptor();
-                    deleteDept = (Deptor)this.DebtorList.FirstOrDefault(x => x.name == this.FullName_txt.Text);
-                    if (repository.DeleteDeptor(deleteDept))
-                    {
-                        if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                        {
-                            this.DebtorList = repository.GetAllDeptor();
-                            this.EditDeleteCommon("Delete");
-                            clearAll();
-                        }
+                        this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                        this.EditDeleteCommon("Delete");
+                        clearAll();
                     }
                 }
             }
@@ -407,7 +316,7 @@ namespace SMT_UI.Pages
                 string altno = this.AlternateNo_txt.Text;
                 string bal = this.Balance_txt.Text;
                 bool isValid = false;
-                if (this.AllNames != null && this.AllNames.Count() > 0 && this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text) != null)
+                if (this.AllNames != null && this.AllNames.Count() > 0 && this.AllNames.Where(x => x == this.FullName_txt.Text).FirstOrDefault() != null)
                 {
                     string duplicateName = this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text).ToString();
                     if (duplicateName != null && duplicateName != this.Dropdown_Cmbx.Text)
@@ -456,29 +365,14 @@ namespace SMT_UI.Pages
                 if (this.Dropdown_Cmbx.SelectedIndex != -1)
                 {
                     this.Dropdown_txt.Text = this.Dropdown_Cmbx.SelectedItem.ToString();
-                    if (this.CreditorOrDebtor == "CREDITOR")
+                    CreditorOrDebtor creditorList = (CreditorOrDebtor)this.CreditorOrDebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
+                    if (creditorList != null)
                     {
-                        Creditor creditorList = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
-                        if (creditorList != null)
-                        {
-                            this.FullName_txt.Text = creditorList.name;
-                            this.Address_txt.Text = creditorList.address;
-                            this.MobileNo_txt.Text = creditorList.phone;
-                            this.AlternateNo_txt.Text = creditorList.alternate;
-                            this.Balance_txt.Text = creditorList.standingBalance.ToString();
-                        }
-                    }
-                    else if (this.CreditorOrDebtor == "DEBTOR")
-                    {
-                        Deptor debtorList = (Deptor)this.DebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
-                        if (debtorList != null)
-                        {
-                            this.FullName_txt.Text = debtorList.name;
-                            this.Address_txt.Text = debtorList.address;
-                            this.MobileNo_txt.Text = debtorList.phone;
-                            this.AlternateNo_txt.Text = debtorList.alternate;
-                            this.Balance_txt.Text = debtorList.standingBalance.ToString();
-                        }
+                        this.FullName_txt.Text = creditorList.name;
+                        this.Address_txt.Text = creditorList.address;
+                        this.MobileNo_txt.Text = creditorList.phone;
+                        this.AlternateNo_txt.Text = creditorList.alternate;
+                        this.Balance_txt.Text = creditorList.standingBalance.ToString();
                     }
                     if (Edit_radio.IsChecked == true)
                     {

@@ -25,14 +25,12 @@ namespace SMT_UI.Pages
     {
         String CreditorOrDebtor;
         List<String> AllNames;
-        List<Creditor> CreditorList;
-        List<Deptor> DebtorList;
+        List<CreditorOrDebtor> CreditorList;
         SMT_DataRepository repository;
         public Invoice()
         {
             InitializeComponent();
-            CreditorList = new List<Creditor>();
-            DebtorList = new List<Deptor>();
+            CreditorList = new List<CreditorOrDebtor>();
             repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
         }
@@ -51,27 +49,20 @@ namespace SMT_UI.Pages
         {
             this.CreditorOrDebtor = type;
             this.Title_lbl.Content = type + " INVOICE";
-            if (type == "CREDITOR")
+            this.CreditorList = repository.GetAllCreditorOrDebtor(type);
+            if (this.CreditorList.Count == 0)
             {
-                this.CreditorList = repository.GetAllCreditor();
-                if (this.CreditorList.Count == 0)
+                if (MessageBox.Show("No Records", "Error!", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                 {
-                    if (MessageBox.Show("No Records", "Error!", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                    {
-                        MainPage mainPage = new MainPage();
-                        this.NavigationService.Navigate(mainPage);
-                    }
-                }
-                else
-                {
-                    this.AllNames = this.CreditorList.Select(x => x.name).ToList();
+                    MainPage mainPage = new MainPage();
+                    this.NavigationService.Navigate(mainPage);
                 }
             }
-            else if (type == "DEBTOR")
+            else
             {
-                this.DebtorList = repository.GetAllDeptor();
-                this.AllNames = this.DebtorList.Select(x => x.name).ToList();
+                this.AllNames = this.CreditorList.Select(x => x.name).ToList();
             }
+
             this.Dropdown_Cmbx.ItemsSource = this.AllNames;
         }
         private void NumberValidation(object sender, TextCompositionEventArgs e)
@@ -115,7 +106,7 @@ namespace SMT_UI.Pages
             {
                 MessageBox.Show("Enter a valid date!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if(Quantity == "")
+            else if (Quantity == "")
             {
                 MessageBox.Show("Enter a quantity!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -130,7 +121,7 @@ namespace SMT_UI.Pages
             else
             {
                 IsValid = true;
-               // MessageBox.Show("Submitted!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                // MessageBox.Show("Submitted!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             return IsValid;
         }
@@ -198,7 +189,7 @@ namespace SMT_UI.Pages
         }
 
         private class InvoiceDetails
-        { 
+        {
             public int Serial_no { get; set; }
             public String Product_Name { get; set; }
             public String Date { get; set; }

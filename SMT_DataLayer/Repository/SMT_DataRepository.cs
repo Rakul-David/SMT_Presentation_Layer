@@ -14,13 +14,13 @@ namespace SMT_DataLayer.Repository
         {
             _context = new SMT_DataContext();
         }
-        public bool AddCreditorOrDebitor(CreditorOrDebitor creditorOrDebitor)
+        public bool AddCreditorOrDebtor(CreditorOrDebtor creditorOrDebtor)
         {
             try
             {
-                if (_context.CreditorOrDebitor != null)
+                if (_context.CreditorOrDebtor != null)
                 {
-                    _context.CreditorOrDebitor.Add(creditorOrDebitor);
+                    _context.CreditorOrDebtor.Add(creditorOrDebtor);
                     _context.SaveChange();
                 }
                 return true;
@@ -31,20 +31,20 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-       
-        public bool EditCreditorOrDebitor(CreditorOrDebitor creditorOrDebitor)
+
+        public bool EditCreditorOrDebtor(CreditorOrDebtor creditorOrDebtor)
         {
             try
             {
-                if (_context.CreditorOrDebitor != null && _context.CreditorOrDebitor.Count > 0)
+                if (_context.CreditorOrDebtor != null && _context.CreditorOrDebtor.Count > 0)
                 {
-                    if (creditorOrDebitor != null)
+                    if (creditorOrDebtor != null)
                     {
-                        var credi = _context.CreditorOrDebitor.Where(x => x.id == creditorOrDebitor.id).FirstOrDefault();
+                        var credi = _context.CreditorOrDebtor.Where(x => x.id == creditorOrDebtor.id).FirstOrDefault();
                         if (credi != null)
                         {
-                            _context.CreditorOrDebitor.Remove(credi);
-                            _context.CreditorOrDebitor.Add(creditorOrDebitor);
+                            _context.CreditorOrDebtor.Remove(credi);
+                            _context.CreditorOrDebtor.Add(creditorOrDebtor);
                             _context.SaveChange((int)Details.Creditor);
                             return true;
                         }
@@ -58,19 +58,17 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-       
-        public bool DeleteCreditorOrDebitor(CreditorOrDebitor creditorOrDebitor)
+
+        public bool DeleteCreditorOrDebtor(Guid creditorOrDebtorId)
         {
             try
             {
-                if (_context.CreditorOrDebitor != null && _context.CreditorOrDebitor.Count > 0)
+                if (_context.CreditorOrDebtor != null && _context.CreditorOrDebtor.Count > 0)
                 {
-                    if (creditorOrDebitor != null)
-                    {
-                        _context.CreditorOrDebitor.Remove(creditorOrDebitor);
-                        _context.SaveChange();
-                        return true;
-                    }
+                    var creditorOrDebtor = _context.CreditorOrDebtor.Find(x => x.id == creditorOrDebtorId);
+                    _context.CreditorOrDebtor.Remove(creditorOrDebtor);
+                    _context.SaveChange();
+                    return true;
                 }
                 return false;
             }
@@ -80,15 +78,15 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-      
+
         public double UpdateCreditorBalance(Guid id, double price)
         {
             try
             {
                 double resprice = 0;
-                if (_context.CreditorOrDebitor != null && _context.CreditorOrDebitor.Count > 0)
+                if (_context.CreditorOrDebtor != null && _context.CreditorOrDebtor.Count > 0)
                 {
-                    var UpdatedCreditor = _context.CreditorOrDebitor.FirstOrDefault(x => x.id == id);
+                    var UpdatedCreditor = _context.CreditorOrDebtor.FirstOrDefault(x => x.id == id);
                     UpdatedCreditor.standingBalance -= price;
                     resprice = UpdatedCreditor.standingBalance;
                     _context.SaveChange((int)Details.Creditor);
@@ -101,14 +99,14 @@ namespace SMT_DataLayer.Repository
                 return 0;
             }
         }
-      
-        public List<CreditorOrDebitor> GetAllCreditorOrDebitor()
+
+        public List<CreditorOrDebtor> GetAllCreditorOrDebtor()
         {
             try
             {
-                if (_context.CreditorOrDebitor != null)
+                if (_context.CreditorOrDebtor != null)
                 {
-                    return _context.CreditorOrDebitor;
+                    return _context.CreditorOrDebtor;
                 }
             }
             catch (Exception ex)
@@ -117,18 +115,42 @@ namespace SMT_DataLayer.Repository
             }
             return null;
         }
-        
-       
-        public bool AddInvoiceforCreditorOrDebitor(Invoice invoice)
+
+        public List<CreditorOrDebtor> GetAllCreditorOrDebtor(String type)
         {
             try
             {
-                if (_context.Invoices != null&&invoice!=null)
+                if (_context.CreditorOrDebtor != null)
                 {
-                   
-                  _context.Invoices.Add(invoice);
-                  _context.SaveChange();
-                  return true;
+                    if (type.Equals("CREDITOR"))
+                    {
+                        return _context.CreditorOrDebtor.Where(x => x.UserIdentity == Guid.Parse(Enumeration.Atributes[(int)Details.Creditor])).ToList();
+                    }
+                    else
+                    {
+                        return _context.CreditorOrDebtor.Where(x => x.UserIdentity == Guid.Parse(Enumeration.Atributes[(int)Details.Deptor])).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+            return null;
+        }
+
+
+
+        public bool AddInvoiceforCreditorOrDebtor(Invoice invoice)
+        {
+            try
+            {
+                if (_context.Invoices != null && invoice != null)
+                {
+
+                    _context.Invoices.Add(invoice);
+                    _context.SaveChange();
+                    return true;
                 }
                 return false;
             }
