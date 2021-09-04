@@ -102,26 +102,39 @@ namespace SMT_UI.Pages
 
 
         List<InvoiceDetails> DetailsList = new List<InvoiceDetails>();
+        //private void Add_btn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    bool IsValid = Fieldvalidations();
+        //    int serialno = 1;
+        //    String Item_Name = ItemName_txt.Text;
+        //    String date = Dates_dtd.Text;
+        //    double Quantity = Convert.ToDouble(Qnty_txt.Text);
+        //    String Units =Units_Cmbx.Text;
+        //    double PricePerUnit = Convert.ToDouble(PricePerUnit_txt.Text);
+        //    double subTotal = Quantity * PricePerUnit;
+
+        //    if (IsValid == true)
+        //    {
+        //        this.DetailsList.Add(new InvoiceDetails() { Serial_no = serialno, Product_Name = Item_Name, Quantity = Quantity, Units = Units, Units_Per_Price = PricePerUnit, Date = date, Sub_Total = subTotal });
+        //        this.FullInvoice.ItemsSource = DetailsList;
+        //        this.Yes_radio.IsEnabled = true;
+        //        this.No_radio.IsEnabled = true;
+        //    }
+        //}
+
+
         private void Add_btn_Click(object sender, RoutedEventArgs e)
         {
-            bool IsValid = Fieldvalidations();
-            int serialno = 1;
-            String Item_Name = ItemName_txt.Text;
-            String date = Dates_dtd.Text;
-            double Quantity = Convert.ToDouble(Qnty_txt.Text);
-            String Units =Units_Cmbx.Text;
-            double PricePerUnit = Convert.ToDouble(PricePerUnit_txt.Text);
-            double subTotal = Quantity * PricePerUnit;
-            
-            if (IsValid == true)
-            {
-                this.DetailsList.Add(new InvoiceDetails() { Serial_no = serialno, Product_Name = Item_Name, Quantity = Quantity, Units = Units, Units_Per_Price = PricePerUnit, Date = date, Sub_Total = subTotal });
-                this.FullInvoice.ItemsSource = DetailsList;
-                this.Yes_radio.IsEnabled = true;
-                this.No_radio.IsEnabled = true;
-            }
-        }
+            InvoiceDetails invoiced = new InvoiceDetails();
+            invoiced.Product_Name = ItemName_txt.Text;
+            invoiced.Date = Dates_dtd.Text;
+            invoiced.Quantity = Convert.ToDouble(Qnty_txt.Text);
+            invoiced.Units = Units_Cmbx.Text;
+            invoiced.Units_Per_Price = Convert.ToDouble(PricePerUnit_txt.Text);
+            invoiced.Sub_Total = invoiced.Quantity * invoiced.Units_Per_Price;
+            FullInvoice.Items.Add(invoiced);
 
+        }
         private void EnableButton(object sender, KeyEventArgs e)
         {
             this.EnableButtonValidation();
@@ -147,7 +160,7 @@ namespace SMT_UI.Pages
             }
         }
 
-        class InvoiceDetails
+        public class InvoiceDetails
         { 
             public int Serial_no { get; set; }
             public String Product_Name { get; set; }

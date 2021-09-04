@@ -152,7 +152,7 @@
             <DataGrid x:Name="FullInvoice" Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="FontSize" Value="16"/>
                         <Setter Property="FontWeight" Value="Black"/>
                         <Setter Property="FontFamily" Value="Cambria"/>
                         <Setter Property="BorderThickness" Value="1,1,1,1"/>
@@ -161,13 +161,13 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="Serial_no" Binding="{Binding Path = Serial_no}" Header="SR NO." Width="70"/>
-                    <DataGridTextColumn x:Name="Product_Name" Binding="{Binding Path = Product_Name}" Header="NAME OF THE PRODUCT" Width="450"/>
-                    <DataGridTextColumn x:Name="Quantity" Binding="{Binding Path = Quantity}" Header="QNTY" Width="100"/>
-                    <DataGridTextColumn x:Name="Units" Binding="{Binding Path = Units}" Header="UNITS" Width="150"/>
-                    <DataGridTextColumn x:Name="Units_Per_Price" Binding="{Binding Path = Units_Per_Price}" Header="UNIT/PRICE" Width="150"/>
-                    <DataGridTextColumn x:Name="Date" Binding="{Binding Path = Date}" Header="DATE" Width="100"/>
-                    <DataGridTextColumn x:Name="Sub_Total" Binding="{Binding Path = Sub_Total}" Header="SUB-TOTAL" Width="*"/>
+                    <DataGridTextColumn x:Name="Serial_no" Binding="{Binding Serial_no}" Header="SR NO." Width="70"/>
+                    <DataGridTextColumn x:Name="Product_Name" Binding="{Binding Product_Name}" Header="NAME OF THE PRODUCT" Width="450"/>
+                    <DataGridTextColumn x:Name="Quantity" Binding="{Binding Quantity}" Header="QNTY" Width="100"/>
+                    <DataGridTextColumn x:Name="Units" Binding="{Binding Units}" Header="UNITS" Width="150"/>
+                    <DataGridTextColumn x:Name="Units_Per_Price" Binding="{Binding Units_Per_Price}" Header="UNIT/PRICE" Width="150"/>
+                    <DataGridTextColumn x:Name="Date" Binding="{Binding Date}" Header="DATE" Width="100"/>
+                    <DataGridTextColumn x:Name="Sub_Total" Binding="{Binding Sub_Total}" Header="SUB-TOTAL" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2"/>
