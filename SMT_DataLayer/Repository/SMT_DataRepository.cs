@@ -14,13 +14,13 @@ namespace SMT_DataLayer.Repository
         {
             _context = new SMT_DataContext();
         }
-        public bool AddCreditor(Creditor creditor)
+        public bool AddCreditorOrDebitor(CreditorOrDebitor creditorOrDebitor)
         {
             try
             {
-                if (_context.Creditors != null)
+                if (_context.CreditorOrDebitor != null)
                 {
-                    _context.Creditors.Add(creditor);
+                    _context.CreditorOrDebitor.Add(creditorOrDebitor);
                     _context.SaveChange();
                 }
                 return true;
@@ -31,36 +31,20 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-        public bool AddDeptor(Deptor deptor)
+       
+        public bool EditCreditorOrDebitor(CreditorOrDebitor creditorOrDebitor)
         {
             try
             {
-                if (_context.Deptors != null)
+                if (_context.CreditorOrDebitor != null && _context.CreditorOrDebitor.Count > 0)
                 {
-                    _context.Deptors.Add(deptor);
-                    _context.SaveChange();
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return false;
-            }
-        }
-        public bool EditCreditor(Creditor creditor)
-        {
-            try
-            {
-                if (_context.Creditors != null && _context.Creditors.Count > 0)
-                {
-                    if (creditor != null)
+                    if (creditorOrDebitor != null)
                     {
-                        var credi = _context.Creditors.Where(x => x.id == creditor.id).FirstOrDefault();
+                        var credi = _context.CreditorOrDebitor.Where(x => x.id == creditorOrDebitor.id).FirstOrDefault();
                         if (credi != null)
                         {
-                            _context.Creditors.Remove(credi);
-                            _context.Creditors.Add(creditor);
+                            _context.CreditorOrDebitor.Remove(credi);
+                            _context.CreditorOrDebitor.Add(creditorOrDebitor);
                             _context.SaveChange((int)Details.Creditor);
                             return true;
                         }
@@ -74,41 +58,16 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-        public bool EditDeptor(Deptor deptor)
+       
+        public bool DeleteCreditorOrDebitor(CreditorOrDebitor creditorOrDebitor)
         {
             try
             {
-                if (_context.Deptors != null && _context.Deptors.Count > 0)
+                if (_context.CreditorOrDebitor != null && _context.CreditorOrDebitor.Count > 0)
                 {
-                    if (deptor != null)
+                    if (creditorOrDebitor != null)
                     {
-                        var dept = _context.Deptors.Where(x => x.id == deptor.id).FirstOrDefault();
-                        if (dept != null)
-                        {
-                            _context.Deptors.Remove(dept);
-                            _context.Deptors.Add(deptor);
-                            _context.SaveChange((int)Details.Deptor);
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return false;
-            }
-        }
-        public bool DeleteCreditor(Creditor creditor)
-        {
-            try
-            {
-                if (_context.Creditors != null && _context.Creditors.Count > 0)
-                {
-                    if (creditor != null)
-                    {
-                        _context.Creditors.Remove(creditor);
+                        _context.CreditorOrDebitor.Remove(creditorOrDebitor);
                         _context.SaveChange();
                         return true;
                     }
@@ -121,35 +80,15 @@ namespace SMT_DataLayer.Repository
                 return false;
             }
         }
-        public bool DeleteDeptor(Deptor deptor)
-        {
-            try
-            {
-                if (_context.Deptors != null && _context.Deptors.Count > 0)
-                {
-                    if (deptor != null)
-                    {
-                         _context.Deptors.Remove(deptor);
-                        _context.SaveChange();
-                        return true;
-                    }
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return false;
-            }
-        }
-        public double UpdateCreditorBalance(int id, double price)
+      
+        public double UpdateCreditorBalance(Guid id, double price)
         {
             try
             {
                 double resprice = 0;
-                if (_context.Creditors != null && _context.Creditors.Count > 0)
+                if (_context.CreditorOrDebitor != null && _context.CreditorOrDebitor.Count > 0)
                 {
-                    var UpdatedCreditor = _context.Creditors.FirstOrDefault(x => x.id == id);
+                    var UpdatedCreditor = _context.CreditorOrDebitor.FirstOrDefault(x => x.id == id);
                     UpdatedCreditor.standingBalance -= price;
                     resprice = UpdatedCreditor.standingBalance;
                     _context.SaveChange((int)Details.Creditor);
@@ -162,33 +101,14 @@ namespace SMT_DataLayer.Repository
                 return 0;
             }
         }
-        public double UpdateDeptorBalance(int id, double price)
+      
+        public List<CreditorOrDebitor> GetAllCreditorOrDebitor()
         {
             try
             {
-                double resPrice = 0;
-                if (_context.Deptors != null && _context.Deptors.Count > 0)
+                if (_context.CreditorOrDebitor != null)
                 {
-                    var UpdatedDeptor = _context.Deptors.FirstOrDefault(x => x.id == id);
-                    UpdatedDeptor.standingBalance -= price;
-                    resPrice = UpdatedDeptor.standingBalance;
-                    _context.SaveChange((int)Details.Deptor);
-                }
-                return resPrice;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return 0;
-            }
-        }
-        public List<Creditor> GetAllCreditor()
-        {
-            try
-            {
-                if (_context.Creditors != null)
-                {
-                    return _context.Creditors;
+                    return _context.CreditorOrDebitor;
                 }
             }
             catch (Exception ex)
@@ -197,166 +117,20 @@ namespace SMT_DataLayer.Repository
             }
             return null;
         }
-        public List<Deptor> GetAllDeptor()
+        
+       
+        public bool AddInvoiceforCreditorOrDebitor(Invoice invoice)
         {
             try
             {
-                if (_context.Deptors != null && _context.Deptors.Count > 0)
+                if (_context.Invoices != null&&invoice!=null)
                 {
-                    return _context.Deptors;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-            }
-            return null;
-        }
-        public Invoice GetInvoiceforCreditor(int Id)
-        {
-            try
-            {
-                if (_context.Creditors != null && _context.Creditors.Count > 0)
-                {
-                    var creditorDetail = _context.Creditors.FirstOrDefault(x => x.id == Id);
-                    Invoice invoice = new Invoice();
-                    invoice.name = creditorDetail.name;
-                    invoice.address = creditorDetail.address;
-                    invoice.phone = creditorDetail.phone;
-                    return invoice;
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return null;
-            }
-        }
-        public Invoice GetInvoiceforDeptor(int Id)
-        {
-            try
-            {
-                if (_context.Creditors != null && _context.Creditors.Count > 0)
-                {
-                    var DeptorDetail = _context.Deptors.FirstOrDefault(x => x.id == Id);
-                    Invoice invoice = new Invoice();
-                    invoice.name = DeptorDetail.name;
-                    invoice.address = DeptorDetail.address;
-                    invoice.phone = DeptorDetail.phone;
-                    return invoice;
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return null;
-            }
-        }
-        public bool AddInvoiceforCreditor(List<Invoice> invoicelist, int id)
-        {
-            try
-            {
-                if (invoicelist != null && invoicelist.Count > 0)
-                {
-                    int invoiceId = invoicelist[0].generateId();
-                    foreach (Invoice invoice in invoicelist)
-                    {
-                        invoice.invoiceId = invoiceId;
-                        invoice.forId = id;
-                        invoice.forGuid = Guid.Parse(Enumeration.Atributes[(int)Details.Creditor]);
-                        _context.Invoices.Add(invoice);
-                    }
-                    _context.SaveChange();
-                    return true;
+                   
+                  _context.Invoices.Add(invoice);
+                  _context.SaveChange();
+                  return true;
                 }
                 return false;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return false;
-            }
-        }
-        public bool AddInvoiceforDeptor(List<Invoice> invoicelist, int id)
-        {
-            try
-            {
-                if (invoicelist != null && invoicelist.Count > 0)
-                {
-                    int invoiceId = invoicelist[0].generateId();
-                    foreach (Invoice invoice in invoicelist)
-                    {
-                        invoice.invoiceId = invoiceId;
-                        invoice.forId = id;
-                        invoice.forGuid = Guid.Parse(Enumeration.Atributes[(int)Details.Deptor]);
-                        _context.Invoices.Add(invoice);
-                    }
-                    _context.SaveChange();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return false;
-            }
-        }
-        public List<Invoice> SearchInvoice(string name)
-        {
-            try
-            {
-                if (_context.Invoices.Count > 0 && _context.Invoices != null)
-                {
-                    List<Invoice> result = new List<Invoice>();
-                    foreach (Invoice invoice in _context.Invoices)
-                    {
-                        if (invoice.name.ToLower().Contains(name.ToLower()))
-                        {
-                            result.Add(invoice);
-                        }
-                    }
-                    return result;
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-                return null;
-            }
-        }
-        public bool PayIn(int invoiceId, double amount)
-        {
-            try
-            {
-                var Invoice = _context.Invoices.Find(x => x.invoiceId == invoiceId);
-                string name = "";
-                double balance = 0;
-                string payee = "";
-                if (Invoice.forGuid.Equals(Guid.Parse(Enumeration.Atributes[(int)Details.Creditor])))
-                {
-                    balance = this.UpdateCreditorBalance(Invoice.forId, amount);
-                    name = _context.Creditors.Where(x => x.id == Invoice.forId).Select(x => x.name).FirstOrDefault();
-                    payee = "Creditor";
-                }
-                else if (Invoice.forGuid.Equals(Guid.Parse(Enumeration.Atributes[(int)Details.Deptor])))
-                {
-                    balance = this.UpdateDeptorBalance(Invoice.forId, amount);
-                    name = _context.Deptors.Where(x => x.id == Invoice.forId).Select(x => x.name).FirstOrDefault();
-                    payee = "Deptor";
-                }
-                PayIn_Out p = new PayIn_Out();
-                p.name = name;
-                p.standingBalance = balance;
-                p.invoiceId = invoiceId;
-                p.amount = amount;
-                p.payer = payee;
-                p.Date = DateTime.Now;
-                _context.Payee.Add(p);
-                return true;
             }
             catch (Exception ex)
             {

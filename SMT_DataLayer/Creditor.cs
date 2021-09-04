@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace SMT_DataLayer
 {
-    public class Creditor
+    public class CreditorOrDebitor
     {
-        static int i = 0;
-        public Creditor()
-        {
-            i++;
-        }
-        public int id = i;
+        public Guid id = Guid.NewGuid();
+        public Guid UserIdentity { get; set; }
         public string name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }

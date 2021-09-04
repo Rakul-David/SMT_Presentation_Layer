@@ -75,7 +75,6 @@
     <Compile Include="Creditor.cs" />
     <Compile Include="Data\ErrorLog.cs" />
     <Compile Include="Data\SMT_DataContext.cs" />
-    <Compile Include="Deptor.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="PayIn_Out.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

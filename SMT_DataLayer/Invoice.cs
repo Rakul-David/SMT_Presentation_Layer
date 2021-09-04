@@ -8,21 +8,23 @@ namespace SMT_DataLayer
 {
     public class Invoice
     {
-        private static int i = 0;
-        public int generateId()
-        {
-            return ++i;
-        }
-        public int invoiceId { get; set; }
-        public int forId { get; set; }
-        public Guid forGuid { get; set; }
-        public string name { get; set; }
-        public string address { get; set; }
-        public string phone { get; set; }
+      
+        public Guid forid { get; set; }
+        public Guid forUid { get; set; }
+
+        public Guid id = Guid.NewGuid();
+        public double total { get; set; }
+        public bool gst { get; set; }
+        public DateTime invoiceDate { get; set; }
+        public List<InvoiceDetails> invoiceDetails { get; set; }
+    }
+    public class InvoiceDetails
+    {
         public string productName { get; set; }
-        public int quantity { get; set; }
+        public double quantity { get; set; }
         public string units { get; set; }
         public double price { get; set; }
-        public double total { get; set; }
+        public double subtotal { get; set; }
+        public string date { get; set; }
     }
 }
