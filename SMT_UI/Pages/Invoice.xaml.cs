@@ -24,21 +24,55 @@ namespace SMT_UI.Pages
     public partial class Invoice : Page
     {
         String CreditorOrDebtor;
+        List<String> AllNames;
+        List<Creditor> CreditorList;
+        List<Deptor> DebtorList;
+        SMT_DataRepository repository;
         public Invoice()
         {
             InitializeComponent();
+            CreditorList = new List<Creditor>();
+            DebtorList = new List<Deptor>();
+            repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
         }
-        
+
+        private void NavServiceOnNavigated(object sender, NavigationEventArgs args)
+        {
+            this.NavigationService.RemoveBackEntry();
+            this.NavigationService.Navigated -= NavServiceOnNavigated;
+        }
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             MainPage mainPage = new MainPage();
             this.NavigationService.Navigate(mainPage);
         }
-        public void staticDetails(String Type)
+        public void staticDetails(String type)
         {
-            this.CreditorOrDebtor = Type;
-            this.Title_lbl.Content = Type + " INVOICE";
+            this.CreditorOrDebtor = type;
+            this.Title_lbl.Content = type + " INVOICE";
+            if (type == "CREDITOR")
+            {
+                this.CreditorList = repository.GetAllCreditor();
+                if (this.CreditorList.Count == 0)
+                {
+                    if (MessageBox.Show("No Records", "Error!", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        MainPage mainPage = new MainPage();
+                        this.NavigationService.Navigate(mainPage);
+                    }
+                }
+                else
+                {
+                    this.AllNames = this.CreditorList.Select(x => x.name).ToList();
+                }
+            }
+            else if (type == "DEBTOR")
+            {
+                this.DebtorList = repository.GetAllDeptor();
+                this.AllNames = this.DebtorList.Select(x => x.name).ToList();
+            }
+            this.Dropdown_Cmbx.ItemsSource = this.AllNames;
         }
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
@@ -52,6 +86,7 @@ namespace SMT_UI.Pages
                 ErrorLog.Log(ex);
             }
         }
+
         private void No_Spaces(object sender, KeyEventArgs e)
         {
             try
@@ -144,10 +179,12 @@ namespace SMT_UI.Pages
         {
             this.EnableButtonValidation();
         }
+
         private void Date_Filled(object sender, SelectionChangedEventArgs e)
         {
             this.EnableButtonValidation();
         }
+
         private void EnableButtonValidation()
         {
             if (this.ItemName_txt.Text != "" && this.Dates_dtd.Text != "" && this.Qnty_txt.Text != "" && this.PricePerUnit_txt.Text != "" && this.Units_Cmbx.SelectedIndex != -1)
@@ -160,7 +197,7 @@ namespace SMT_UI.Pages
             }
         }
 
-        public class InvoiceDetails
+        private class InvoiceDetails
         { 
             public int Serial_no { get; set; }
             public String Product_Name { get; set; }
@@ -169,6 +206,86 @@ namespace SMT_UI.Pages
             public string Units { get; set; }
             public double Units_Per_Price { get; set; }
             public double Sub_Total { get; set; }
+        }
+
+        private void Dropdown_Cmbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (this.Dropdown_Cmbx.SelectedIndex != -1)
+                {
+                    this.Dropdown_txt.Text = this.Dropdown_Cmbx.SelectedItem.ToString();
+                    this.ItemName_txt.IsEnabled = true;
+                    this.Dates_dtd.IsEnabled = true;
+                    this.Qnty_txt.IsEnabled = true;
+                    this.Units_Cmbx.IsEnabled = true;
+                    this.PricePerUnit_txt.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+        }
+
+        private void filterDropDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                this.Dropdown_Cmbx.Text = this.Dropdown_txt.Text;
+                if (e.Key.ToString() != null)
+                {
+                    if (this.Dropdown_Cmbx.Text != "")
+                    {
+                        List<String> filteredList = this.AllNames.FindAll(x => x.Contains(this.Dropdown_Cmbx.Text.ToUpper()));
+                        if (filteredList != null && filteredList.Count() > 0)
+                        {
+                            this.Dropdown_Cmbx.ItemsSource = filteredList;
+                            this.Dropdown_Cmbx.IsDropDownOpen = true;
+                        }
+                        else
+                        {
+                            this.Dropdown_Cmbx.IsDropDownOpen = false;
+                        }
+                    }
+                    else
+                    {
+                        this.Dropdown_Cmbx.IsDropDownOpen = false;
+                    }
+                }
+                else
+                {
+                    this.Dropdown_Cmbx.IsDropDownOpen = false;
+                    this.clearAll();
+                    this.ItemName_txt.IsEnabled = false;
+                    this.Dates_dtd.IsEnabled = false;
+                    this.Qnty_txt.IsEnabled = false;
+                    this.Units_Cmbx.IsEnabled = false;
+                    this.PricePerUnit_txt.IsEnabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
+        }
+
+        private void clearAll()
+        {
+            try
+            {
+                this.Dropdown_Cmbx.SelectedIndex = -1;
+                this.Dropdown_txt.Clear();
+                this.ItemName_txt.Clear();
+                this.Dates_dtd.Text = null;
+                this.Qnty_txt.Clear();
+                this.Units_Cmbx.SelectedIndex = -1;
+                this.PricePerUnit_txt.Clear();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
     }

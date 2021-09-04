@@ -29,6 +29,7 @@
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="IsEnabled" Value="False"/>
         </Style>
         <Style x:Key="Buttons" TargetType="Button">
             <Setter Property="Height" Value="30"/>
@@ -110,11 +111,13 @@
                 </Grid.RowDefinitions>
 
                 <!--#region DropDown -->
-                <ComboBox x:Name="Dropdown_Cmbx" FontSize="20" FontFamily="Cambria" Height="30" BorderBrush="Black" Grid.Row="0" Grid.ColumnSpan="3" Margin="30,0,10,0" Cursor="Hand" IsEditable="True" IsTextSearchEnabled="True" BorderThickness="1"/>
+                <ComboBox x:Name="Dropdown_Cmbx" FontSize="20" FontFamily="Cambria" Height="30" BorderBrush="Black" Grid.Row="0" Grid.ColumnSpan="3" Margin="30,0,10,0" MaxDropDownHeight="185"  Cursor="Hand" IsEditable="False" IsTextSearchEnabled="True" BorderThickness="1" SelectionChanged="Dropdown_Cmbx_SelectionChanged"/>
+                <TextBox x:Name="Dropdown_txt" Style="{StaticResource TextBoxes}" IsEnabled="True" Height="30" Margin="30,0,27,0" HorizontalAlignment="Stretch" Grid.Row="0" Grid.ColumnSpan="3" KeyUp="filterDropDown"/>
+
                 <!--#endregion-->
 
                 <!--#region InputLabels -->
-                <Label Style="{StaticResource labels}" Content="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalContentAlignment="Center" Margin="30,0" BorderBrush="Black" BorderThickness="1"/>
+                <Label x:Name="InvoiceID_lbl"  Style="{StaticResource labels}" Content="INVOICE: 0003-2917-IN" Grid.Row="0"  Grid.Column="3" HorizontalContentAlignment="Center" Margin="30,0" BorderBrush="Black" BorderThickness="1"/>
                 <Label Style="{StaticResource labels}" Content="NAME :" Grid.Row="1" Grid.ColumnSpan="2" Margin="30,0,0,0"/>
                 <Label Style="{StaticResource labels}" Content="DATE :" Grid.Row="1" Grid.Column="2"/>
                 <Label Style="{StaticResource labels}" Content="QNTY :" Grid.Row="2" Grid.Column="0" Margin="30,0,0,0"/>
@@ -123,21 +126,21 @@
                 <!--#endregion-->
 
                 <!--#region InputFields -->
-                <TextBox x:Name="ItemName_txt" Style="{StaticResource TextBoxes}" KeyUp="EnableButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
-                <DatePicker x:Name="Dates_dtd" Grid.Row="1" Grid.Column="2" Margin="110,0,10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="16" FontFamily="Cambria" SelectedDateChanged="Date_Filled">
+                <TextBox x:Name="ItemName_txt" Style="{StaticResource TextBoxes}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0" KeyUp="EnableButton" />
+                <DatePicker x:Name="Dates_dtd" Grid.Row="1" Grid.Column="2" Margin="110,0,10,0" IsEnabled="False" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="16" FontFamily="Cambria" SelectedDateChanged="Date_Filled">
                     <DatePicker.Resources>
                         <Style TargetType = "DatePickerTextBox">
                             <Setter Property="IsReadOnly" Value="True"/>
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
-                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" KeyUp="EnableButton" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewTextInput="NumberValidation" KeyDown="No_Spaces"/>
-                <ComboBox x:Name="Units_Cmbx" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" VerticalContentAlignment="Center" Height="30" SelectionChanged="Units_Cmbx_Selection">
+                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewTextInput="NumberValidation" KeyDown="No_Spaces" KeyUp="EnableButton"/>
+                <ComboBox x:Name="Units_Cmbx" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" IsEnabled="False" VerticalContentAlignment="Center" Height="30" SelectionChanged="Units_Cmbx_Selection">
                     <ListBoxItem Content="Kilogram" Cursor="Hand"/>
                     <ListBoxItem Content="Dozen" Cursor="Hand"/>
                     <ListBoxItem Content="Pieces" Cursor="Hand"/>
                 </ComboBox>
-                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" KeyUp="EnableButton" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" KeyDown="No_Spaces"/>
+                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" KeyDown="No_Spaces" KeyUp="EnableButton"/>
                 <!--#endregion-->
 
                 <!--#region AddUpdateDeleteButton -->
