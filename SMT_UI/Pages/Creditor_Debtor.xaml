@@ -9,11 +9,6 @@
 
     <Page.Resources>
         <Style x:Key="RadioCircle" TargetType="RadioButton">
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
-                </Setter.Value>
-            </Setter>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontFamily" Value="Cambria"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -22,14 +17,13 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="Combo" TargetType="ComboBox">
-            <Style.Triggers>
-                <Trigger Property="IsMouseCaptureWithin" Value="True">
-                    <Setter Property="IsDropDownOpen" Value="true" />
-                    <Setter Property="StaysOpenOnEdit" Value="True"/>
-                </Trigger>
-            </Style.Triggers>
             <Setter Property="Height" Value="35"/>
             <Setter Property="Width" Value="965"/>
             <Setter Property="FontSize" Value="24"/>
@@ -38,12 +32,19 @@
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="IsEditable" Value="False"/>
             <Setter Property="IsTextSearchEnabled" Value="False"/>
             <Setter Property="IsEnabled" Value="False"/>
             <Setter Property="Visibility" Value="Hidden"/>
             <Setter Property="MaxDropDownHeight" Value="185"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="100,150,0,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseCaptureWithin" Value="True">
+                    <Setter Property="IsDropDownOpen" Value="true" />
+                    <Setter Property="StaysOpenOnEdit" Value="True"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="Labels" TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -132,7 +133,8 @@
 
             <!--#region DropDown -->
             <Label x:Name="ComboBox_lbl" Style="{StaticResource Labels}" Margin="100,125,0,0" FontSize="14" FontFamily="Arial" Foreground="Gray"/>
-            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" Margin="100,150,0,0" SelectionChanged="Dropdown_Cmbx_SelectionChanged" KeyUp="filterDropDown"/>
+            <ComboBox x:Name="Dropdown_Cmbx" Style="{StaticResource Combo}" SelectionChanged="Dropdown_Cmbx_SelectionChanged"/>
+            <TextBox x:Name="Dropdown_txt" Style="{StaticResource Textboxes}" Visibility="Hidden" Height="35" Width="948" Margin="100,150,0,0" HorizontalAlignment="Left" KeyUp="filterDropDown"/>
             <!--#endregion-->
 
             <!--#region Labels -->

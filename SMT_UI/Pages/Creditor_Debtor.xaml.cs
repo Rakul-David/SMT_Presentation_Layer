@@ -82,8 +82,8 @@ namespace SMT_UI.Pages
                 this.Update_Logic_btn.Visibility = Visibility.Hidden;
                 this.Delete_Logic_btn.Visibility = Visibility.Hidden;
                 this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
-                this.Add_Logic_btn.IsEnabled = false;
-                this.Dropdown_Cmbx.IsEnabled = false;
+                this.Dropdown_txt.Visibility = Visibility.Hidden;
+                this.Add_Logic_btn.IsEnabled = false;                
                 this.FullName_txt.IsEnabled = true;
                 this.Address_txt.IsEnabled = true;
                 this.MobileNo_txt.IsEnabled = true;
@@ -166,9 +166,12 @@ namespace SMT_UI.Pages
                 this.Dropdown_Cmbx.ItemsSource = this.AllNames;
                 this.Add_Logic_btn.Visibility = Visibility.Hidden;
                 this.Dropdown_Cmbx.Visibility = Visibility.Visible;
+                this.Dropdown_txt.Visibility = Visibility.Visible;
                 this.Dropdown_Cmbx.Text = "";
+                this.Dropdown_txt.Text = "";
                 this.Update_Logic_btn.IsEnabled = false;
                 this.Dropdown_Cmbx.IsEnabled = true;
+                this.Dropdown_txt.IsEnabled = true;
                 this.FullName_txt.IsEnabled = false;
                 this.Address_txt.IsEnabled = false;
                 this.MobileNo_txt.IsEnabled = false;
@@ -199,7 +202,9 @@ namespace SMT_UI.Pages
                 this.AlternateNo_txt.IsEnabled = false;
                 this.Balance_txt.IsEnabled = false;
                 this.Dropdown_Cmbx.IsEnabled = false;
+                this.Dropdown_txt.IsEnabled = false;
                 this.Dropdown_Cmbx.Visibility = Visibility.Hidden;
+                this.Dropdown_txt.Visibility = Visibility.Hidden;
                 this.ComboBox_lbl.Visibility = Visibility.Hidden;
             }
         }
@@ -209,6 +214,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.Dropdown_Cmbx.SelectedIndex = -1;
+                this.Dropdown_txt.Clear();
                 this.FullName_txt.Clear();
                 this.Address_txt.Clear();
                 this.MobileNo_txt.Clear();
@@ -401,7 +407,7 @@ namespace SMT_UI.Pages
                 string altno = this.AlternateNo_txt.Text;
                 string bal = this.Balance_txt.Text;
                 bool isValid = false;
-                if (this.AllNames != null && this.AllNames.Count() > 0)
+                if (this.AllNames != null && this.AllNames.Count() > 0 && this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text) != null)
                 {
                     string duplicateName = this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text).ToString();
                     if (duplicateName != null && duplicateName != this.Dropdown_Cmbx.Text)
@@ -449,10 +455,10 @@ namespace SMT_UI.Pages
             {
                 if (this.Dropdown_Cmbx.SelectedIndex != -1)
                 {
+                    this.Dropdown_txt.Text = this.Dropdown_Cmbx.SelectedItem.ToString();
                     if (this.CreditorOrDebtor == "CREDITOR")
                     {
-                        Creditor creditorList = new Creditor();
-                        creditorList = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
+                        Creditor creditorList = (Creditor)this.CreditorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
                         if (creditorList != null)
                         {
                             this.FullName_txt.Text = creditorList.name;
@@ -464,7 +470,7 @@ namespace SMT_UI.Pages
                     }
                     else if (this.CreditorOrDebtor == "DEBTOR")
                     {
-                        Deptor debtorList = (Deptor)this.DebtorList.Select(x => x.name == this.Dropdown_Cmbx.Text);
+                        Deptor debtorList = (Deptor)this.DebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
                         if (debtorList != null)
                         {
                             this.FullName_txt.Text = debtorList.name;
@@ -526,8 +532,8 @@ namespace SMT_UI.Pages
         {
             try
             {
-                string keyPressed = e.Key.ToString();
-                if (this.FullName_txt.Text == "" && keyPressed != null && ((keyPressed.Length == 1 && char.IsLetterOrDigit(keyPressed[0])) || keyPressed == "Back"))
+                this.Dropdown_Cmbx.Text = this.Dropdown_txt.Text;
+                if (this.FullName_txt.Text == "" && e.Key.ToString() != null)
                 {
                     if (this.Dropdown_Cmbx.Text != "")
                     {
@@ -549,6 +555,7 @@ namespace SMT_UI.Pages
                 }
                 else
                 {
+                    this.Dropdown_Cmbx.IsDropDownOpen = false;
                     this.clearAll();
                     this.FullName_txt.IsEnabled = false;
                     this.Address_txt.IsEnabled = false;
@@ -557,7 +564,7 @@ namespace SMT_UI.Pages
                     this.Balance_txt.IsEnabled = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorLog.Log(ex);
             }
