@@ -42,6 +42,7 @@
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="IsEnabled" Value="False"/>
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="25"/>
@@ -122,21 +123,21 @@
                 <!--#endregion-->
 
                 <!--#region InputFields -->
-                <TextBox x:Name="ItemName_txt" Style="{StaticResource TextBoxes}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
-                <DatePicker x:Name="Dates_dtd" Grid.Row="1" Grid.Column="2" Margin="110,0,10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="16" FontFamily="Cambria">
+                <TextBox x:Name="ItemName_txt" Style="{StaticResource TextBoxes}" KeyUp="EnableButton" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="85,0,10,0"/>
+                <DatePicker x:Name="Dates_dtd" Grid.Row="1" Grid.Column="2" Margin="110,0,10,0" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="16" FontFamily="Cambria" SelectedDateChanged="Date_Filled">
                     <DatePicker.Resources>
                         <Style TargetType = "DatePickerTextBox">
                             <Setter Property="IsReadOnly" Value="True"/>
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
-                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewTextInput="NumberValidation" KeyDown="No_Spaces"/>
-                <ComboBox x:Name="Units_Cmbx" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" VerticalContentAlignment="Center" Height="30">
+                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" KeyUp="EnableButton" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewTextInput="NumberValidation" KeyDown="No_Spaces"/>
+                <ComboBox x:Name="Units_Cmbx" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" VerticalContentAlignment="Center" Height="30" SelectionChanged="Units_Cmbx_Selection">
                     <ListBoxItem Content="Kilogram" Cursor="Hand"/>
                     <ListBoxItem Content="Dozen" Cursor="Hand"/>
                     <ListBoxItem Content="Pieces" Cursor="Hand"/>
                 </ComboBox>
-                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" KeyDown="No_Spaces"/>
+                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" KeyUp="EnableButton" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" KeyDown="No_Spaces"/>
                 <!--#endregion-->
 
                 <!--#region AddUpdateDeleteButton -->
