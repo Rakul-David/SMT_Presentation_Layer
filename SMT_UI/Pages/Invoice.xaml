@@ -140,7 +140,7 @@
                 <!--#endregion-->
 
                 <!--#region AddUpdateDeleteButton -->
-                <Button x:Name="Add_btn" Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,0"/>
+                <Button x:Name="Add_btn" Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,6,30,0" VerticalAlignment="Top" Click="Add_btn_Click"/>
                 <Button x:Name="Update_btn" Style="{StaticResource Buttons}" Content="UPDATE" Grid.Row="2" Grid.Column="3" Margin="30,0,135,0"/>
                 <Button x:Name="Delete_btn" Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0"/>
                 <!--#endregion-->
@@ -160,13 +160,13 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="SR NO." MaxWidth="70" MinWidth="70"/>
-                    <DataGridTextColumn Header="NAME OF THE PRODUCT" MaxWidth="450" MinWidth="450"/>
-                    <DataGridTextColumn Header="QNTY" MaxWidth="100" MinWidth="100"/>
-                    <DataGridTextColumn Header="UNITS" MaxWidth="150" MinWidth="150"/>
-                    <DataGridTextColumn Header="UNIT/PRICE" MaxWidth="150" MinWidth="150"/>
-                    <DataGridTextColumn Header="DATE" MaxWidth="100" MinWidth="100"/>
-                    <DataGridTextColumn Header="SUB-TOTAL" Width="*"/>
+                    <DataGridTextColumn x:Name="Serial_no" Binding="{Binding Path = Serial_no}" Header="SR NO." Width="70"/>
+                    <DataGridTextColumn x:Name="Product_Name" Binding="{Binding Path = Product_Name}" Header="NAME OF THE PRODUCT" Width="450"/>
+                    <DataGridTextColumn x:Name="Quantity" Binding="{Binding Path = Quantity}" Header="QNTY" Width="100"/>
+                    <DataGridTextColumn x:Name="Units" Binding="{Binding Path = Units}" Header="UNITS" Width="150"/>
+                    <DataGridTextColumn x:Name="Units_Per_Price" Binding="{Binding Path = Units_Per_Price}" Header="UNIT/PRICE" Width="150"/>
+                    <DataGridTextColumn x:Name="Date" Binding="{Binding Path = Date}" Header="DATE" Width="100"/>
+                    <DataGridTextColumn x:Name="Sub_Total" Binding="{Binding Path = Sub_Total}" Header="SUB-TOTAL" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2"/>

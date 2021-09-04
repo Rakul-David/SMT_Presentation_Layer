@@ -58,6 +58,74 @@ namespace SMT_UI.Pages
             }
         }
 
+        private bool Fieldvalidations()
+        {
+            bool IsValid = false;
+            String Item_Name = ItemName_txt.Text;
+            String date = Dates_dtd.Text;
+            String Quantity = Qnty_txt.Text;
+            String Units = Units_Cmbx.SelectedItem.ToString();
+            String PricePerUnit = PricePerUnit_txt.Text;
+            if (Item_Name.Length < 2)
+            {
+                MessageBox.Show("Enter a valid item name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (date == "")
+            {
+                MessageBox.Show("Enter a valid date!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if(Quantity == "")
+            {
+                MessageBox.Show("Enter a quantity!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (Units == "")
+            {
+                MessageBox.Show("Select a unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (PricePerUnit == "")
+            {
+                MessageBox.Show("Enter valid price per unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                IsValid = true;
+               // MessageBox.Show("Submitted!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            return IsValid;
+        }
+
+
+        List<InvoiceDetails> DetailsList = new List<InvoiceDetails>();
+        private void Add_btn_Click(object sender, RoutedEventArgs e)
+        {
+            bool IsValid = Fieldvalidations();
+            int serialno = 1;
+            String Item_Name = ItemName_txt.Text;
+            String date = Dates_dtd.Text;
+            double Quantity = Convert.ToDouble(Qnty_txt.Text);
+            String Units =Units_Cmbx.Text;
+            double PricePerUnit = Convert.ToDouble(PricePerUnit_txt.Text);
+            double subTotal = Quantity * PricePerUnit;
+            
+            if (IsValid == true)
+            {
+                this.DetailsList.Add(new InvoiceDetails() { Serial_no = serialno, Product_Name = Item_Name, Quantity = Quantity, Units = Units, Units_Per_Price = PricePerUnit, Date = date, Sub_Total = subTotal });
+                this.FullInvoice.ItemsSource = DetailsList;
+                this.Yes_radio.IsEnabled = true;
+                this.No_radio.IsEnabled = true;
+            }
+        }
+
+        class InvoiceDetails
+        { 
+            public int Serial_no { get; set; }
+            public String Product_Name { get; set; }
+            public String Date { get; set; }
+            public double Quantity { get; set; }
+            public string Units { get; set; }
+            public double Units_Per_Price { get; set; }
+            public double Sub_Total { get; set; }
+        }
 
     }
 }
