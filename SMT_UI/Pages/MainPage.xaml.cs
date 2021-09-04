@@ -94,6 +94,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.NavigationService.Navigate(invoice);
+                this.invoice.staticDetails("CREDITOR");
             }
             catch (Exception ex)
             {
@@ -105,6 +106,7 @@ namespace SMT_UI.Pages
             try
             {
                 this.NavigationService.Navigate(invoice);
+                this.invoice.staticDetails("DEBTOR");
             }
             catch (Exception ex)
             {

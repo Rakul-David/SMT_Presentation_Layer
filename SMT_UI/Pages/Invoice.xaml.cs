@@ -23,11 +23,17 @@ namespace SMT_UI.Pages
     /// </summary>
     public partial class Invoice : Page
     {
+        String CreditorOrDebtor;
         public Invoice()
         {
             InitializeComponent();
+            CreditorOrDebtor = "";
         }
-
+        public void staticDetails(String Type)
+        {
+            this.CreditorOrDebtor = Type;
+            this.Title_lbl.Content = Type + " INVOICE";
+        }
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             MainPage mainPage = new MainPage();

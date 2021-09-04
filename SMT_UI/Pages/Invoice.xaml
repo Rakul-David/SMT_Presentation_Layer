@@ -74,9 +74,9 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <Label Style="{StaticResource labels}" Content="CREDITOR INVOICE" FontSize="34" FontWeight="Bold" Height="auto" HorizontalAlignment="Center"/>
-            
+
+            <Label x:Name="Title_lbl" Style="{StaticResource labels}" FontSize="34" Height="50" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+
             <!--#region HomeButton -->
             <Button Margin="25,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" Background="White" BorderBrush="Black" BorderThickness="2" Cursor="Hand" Click="Home_Click">
                 <Button.Resources>
