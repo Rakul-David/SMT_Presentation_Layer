@@ -29,17 +29,17 @@ namespace SMT_UI.Pages
             InitializeComponent();
             CreditorOrDebtor = "";
         }
-        public void staticDetails(String Type)
-        {
-            this.CreditorOrDebtor = Type;
-            this.Title_lbl.Content = Type + " INVOICE";
-        }
+        
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             MainPage mainPage = new MainPage();
             this.NavigationService.Navigate(mainPage);
         }
-
+        public void staticDetails(String Type)
+        {
+            this.CreditorOrDebtor = Type;
+            this.Title_lbl.Content = Type + " INVOICE";
+        }
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             try
@@ -119,6 +119,31 @@ namespace SMT_UI.Pages
                 this.FullInvoice.ItemsSource = DetailsList;
                 this.Yes_radio.IsEnabled = true;
                 this.No_radio.IsEnabled = true;
+            }
+        }
+
+        private void EnableButton(object sender, KeyEventArgs e)
+        {
+            this.EnableButtonValidation();
+        }
+
+        private void Units_Cmbx_Selection(object sender, SelectionChangedEventArgs e)
+        {
+            this.EnableButtonValidation();
+        }
+        private void Date_Filled(object sender, SelectionChangedEventArgs e)
+        {
+            this.EnableButtonValidation();
+        }
+        private void EnableButtonValidation()
+        {
+            if (this.ItemName_txt.Text != "" && this.Dates_dtd.Text != "" && this.Qnty_txt.Text != "" && this.PricePerUnit_txt.Text != "" && this.Units_Cmbx.SelectedIndex != -1)
+            {
+                this.Add_btn.IsEnabled = true;
+            }
+            else
+            {
+                this.Add_btn.IsEnabled = false;
             }
         }
 
