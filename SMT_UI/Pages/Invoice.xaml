@@ -146,7 +146,7 @@
                 <!--#region AddUpdateDeleteButton -->
                 <Button x:Name="Add_btn" Style="{StaticResource Buttons}" Content="ADD" Grid.Row="1" Grid.Column="3" Margin="30,6,30,0" VerticalAlignment="Top" Click="Add_btn_Click"/>
                 <Button x:Name="Update_btn" Style="{StaticResource Buttons}" Content="UPDATE" Grid.Row="2" Grid.Column="3" Margin="30,0,135,0"/>
-                <Button x:Name="Delete_btn" Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0"/>
+                <Button x:Name="Delete_btn" Style="{StaticResource Buttons}" Content="DELETE" Grid.Row="2" Grid.Column="3" Margin="135,0,30,0" Click="Delete_btn_Click"/>
                 <!--#endregion-->
             </Grid>
             <!--#endregion-->

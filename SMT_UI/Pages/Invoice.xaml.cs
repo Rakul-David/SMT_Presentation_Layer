@@ -152,6 +152,7 @@ namespace SMT_UI.Pages
         private void Add_btn_Click(object sender, RoutedEventArgs e)
         {
             InvoiceDetails invoiced = new InvoiceDetails();
+            
             invoiced.Product_Name = ItemName_txt.Text;
             invoiced.Date = Dates_dtd.Text;
             invoiced.Quantity = Convert.ToDouble(Qnty_txt.Text);
@@ -159,7 +160,29 @@ namespace SMT_UI.Pages
             invoiced.Units_Per_Price = Convert.ToDouble(PricePerUnit_txt.Text);
             invoiced.Sub_Total = invoiced.Quantity * invoiced.Units_Per_Price;
             FullInvoice.Items.Add(invoiced);
-
+            this.Delete_btn.IsEnabled = true;
+         
+        }
+        //private void OnRowEditEnding(object sender, DataGrid.RowEditEndingEventArgs e)
+        //{
+        //    var index = e.Row.GetIndex();
+        //}
+        //private void CellClick(object sender, RoutedEventArgs e)
+        //{
+        //    DataGridCellInfo cell = FullInvoice.CurrentCell;
+        //    int columnindex = cell.Column.DisplayIndex;
+        //    int rowIndex = FullInvoice.Items.IndexOf(cell.Item);
+        //}
+        private void Delete_btn_Click(object sender, RoutedEventArgs e)
+        {
+            int indexno = FullInvoice.SelectedIndex;
+            int Serial_no = indexno + 1;
+            FullInvoice.Items.RemoveAt(indexno);
+            //int row = FullInvoice.Items.Count;
+            //if(row <= 1)
+            //{
+            //    this.Delete_btn.IsEnabled = false;
+            //}
         }
         private void EnableButton(object sender, KeyEventArgs e)
         {
@@ -265,7 +288,7 @@ namespace SMT_UI.Pages
         {
             try
             {
-                this.Dropdown_Cmbx.SelectedIndex = -1;
+                //this.Dropdown_Cmbx.SelectedIndex = -1;
                 this.Dropdown_txt.Clear();
                 this.ItemName_txt.Clear();
                 this.Dates_dtd.Text = null;
