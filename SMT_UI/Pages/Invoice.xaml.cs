@@ -27,12 +27,14 @@ namespace SMT_UI.Pages
         List<String> AllNames;
         List<CreditorOrDebtor> CreditorList;
         SMT_DataRepository repository;
+        List<InvoiceDetails> DetailsList;
         public Invoice()
         {
             InitializeComponent();
             CreditorList = new List<CreditorOrDebtor>();
             repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
+            DetailsList = new List<InvoiceDetails>();
         }
 
         private void NavServiceOnNavigated(object sender, NavigationEventArgs args)
@@ -125,31 +127,7 @@ namespace SMT_UI.Pages
             }
             return IsValid;
         }
-
-
-        List<InvoiceDetails> DetailsList = new List<InvoiceDetails>();
-        //private void Add_btn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    bool IsValid = Fieldvalidations();
-        //    int serialno = 1;
-        //    String Item_Name = ItemName_txt.Text;
-        //    String date = Dates_dtd.Text;
-        //    double Quantity = Convert.ToDouble(Qnty_txt.Text);
-        //    String Units =Units_Cmbx.Text;
-        //    double PricePerUnit = Convert.ToDouble(PricePerUnit_txt.Text);
-        //    double subTotal = Quantity * PricePerUnit;
-
-        //    if (IsValid == true)
-        //    {
-        //        this.DetailsList.Add(new InvoiceDetails() { Serial_no = serialno, Product_Name = Item_Name, Quantity = Quantity, Units = Units, Units_Per_Price = PricePerUnit, Date = date, Sub_Total = subTotal });
-        //        this.FullInvoice.ItemsSource = DetailsList;
-        //        this.Yes_radio.IsEnabled = true;
-        //        this.No_radio.IsEnabled = true;
-        //    }
-        //}
-
-
-        private void Add_btn_Click(object sender, RoutedEventArgs e)
+        public void Add_btn_Click(object sender, RoutedEventArgs e)
         {
             InvoiceDetails invoiced = new InvoiceDetails();
             
@@ -160,29 +138,58 @@ namespace SMT_UI.Pages
             invoiced.Units_Per_Price = Convert.ToDouble(PricePerUnit_txt.Text);
             invoiced.Sub_Total = invoiced.Quantity * invoiced.Units_Per_Price;
             FullInvoice.Items.Add(invoiced);
-            this.Delete_btn.IsEnabled = true;
-         
+           // this.Delete_btn.IsEnabled = true;
+            DetailsList.Add(invoiced);
+            this.Yes_radio.IsEnabled = true;
+            this.No_radio.IsEnabled = true;
+            this.Save_btn.IsEnabled = true;
         }
-        //private void OnRowEditEnding(object sender, DataGrid.RowEditEndingEventArgs e)
-        //{
-        //    var index = e.Row.GetIndex();
-        //}
-        //private void CellClick(object sender, RoutedEventArgs e)
-        //{
-        //    DataGridCellInfo cell = FullInvoice.CurrentCell;
-        //    int columnindex = cell.Column.DisplayIndex;
-        //    int rowIndex = FullInvoice.Items.IndexOf(cell.Item);
-        //}
+
         private void Delete_btn_Click(object sender, RoutedEventArgs e)
         {
+            this.Add_btn.IsEnabled = false;
+            this.ItemName_txt.IsEnabled = false;
+            Dates_dtd.IsEnabled = false;
+            Qnty_txt.IsEnabled = false;
+            Units_Cmbx.IsEnabled = false;
+            PricePerUnit_txt.IsEnabled = false;
             int indexno = FullInvoice.SelectedIndex;
-            int Serial_no = indexno + 1;
+            var output=MessageBox.Show("Are you sure you want to delete selected client?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            // int Serial_no = indexno + 1;
+            if(output==MessageBoxResult.Yes)
+            {
+                FullInvoice.Items.RemoveAt(indexno);
+                DetailsList.RemoveAt(indexno);
+            }
+            if(FullInvoice.Items.Count == 0)
+            {
+                this.Delete_btn.IsEnabled = false;
+                this.Update_btn.IsEnabled = false;
+                this.Add_btn.IsEnabled = false;
+                this.Yes_radio.IsEnabled = false;
+                this.No_radio.IsEnabled = false;
+                this.Save_btn.IsEnabled = false;
+            }
+            clearAll();
+        }
+
+        private void Update_btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Add_btn.IsEnabled = false;
+            InvoiceDetails invoiced = new InvoiceDetails();
+            invoiced.Product_Name = ItemName_txt.Text;
+            invoiced.Date = Dates_dtd.Text;
+            invoiced.Quantity = Convert.ToDouble(Qnty_txt.Text);
+            invoiced.Units = Units_Cmbx.Text;
+            invoiced.Units_Per_Price = Convert.ToDouble(PricePerUnit_txt.Text);
+            invoiced.Sub_Total = invoiced.Quantity * invoiced.Units_Per_Price;
+            FullInvoice.Items.Add(invoiced);
+            DetailsList.Add(invoiced);
+            int indexno = FullInvoice.SelectedIndex;
+            DetailsList.RemoveAt(indexno);
             FullInvoice.Items.RemoveAt(indexno);
-            //int row = FullInvoice.Items.Count;
-            //if(row <= 1)
-            //{
-            //    this.Delete_btn.IsEnabled = false;
-            //}
+            clearAll();
+
         }
         private void EnableButton(object sender, KeyEventArgs e)
         {
@@ -302,5 +309,30 @@ namespace SMT_UI.Pages
             }
         }
 
+        private void FullInvoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int indexno = FullInvoice.SelectedIndex;
+            this.ItemName_txt.IsEnabled = true;
+            Dates_dtd.IsEnabled = true;
+            Qnty_txt.IsEnabled = true;
+            Units_Cmbx.IsEnabled = true;
+            PricePerUnit_txt.IsEnabled = true;
+            if (indexno >= 0)
+            { 
+            ItemName_txt.Text = DetailsList[indexno].Product_Name;
+            Dates_dtd.Text = DetailsList[indexno].Date;
+            Qnty_txt.Text = DetailsList[indexno].Quantity.ToString();
+            Units_Cmbx.Text = DetailsList[indexno].Units;
+            PricePerUnit_txt.Text= DetailsList[indexno].Units_Per_Price.ToString();
+            this.Delete_btn.IsEnabled = true;
+            this.Update_btn.IsEnabled = true;
+            this.Add_btn.IsEnabled = false;
+            }
+        }
+
+        private void Save_btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
