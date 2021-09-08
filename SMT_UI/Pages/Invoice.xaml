@@ -134,13 +134,13 @@
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
-                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewTextInput="NumberValidation" KeyDown="No_Spaces" KeyUp="EnableButton"/>
+                <TextBox x:Name="Qnty_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="0" Margin="85,0,10,0" PreviewKeyDown="NumberValidationQnty" PreviewKeyUp="EnableButton"/>
                 <ComboBox x:Name="Units_Cmbx" Grid.Row="2" Grid.Column="1" Cursor="Hand" Margin="65,0,10,0" IsEnabled="False" VerticalContentAlignment="Center" Height="30" SelectionChanged="Units_Cmbx_Selection">
                     <ListBoxItem Content="Kilogram" Cursor="Hand"/>
                     <ListBoxItem Content="Dozen" Cursor="Hand"/>
                     <ListBoxItem Content="Pieces" Cursor="Hand"/>
                 </ComboBox>
-                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" KeyDown="No_Spaces" KeyUp="EnableButton"/>
+                <TextBox x:Name="PricePerUnit_txt" Style="{StaticResource TextBoxes}" Grid.Row="2" Grid.Column="2" Margin="110,0,10,0" PreviewKeyDown="NumberValidationPrice" PreviewKeyUp="EnableButton"/>
                 <!--#endregion-->
 
                 <!--#region AddUpdateDeleteButton -->
@@ -152,7 +152,7 @@
             <!--#endregion-->
             
             <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2"/>
-            <DataGrid x:Name="FullInvoice" Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionChanged="FullInvoice_SelectionChanged">
+            <DataGrid x:Name="FullInvoice" Grid.Row="2" HorizontalAlignment="Center" Margin="30,25" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" SelectionChanged="FullInvoice_SelectionChanged" SelectionMode="Single" LoadingRow="Row_no">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontSize" Value="16"/>
@@ -164,7 +164,7 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="Serial_no" Binding="{Binding Serial_no}" Header="SR NO." Width="70"/>
+                    <!--<DataGridTextColumn x:Name="Serial_no" Binding="{Binding Serial_no}" Header="SR NO." Width="70"/>-->
                     <DataGridTextColumn x:Name="Product_Name" Binding="{Binding Product_Name}" Header="NAME OF THE PRODUCT" Width="450"/>
                     <DataGridTextColumn x:Name="Quantity" Binding="{Binding Quantity}" Header="QNTY" Width="100"/>
                     <DataGridTextColumn x:Name="Units" Binding="{Binding Units}" Header="UNITS" Width="150"/>
@@ -172,6 +172,16 @@
                     <DataGridTextColumn x:Name="Date" Binding="{Binding Date}" Header="DATE" Width="100"/>
                     <DataGridTextColumn x:Name="Sub_Total" Binding="{Binding Sub_Total}" Header="SUB-TOTAL" Width="*"/>
                 </DataGrid.Columns>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Width" Value="40" />
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0.6"/>
+                        <Setter Property="Padding" Value="10,0,0,0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
             </DataGrid>
             <Line X1="1270" Stroke="Black" StrokeThickness="1.5" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2"/>
 
@@ -186,8 +196,8 @@
                 
                 <!--#region GSTyes/no -->
                 <Label Style="{StaticResource labels}" Content="Do you want SGST(9%) and CGST(9%) to be added to the Invoice?" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="12" Height="18"/>
-                <RadioButton x:Name="Yes_radio" Style="{StaticResource RadioCircle}" Content="YES" Margin="75,0,0,55" Grid.Column="1" IsEnabled="False"/>
-                <RadioButton x:Name="No_radio" Style="{StaticResource RadioCircle}" Content="NO" IsChecked="True" Margin="125,0,0,55" Grid.Column="1" IsEnabled="False"/>
+                <RadioButton x:Name="Yes_radio" Style="{StaticResource RadioCircle}" Content="YES" Margin="75,0,0,55" Grid.Column="1" IsEnabled="False" Checked="Yes_radio_Checked"/>
+                <RadioButton x:Name="No_radio" Style="{StaticResource RadioCircle}" Content="NO" Margin="125,0,0,55" Grid.Column="1" IsEnabled="False" Checked="No_radio_Checked"/>
                 <!--#endregion-->
                 
                 <!--#region TotalLables -->

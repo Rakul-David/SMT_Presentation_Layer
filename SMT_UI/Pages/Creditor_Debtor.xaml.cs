@@ -1,20 +1,12 @@
-﻿using System;
+﻿using SMT_DataLayer;
+using SMT_DataLayer.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
-using SMT_DataLayer;
-using SMT_DataLayer.Repository;
 
 namespace SMT_UI.Pages
 {
@@ -177,26 +169,6 @@ namespace SMT_UI.Pages
             }
         }
 
-        private void clearAll()
-        {
-            try
-            {
-                this.Dropdown_Cmbx.SelectedIndex = -1;
-                this.Dropdown_txt.Clear();
-                this.FullName_txt.Clear();
-                this.Address_txt.Clear();
-                this.MobileNo_txt.Clear();
-                this.AlternateNo_txt.Clear();
-                this.Balance_txt.Clear();
-                this.Delete_Logic_btn.IsEnabled = false;
-                this.Update_Logic_btn.IsEnabled = false;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-            }
-        }
-
         private void NumberValidation(object sender, TextCompositionEventArgs e)
         {
             try
@@ -239,6 +211,7 @@ namespace SMT_UI.Pages
                     if (repository.AddCreditorOrDebtor(CredOrDeptObj))
                     {
                         this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                        this.AllNames = this.CreditorOrDebtorList.Select(x => x.name).ToList();
                         this.Add_Logic_btn.IsEnabled = false;
                         MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
                         clearAll();
@@ -289,7 +262,7 @@ namespace SMT_UI.Pages
         {
             try
             {
-                Guid credOrDeptId = this.CreditorOrDebtorList.Where(x => x.name == this.FullName_txt.Text).Select(x=>x.id).FirstOrDefault();
+                Guid credOrDeptId = this.CreditorOrDebtorList.Where(x => x.name == this.FullName_txt.Text).Select(x => x.id).FirstOrDefault();
                 if (repository.DeleteCreditorOrDebtor(credOrDeptId))
                 {
                     if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
@@ -310,18 +283,23 @@ namespace SMT_UI.Pages
         {
             try
             {
-                string name = this.FullName_txt.Text;
+                string name = this.FullName_txt.Text.ToUpper();
                 string address = this.Address_txt.Text.Replace(" ", "").Replace("\r\n", "");
                 string mob = this.MobileNo_txt.Text;
                 string altno = this.AlternateNo_txt.Text;
                 string bal = this.Balance_txt.Text;
                 bool isValid = false;
-                if (this.AllNames != null && this.AllNames.Count() > 0 && this.AllNames.Where(x => x == this.FullName_txt.Text).FirstOrDefault() != null)
+                if (this.AllNames != null && this.AllNames.Count() > 0 && this.AllNames.Where(x => x == this.FullName_txt.Text.ToUpper()).FirstOrDefault() != null)
                 {
-                    string duplicateName = this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text).ToString();
-                    if (duplicateName != null && duplicateName != this.Dropdown_Cmbx.Text)
+                    string duplicateName = this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text.ToUpper()).ToString();
+                    if (this.Add_radio.IsChecked == true && duplicateName != null)
                     {
-                        MessageBox.Show("Enter a valid name!", "Name " + FullName_txt.Text + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Enter a valid name!", "Name " + name + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return false;
+                    }
+                    else if (duplicateName != null && duplicateName != this.Dropdown_Cmbx.Text)
+                    {
+                        MessageBox.Show("Enter a valid name!", "Name " + name + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
                         return false;
                     }
                 }
@@ -355,6 +333,25 @@ namespace SMT_UI.Pages
             {
                 ErrorLog.Log(ex);
                 return false;
+            }
+        }
+
+        private void clearAll()
+        {
+            try
+            {
+                this.Dropdown_txt.Clear();
+                this.FullName_txt.Clear();
+                this.Address_txt.Clear();
+                this.MobileNo_txt.Clear();
+                this.AlternateNo_txt.Clear();
+                this.Balance_txt.Clear();
+                this.Delete_Logic_btn.IsEnabled = false;
+                this.Update_Logic_btn.IsEnabled = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
             }
         }
 
