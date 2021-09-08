@@ -293,7 +293,11 @@ namespace SMT_UI.Pages
                 this.FullInvoice.Items.RemoveAt(indexno);
                 this.DetailsList.RemoveAt(indexno);
             }
-            if (FullInvoice.Items.Count == 0)
+            else
+            {
+                this.FullInvoice.SelectedIndex = -1;
+            }
+            if (this.FullInvoice.Items.Count == 0)
             {
                 this.Yes_radio.IsEnabled = false;
                 this.No_radio.IsEnabled = false;
