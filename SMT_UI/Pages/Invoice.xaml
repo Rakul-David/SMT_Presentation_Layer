@@ -164,13 +164,12 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <!--<DataGridTextColumn x:Name="Serial_no" Binding="{Binding Serial_no}" Header="SR NO." Width="70"/>-->
-                    <DataGridTextColumn x:Name="Product_Name" Binding="{Binding Product_Name}" Header="NAME OF THE PRODUCT" Width="450"/>
-                    <DataGridTextColumn x:Name="Quantity" Binding="{Binding Quantity}" Header="QNTY" Width="100"/>
-                    <DataGridTextColumn x:Name="Units" Binding="{Binding Units}" Header="UNITS" Width="150"/>
-                    <DataGridTextColumn x:Name="Units_Per_Price" Binding="{Binding Units_Per_Price}" Header="UNIT/PRICE" Width="150"/>
-                    <DataGridTextColumn x:Name="Date" Binding="{Binding Date}" Header="DATE" Width="100"/>
-                    <DataGridTextColumn x:Name="Sub_Total" Binding="{Binding Sub_Total}" Header="SUB-TOTAL" Width="*"/>
+                    <DataGridTextColumn x:Name="productName" Binding="{Binding productName}" Header="NAME OF THE PRODUCT" Width="450"/>
+                    <DataGridTextColumn x:Name="quantity" Binding="{Binding quantity}" Header="QNTY" Width="100"/>
+                    <DataGridTextColumn x:Name="units" Binding="{Binding units}" Header="UNITS" Width="150"/>
+                    <DataGridTextColumn x:Name="price" Binding="{Binding price}" Header="UNIT/PRICE" Width="150"/>
+                    <DataGridTextColumn x:Name="date" Binding="{Binding date}" Header="DATE" Width="100"/>
+                    <DataGridTextColumn x:Name="subtotal" Binding="{Binding subtotal}" Header="SUB-TOTAL" Width="*"/>
                 </DataGrid.Columns>
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="{x:Type DataGridRowHeader}">

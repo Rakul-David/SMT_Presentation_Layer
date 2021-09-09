@@ -40,29 +40,43 @@ namespace SMT_UI.Pages
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            MainPage mainPage = new MainPage();
-            this.NavigationService.Navigate(mainPage);
+            try
+            {
+                MainPage mainPage = new MainPage();
+                this.NavigationService.Navigate(mainPage);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         public void staticDetails(String type)
         {
-            this.CreditorOrDebtor = type;
-            this.Title_lbl.Content = type + " INVOICE";
-            this.CreditorList = repository.GetAllCreditorOrDebtor(type);
-            if (this.CreditorList.Count == 0)
+            try
             {
-                if (MessageBox.Show("No Records", "Error!", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                this.CreditorOrDebtor = type;
+                this.Title_lbl.Content = type + " INVOICE";
+                this.CreditorList = repository.GetAllCreditorOrDebtor(type);
+                if (this.CreditorList.Count == 0)
                 {
-                    MainPage mainPage = new MainPage();
-                    this.NavigationService.Navigate(mainPage);
+                    if (MessageBox.Show("No Records", "Error!", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        MainPage mainPage = new MainPage();
+                        this.NavigationService.Navigate(mainPage);
+                    }
                 }
-            }
-            else
-            {
-                this.AllNames = this.CreditorList.Select(x => x.name).ToList();
-            }
+                else
+                {
+                    this.AllNames = this.CreditorList.Select(x => x.name).ToList();
+                }
 
-            this.Dropdown_Cmbx.ItemsSource = this.AllNames;
+                this.Dropdown_Cmbx.ItemsSource = this.AllNames;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void filterDropDown(object sender, KeyEventArgs e)
@@ -199,154 +213,218 @@ namespace SMT_UI.Pages
 
         private void EnableButton(object sender, KeyEventArgs e)
         {
-            this.EnableButtonValidation();
+            try
+            {
+                this.EnableButtonValidation();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Units_Cmbx_Selection(object sender, SelectionChangedEventArgs e)
         {
-            this.EnableButtonValidation();
+            try
+            {
+                this.EnableButtonValidation();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Date_Filled(object sender, SelectionChangedEventArgs e)
         {
-            this.EnableButtonValidation();
+            try
+            {
+                this.EnableButtonValidation();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void EnableButtonValidation()
         {
-            if (this.ItemName_txt.Text != "" && this.Dates_dtd.Text != "" && this.Qnty_txt.Text != "" && this.PricePerUnit_txt.Text != "" && this.Units_Cmbx.SelectedIndex != -1)
+            try
             {
-                this.Add_btn.IsEnabled = true;
-                if (this.FullInvoice.SelectedIndex > 0)
+                if (this.ItemName_txt.Text != "" && this.Dates_dtd.Text != "" && this.Qnty_txt.Text != "" && this.PricePerUnit_txt.Text != "" && this.Units_Cmbx.SelectedIndex != -1)
                 {
-                    this.Update_btn.IsEnabled = true;
-                    this.Delete_btn.IsEnabled = true;
+                    this.Add_btn.IsEnabled = true;
+                    if (this.FullInvoice.SelectedIndex > 0)
+                    {
+                        this.Update_btn.IsEnabled = true;
+                        this.Delete_btn.IsEnabled = true;
+                    }
+                    else
+                    {
+                        this.Update_btn.IsEnabled = false;
+                        this.Delete_btn.IsEnabled = false;
+                    }
                 }
                 else
                 {
+                    this.Add_btn.IsEnabled = false;
                     this.Update_btn.IsEnabled = false;
                     this.Delete_btn.IsEnabled = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                this.Add_btn.IsEnabled = false;
-                this.Update_btn.IsEnabled = false;
-                this.Delete_btn.IsEnabled = false;
+                ErrorLog.Log(ex);
             }
         }
 
         public void Add_btn_Click(object sender, RoutedEventArgs e)
         {
-            InvoiceDetails invoiced = new InvoiceDetails();
-            invoiced.Product_Name = ItemName_txt.Text;
-            invoiced.Date = Dates_dtd.Text;
-            invoiced.Quantity = Math.Round(Convert.ToDouble(Qnty_txt.Text), 2);
-            invoiced.Units = Units_Cmbx.Text;
-            invoiced.Units_Per_Price = Math.Round(Convert.ToDouble(PricePerUnit_txt.Text), 2);
-            invoiced.Sub_Total = Math.Round(invoiced.Quantity * invoiced.Units_Per_Price, 2);
-            this.FullInvoice.Items.Add(invoiced);
-            this.DetailsList.Add(invoiced);
-            this.Yes_radio.IsEnabled = true;
-            this.No_radio.IsEnabled = true;
-            if (this.Yes_radio.IsChecked == false && this.No_radio.IsChecked == false)
+            try
             {
-                this.No_radio.IsChecked = true;
+                InvoiceDetails invoiced = new InvoiceDetails();
+                invoiced.productName = ItemName_txt.Text;
+                invoiced.date = Dates_dtd.Text;
+                invoiced.quantity = Math.Round(Convert.ToDouble(Qnty_txt.Text), 2);
+                invoiced.units = Units_Cmbx.Text;
+                invoiced.price = Math.Round(Convert.ToDouble(PricePerUnit_txt.Text), 2);
+                invoiced.subtotal = Math.Round(invoiced.quantity * invoiced.price, 2);
+                this.FullInvoice.Items.Add(invoiced);
+                this.DetailsList.Add(invoiced);
+                this.Yes_radio.IsEnabled = true;
+                this.No_radio.IsEnabled = true;
+                if (this.Yes_radio.IsChecked == false && this.No_radio.IsChecked == false)
+                {
+                    this.No_radio.IsChecked = true;
+                }
+                this.Save_btn.IsEnabled = true;
+                this.FullInvoice.SelectedIndex = -1;
+                this.totalCalculation();
+                this.clearAll();
+                this.EnableButtonValidation();
             }
-            this.Save_btn.IsEnabled = true;
-            this.FullInvoice.SelectedIndex = -1;
-            this.totalCalculation();
-            this.clearAll();
-            this.EnableButtonValidation();
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Update_btn_Click(object sender, RoutedEventArgs e)
         {
-            InvoiceDetails invoiced = new InvoiceDetails();
-            invoiced.Product_Name = ItemName_txt.Text;
-            invoiced.Date = Dates_dtd.Text;
-            invoiced.Quantity = Math.Round(Convert.ToDouble(Qnty_txt.Text), 2);
-            invoiced.Units = Units_Cmbx.Text;
-            invoiced.Units_Per_Price = Math.Round(Convert.ToDouble(PricePerUnit_txt.Text), 2);
-            invoiced.Sub_Total = Math.Round(invoiced.Quantity * invoiced.Units_Per_Price, 2);
-            this.FullInvoice.Items.Add(invoiced);
-            this.DetailsList.Add(invoiced);
-            int indexno = FullInvoice.SelectedIndex;
-            this.DetailsList.RemoveAt(indexno);
-            this.FullInvoice.Items.RemoveAt(indexno);
-            this.FullInvoice.Items.Refresh();
-            this.totalCalculation();
-            this.clearAll();
-            this.EnableButtonValidation();
+            try
+            {
+                InvoiceDetails invoiced = new InvoiceDetails();
+                invoiced.productName = ItemName_txt.Text;
+                invoiced.date = Dates_dtd.Text;
+                invoiced.quantity = Math.Round(Convert.ToDouble(Qnty_txt.Text), 2);
+                invoiced.units = Units_Cmbx.Text;
+                invoiced.price = Math.Round(Convert.ToDouble(PricePerUnit_txt.Text), 2);
+                invoiced.subtotal = Math.Round(invoiced.quantity * invoiced.price, 2);
+                this.FullInvoice.Items.Add(invoiced);
+                this.DetailsList.Add(invoiced);
+                int indexno = FullInvoice.SelectedIndex;
+                this.DetailsList.RemoveAt(indexno);
+                this.FullInvoice.Items.RemoveAt(indexno);
+                this.FullInvoice.Items.Refresh();
+                this.totalCalculation();
+                this.clearAll();
+                this.EnableButtonValidation();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Delete_btn_Click(object sender, RoutedEventArgs e)
         {
-            this.ItemName_txt.IsEnabled = false;
-            this.Dates_dtd.IsEnabled = false;
-            this.Qnty_txt.IsEnabled = false;
-            this.Units_Cmbx.IsEnabled = false;
-            this.PricePerUnit_txt.IsEnabled = false;
-            int indexno = FullInvoice.SelectedIndex;
-            if (MessageBox.Show("Are you sure you want to delete selected item?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            try
             {
-                this.FullInvoice.Items.RemoveAt(indexno);
-                this.DetailsList.RemoveAt(indexno);
+                this.ItemName_txt.IsEnabled = false;
+                this.Dates_dtd.IsEnabled = false;
+                this.Qnty_txt.IsEnabled = false;
+                this.Units_Cmbx.IsEnabled = false;
+                this.PricePerUnit_txt.IsEnabled = false;
+                int indexno = FullInvoice.SelectedIndex;
+                if (MessageBox.Show("Are you sure you want to delete selected item?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    this.FullInvoice.Items.RemoveAt(indexno);
+                    this.DetailsList.RemoveAt(indexno);
+                }
+                else
+                {
+                    this.FullInvoice.SelectedIndex = -1;
+                }
+                if (this.FullInvoice.Items.Count == 0)
+                {
+                    this.Yes_radio.IsEnabled = false;
+                    this.No_radio.IsEnabled = false;
+                    this.Save_btn.IsEnabled = false;
+                }
+                this.FullInvoice.Items.Refresh();
+                this.totalCalculation();
+                this.clearAll();
+                this.EnableButtonValidation();
             }
-            else
+            catch (Exception ex)
             {
-                this.FullInvoice.SelectedIndex = -1;
+                ErrorLog.Log(ex);
             }
-            if (this.FullInvoice.Items.Count == 0)
-            {
-                this.Yes_radio.IsEnabled = false;
-                this.No_radio.IsEnabled = false;
-                this.Save_btn.IsEnabled = false;
-            }
-            this.FullInvoice.Items.Refresh();
-            this.totalCalculation();
-            this.clearAll();
-            this.EnableButtonValidation();
         }
 
         private bool Fieldvalidations()
         {
-            bool IsValid = false;
-            String Item_Name = ItemName_txt.Text;
-            String date = Dates_dtd.Text;
-            String Quantity = Qnty_txt.Text;
-            String Units = Units_Cmbx.SelectedItem.ToString();
-            String PricePerUnit = PricePerUnit_txt.Text;
-            if (Item_Name.Length < 2)
+            try
             {
-                MessageBox.Show("Enter a valid item name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                bool IsValid = false;
+                String Item_Name = ItemName_txt.Text;
+                String date = Dates_dtd.Text;
+                String Quantity = Qnty_txt.Text;
+                String Units = Units_Cmbx.SelectedItem.ToString();
+                String PricePerUnit = PricePerUnit_txt.Text;
+                if (Item_Name.Length < 2)
+                {
+                    MessageBox.Show("Enter a valid item name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (date == "")
+                {
+                    MessageBox.Show("Enter a valid date!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (Quantity == "")
+                {
+                    MessageBox.Show("Enter a quantity!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (Units == "")
+                {
+                    MessageBox.Show("Select a unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (PricePerUnit == "")
+                {
+                    MessageBox.Show("Enter valid price per unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    IsValid = true;
+                }
+                return IsValid;
             }
-            else if (date == "")
+            catch (Exception ex)
             {
-                MessageBox.Show("Enter a valid date!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                ErrorLog.Log(ex);
+                return false;
             }
-            else if (Quantity == "")
-            {
-                MessageBox.Show("Enter a quantity!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (Units == "")
-            {
-                MessageBox.Show("Select a unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (PricePerUnit == "")
-            {
-                MessageBox.Show("Enter valid price per unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                IsValid = true;
-            }
-            return IsValid;
         }
 
         public void Row_no(object sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            try
+            {
+                e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void clearAll()
@@ -367,70 +445,104 @@ namespace SMT_UI.Pages
 
         private void FullInvoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int indexno = this.FullInvoice.SelectedIndex;
-            this.ItemName_txt.IsEnabled = true;
-            this.Dates_dtd.IsEnabled = true;
-            this.Qnty_txt.IsEnabled = true;
-            this.Units_Cmbx.IsEnabled = true;
-            this.PricePerUnit_txt.IsEnabled = true;
-            if (indexno >= 0)
+            try
             {
-                this.ItemName_txt.Text = DetailsList[indexno].Product_Name;
-                this.Dates_dtd.Text = DetailsList[indexno].Date;
-                this.Qnty_txt.Text = DetailsList[indexno].Quantity.ToString();
-                this.Units_Cmbx.Text = DetailsList[indexno].Units;
-                this.PricePerUnit_txt.Text = DetailsList[indexno].Units_Per_Price.ToString();
-                this.Delete_btn.IsEnabled = true;
-                this.Update_btn.IsEnabled = true;
-                this.Add_btn.IsEnabled = true;
+                int indexno = this.FullInvoice.SelectedIndex;
+                this.ItemName_txt.IsEnabled = true;
+                this.Dates_dtd.IsEnabled = true;
+                this.Qnty_txt.IsEnabled = true;
+                this.Units_Cmbx.IsEnabled = true;
+                this.PricePerUnit_txt.IsEnabled = true;
+                if (indexno >= 0)
+                {
+                    this.ItemName_txt.Text = DetailsList[indexno].productName;
+                    this.Dates_dtd.Text = DetailsList[indexno].date;
+                    this.Qnty_txt.Text = DetailsList[indexno].quantity.ToString();
+                    this.Units_Cmbx.Text = DetailsList[indexno].units;
+                    this.PricePerUnit_txt.Text = DetailsList[indexno].price.ToString();
+                    this.Delete_btn.IsEnabled = true;
+                    this.Update_btn.IsEnabled = true;
+                    this.Add_btn.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
             }
         }
 
         private void No_radio_Checked(object sender, RoutedEventArgs e)
         {
-            this.totalCalculation();
+            try
+            {
+                this.totalCalculation();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void Yes_radio_Checked(object sender, RoutedEventArgs e)
         {
-            this.totalCalculation();
+            try
+            {
+                this.totalCalculation();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
 
         private void totalCalculation()
         {
-            var total = 0.0;
-            var gst = 0.0;
-            foreach (var item in this.DetailsList)
+            try
             {
-                total += item.Sub_Total;
+                var total = 0.0;
+                var gst = 0.0;
+                foreach (var item in this.DetailsList)
+                {
+                    total += item.subtotal;
+                }
+                this.TotalAmount_lbl.Content = Math.Round(total, 2);
+                if (this.Yes_radio.IsChecked == true)
+                {
+                    gst = Math.Round(0.09 * total, 2);
+                }
+                else if (this.No_radio.IsChecked == true)
+                {
+                    gst = 0.0;
+                }
+                this.SGST_lbl.Content = gst;
+                this.CGST_lbl.Content = gst;
+                this.GrandTotal_lbl.Content = Math.Round(total + 2 * gst, 2);
             }
-            this.TotalAmount_lbl.Content = Math.Round(total, 2);
-            if (this.Yes_radio.IsChecked == true)
+            catch (Exception ex)
             {
-                gst = Math.Round(0.09 * total, 2);
+                ErrorLog.Log(ex);
             }
-            else if (this.No_radio.IsChecked == true)
-            {
-                gst = 0.0;
-            }
-            this.SGST_lbl.Content = gst;
-            this.CGST_lbl.Content = gst;
-            this.GrandTotal_lbl.Content = Math.Round(total + 2 * gst, 2);
         }
 
         private void Save_btn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Log(ex);
+            }
         }
         private class InvoiceDetails
         {
-            public int Serial_no { get; set; }
-            public String Product_Name { get; set; }
-            public String Date { get; set; }
-            public double Quantity { get; set; }
-            public string Units { get; set; }
-            public double Units_Per_Price { get; set; }
-            public double Sub_Total { get; set; }
+            public String productName { get; set; }
+            public String date { get; set; }
+            public double quantity { get; set; }
+            public string units { get; set; }
+            public double price { get; set; }
+            public double subtotal { get; set; }
         }
 
     }
