@@ -150,11 +150,11 @@
             <!--#endregion-->
 
             <!--#region TextContent -->
-            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0" KeyUp="EnableButton"/>
+            <TextBox x:Name="FullName_txt" Style="{StaticResource Textboxes}" Margin="150,200,0,0" KeyUp="EnableButton" MaxLength="50"/>
             <TextBox x:Name="Address_txt" Style="{StaticResource Textboxes}" Margin="150,250,0,0" Height="180" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" KeyUp="EnableButton"/>
             <TextBox x:Name="MobileNo_txt" Style="{StaticResource Textboxes}" Margin="150,450,0,0" MaxLength="10" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" KeyUp="EnableButton"/>
             <TextBox x:Name="AlternateNo_txt" Style="{StaticResource Textboxes}" Margin="150,500,0,0" MaxLength="10" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation"/>
-            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" KeyUp="EnableButton"/>
+            <TextBox x:Name="Balance_txt" Style="{StaticResource Textboxes}" Margin="150,550,0,0" PreviewKeyDown="No_Spaces" PreviewTextInput="NumberValidation" KeyUp="EnableButton" MaxLength="10"/>
             <!--#endregion-->
 
             <!--#region Logic Button -->

@@ -198,8 +198,7 @@ namespace SMT_UI.Pages
         {
             try
             {
-                bool isValid = FieldValidations();
-                if (isValid == true)
+                if (FieldValidations() == true)
                 {
                     CreditorOrDebtor CredOrDeptObj = new CreditorOrDebtor();
                     CredOrDeptObj.UserIdentity = this.CreditorOrDebtor.Equals("CREDITOR") ? Guid.Parse(Enumeration.Atributes[(int)Details.Creditor]) : Guid.Parse(Enumeration.Atributes[(int)Details.Deptor]);
@@ -213,8 +212,8 @@ namespace SMT_UI.Pages
                         this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
                         this.AllNames = this.CreditorOrDebtorList.Select(x => x.name).ToList();
                         this.Add_Logic_btn.IsEnabled = false;
-                        MessageBox.Show("Submitted!", "Add suceeded", MessageBoxButton.OK, MessageBoxImage.Information);
-                        clearAll();
+                        MessageBox.Show("Added "+this.FullName_txt.Text.ToUpper()+" as "+this.CreditorOrDebtor+ " successfully!", "Submitted", MessageBoxButton.OK, MessageBoxImage.Information);
+                        this.clearAll();
                     }
                 }
             }
@@ -243,7 +242,7 @@ namespace SMT_UI.Pages
                     CredOrDeptObj.standingBalance = Double.Parse(Balance_txt.Text);
                     if (repository.EditCreditorOrDebtor(CredOrDeptObj))
                     {
-                        if (MessageBox.Show("Submitted!", "Update suceeded", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                        if (MessageBox.Show("Updated " + this.CreditorOrDebtor +" details successfully!", "Updated", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
                             this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
                             this.EditDeleteCommon("Edit");
@@ -265,7 +264,7 @@ namespace SMT_UI.Pages
                 Guid credOrDeptId = this.CreditorOrDebtorList.Where(x => x.name == this.FullName_txt.Text).Select(x => x.id).FirstOrDefault();
                 if (repository.DeleteCreditorOrDebtor(credOrDeptId))
                 {
-                    if (MessageBox.Show("Data for " + FullName_txt.Text + " client is deleted! ", "Deletion", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    if (MessageBox.Show("Deleted " + this.FullName_txt.Text.ToUpper() + " successfully!", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                     {
                         this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
                         this.EditDeleteCommon("Delete");
@@ -294,34 +293,34 @@ namespace SMT_UI.Pages
                     string duplicateName = this.AllNames.FirstOrDefault(x => x == this.FullName_txt.Text.ToUpper()).ToString();
                     if (this.Add_radio.IsChecked == true && duplicateName != null)
                     {
-                        MessageBox.Show("Enter a valid name!", "Name " + name + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Name " + name + " already exists!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
                     else if (duplicateName != null && duplicateName != this.Dropdown_Cmbx.Text)
                     {
-                        MessageBox.Show("Enter a valid name!", "Name " + name + " already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Name " + name + " already exists!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
                 }
                 if (name.Length < 2)
                 {
-                    MessageBox.Show("Enter a valid name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter a valid Name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (address.Length < 2)
                 {
-                    MessageBox.Show("Enter a valid address!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter a valid Address!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (mob.Length != 10)
                 {
-                    MessageBox.Show("Enter Valid mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter valid Mobile Number!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (altno != "" && altno.Length < 10 && altno.Length > 0)
                 {
-                    MessageBox.Show("Enter Valid Alternate mobile numbers", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter valid Alternate Mobile Number!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (bal == "")
                 {
-                    MessageBox.Show("Enter a valid balance!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter a valid Standing Balance!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (name != "" && address != "" && mob != "" && bal != "" && mob.Length == 10 && (altno.Length == 10 || altno.Length == 0))
                 {

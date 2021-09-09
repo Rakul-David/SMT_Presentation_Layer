@@ -15,7 +15,7 @@ namespace SMT_DataLayer
         public Guid id = Guid.NewGuid();
         public double total { get; set; }
         public bool gst { get; set; }
-        public DateTime invoiceDate { get; set; }
+        public string invoiceDate { get; set; }
         public List<InvoiceDetails> invoiceDetails { get; set; }
     }
     public class InvoiceDetails

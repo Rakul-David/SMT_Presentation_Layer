@@ -25,14 +25,14 @@ namespace SMT_UI.Pages
     {
         String CreditorOrDebtor;
         List<String> AllNames;
-        List<CreditorOrDebtor> CreditorList;
+        List<CreditorOrDebtor> creditorOrDebtorList;
         SMT_DataRepository repository;
         List<InvoiceDetails> DetailsList;
 
         public Invoice()
         {
             InitializeComponent();
-            CreditorList = new List<CreditorOrDebtor>();
+            creditorOrDebtorList = new List<CreditorOrDebtor>();
             repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
             DetailsList = new List<InvoiceDetails>();
@@ -57,10 +57,10 @@ namespace SMT_UI.Pages
             {
                 this.CreditorOrDebtor = type;
                 this.Title_lbl.Content = type + " INVOICE";
-                this.CreditorList = repository.GetAllCreditorOrDebtor(type);
-                if (this.CreditorList.Count == 0)
+                this.creditorOrDebtorList = repository.GetAllCreditorOrDebtor(type);
+                if (this.creditorOrDebtorList.Count == 0)
                 {
-                    if (MessageBox.Show("No Records", "Error!", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    if (MessageBox.Show("No "+this.CreditorOrDebtor+" Records Found!", "Not Found", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         MainPage mainPage = new MainPage();
                         this.NavigationService.Navigate(mainPage);
@@ -68,7 +68,7 @@ namespace SMT_UI.Pages
                 }
                 else
                 {
-                    this.AllNames = this.CreditorList.Select(x => x.name).ToList();
+                    this.AllNames = this.creditorOrDebtorList.Select(x => x.name).ToList();
                 }
 
                 this.Dropdown_Cmbx.ItemsSource = this.AllNames;
@@ -123,6 +123,7 @@ namespace SMT_UI.Pages
                     this.CGST_lbl.Content = "";
                     this.GrandTotal_lbl.Content = "";
                     this.FullInvoice.Items.Clear();
+                    this.DetailsList.Clear();
                     this.clearAll();
                     this.EnableButtonValidation();
                 }
@@ -166,7 +167,7 @@ namespace SMT_UI.Pages
                 {
                     keyString = keyString.Substring(6);
                 }
-                if ((keyString.Length == 1 && char.IsDigit(keyString[0])) || ((keyString == "OemPeriod" || keyString == "Decimal") && (!this.Qnty_txt.Text.Contains(".")) && this.Qnty_txt.Text.Length > 0) || keyString == "Back" || keyString == "Delete" || keyString == "Tab")
+                if (!keyString.Contains("Shift") && ((keyString.Length == 1 && char.IsDigit(keyString[0])) || ((keyString == "OemPeriod" || keyString == "Decimal") && (!this.Qnty_txt.Text.Contains(".")) && this.Qnty_txt.Text.Length > 0) || keyString == "Back" || keyString == "Delete" || keyString == "Tab"))
                 {
                     e.Handled = false;
                 }
@@ -254,7 +255,7 @@ namespace SMT_UI.Pages
                 if (this.ItemName_txt.Text != "" && this.Dates_dtd.Text != "" && this.Qnty_txt.Text != "" && this.PricePerUnit_txt.Text != "" && this.Units_Cmbx.SelectedIndex != -1)
                 {
                     this.Add_btn.IsEnabled = true;
-                    if (this.FullInvoice.SelectedIndex > 0)
+                    if (this.FullInvoice.SelectedIndex >= 0)
                     {
                         this.Update_btn.IsEnabled = true;
                         this.Delete_btn.IsEnabled = true;
@@ -346,7 +347,7 @@ namespace SMT_UI.Pages
                 this.Units_Cmbx.IsEnabled = false;
                 this.PricePerUnit_txt.IsEnabled = false;
                 int indexno = FullInvoice.SelectedIndex;
-                if (MessageBox.Show("Are you sure you want to delete selected item?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Delete the selected item?", "Conformation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     this.FullInvoice.Items.RemoveAt(indexno);
                     this.DetailsList.RemoveAt(indexno);
@@ -384,23 +385,23 @@ namespace SMT_UI.Pages
                 String PricePerUnit = PricePerUnit_txt.Text;
                 if (Item_Name.Length < 2)
                 {
-                    MessageBox.Show("Enter a valid item name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter valid item Name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else if (date == "")
                 {
-                    MessageBox.Show("Enter a valid date!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Select a valid Date!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else if (Quantity == "")
                 {
-                    MessageBox.Show("Enter a quantity!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter a Quantity!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else if (Units == "")
                 {
-                    MessageBox.Show("Select a unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Select a Unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else if (PricePerUnit == "")
                 {
-                    MessageBox.Show("Enter valid price per unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Enter valid Price per Unit!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
@@ -528,22 +529,24 @@ namespace SMT_UI.Pages
         {
             try
             {
-
+                SMT_DataLayer.Invoice invoice = new SMT_DataLayer.Invoice();
+                invoice.forid = this.creditorOrDebtorList.Where(x => x.name.Equals(this.Dropdown_txt.Text)).Select(x => x.id).FirstOrDefault();
+                invoice.forUid = this.creditorOrDebtorList.Where(x => x.name.Equals(this.Dropdown_txt.Text)).Select(x => x.UserIdentity).FirstOrDefault();
+                invoice.invoiceDate = DateTime.Now.ToString("dd-MM-yyyy");
+                invoice.gst = this.Yes_radio.IsChecked == true ? true : false;
+                invoice.total = Convert.ToDouble(this.TotalAmount_lbl.Content);
+                invoice.invoiceDetails = this.DetailsList;
+                if (repository.AddInvoiceforCreditorOrDebtor(invoice))
+                {
+                    MessageBox.Show("Invoice details saved successfully!", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MainPage mainPage = new MainPage();
+                    this.NavigationService.Navigate(mainPage);
+                }
             }
             catch (Exception ex)
             {
                 ErrorLog.Log(ex);
             }
         }
-        private class InvoiceDetails
-        {
-            public String productName { get; set; }
-            public String date { get; set; }
-            public double quantity { get; set; }
-            public string units { get; set; }
-            public double price { get; set; }
-            public double subtotal { get; set; }
-        }
-
     }
 }

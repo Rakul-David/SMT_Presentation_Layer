@@ -15,7 +15,6 @@ namespace SMT_DataLayer.Data
         public List<Invoice> Invoices;
         public List<PayIn_Out> Payee;
         private string creditorOrDebtorFilepath;
-        private string deptorFilepath;
         private string invoiceFilepath;
         private int payeeLength;
         private int creditorLength;

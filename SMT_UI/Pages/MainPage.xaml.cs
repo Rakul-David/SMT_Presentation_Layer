@@ -65,28 +65,28 @@ namespace SMT_UI.Pages
 
         private void PayIn_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                this.NavigationService.Navigate(payIn_payOut);
-                this.payIn_payOut.staticDetails("IN");
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-            }
+            //try
+            //{
+            //    this.NavigationService.Navigate(payIn_payOut);
+            //    this.payIn_payOut.staticDetails("IN");
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorLog.Log(ex);
+            //}
         }
 
         private void PayOut_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                this.NavigationService.Navigate(payIn_payOut);
-                this.payIn_payOut.staticDetails("OUT");
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.Log(ex);
-            }
+            //try
+            //{
+            //    this.NavigationService.Navigate(payIn_payOut);
+            //    this.payIn_payOut.staticDetails("OUT");
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorLog.Log(ex);
+            //}
         }
 
         private void Creditor_Invoice_Click(object sender, RoutedEventArgs e)
