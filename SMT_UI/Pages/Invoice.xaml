@@ -23,7 +23,7 @@
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Cambria"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="BorderBrush" Value="Black"/>
@@ -130,7 +130,7 @@
                 <DatePicker x:Name="Dates_dtd" Grid.Row="1" Grid.Column="2" Margin="110,0,10,0" IsEnabled="False" VerticalContentAlignment="Center" Height="30" Cursor="Hand" FontSize="16" FontFamily="Cambria" SelectedDateChanged="Date_Filled">
                     <DatePicker.Resources>
                         <Style TargetType = "DatePickerTextBox">
-                            <Setter Property="IsReadOnly" Value="True"/>
+                            <Setter Property="IsEnabled" Value="False"/>
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
