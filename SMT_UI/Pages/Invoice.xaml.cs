@@ -32,10 +32,10 @@ namespace SMT_UI.Pages
         public Invoice()
         {
             InitializeComponent();
-            creditorOrDebtorList = new List<CreditorOrDebtor>();
-            repository = new SMT_DataRepository();
-            CreditorOrDebtor = "";
-            DetailsList = new List<InvoiceDetails>();
+            this.creditorOrDebtorList = new List<CreditorOrDebtor>();
+            this.repository = new SMT_DataRepository();
+            this.CreditorOrDebtor = "";
+            this.DetailsList = new List<InvoiceDetails>();
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -284,11 +284,11 @@ namespace SMT_UI.Pages
             try
             {
                 InvoiceDetails invoiced = new InvoiceDetails();
-                invoiced.productName = ItemName_txt.Text;
-                invoiced.date = Dates_dtd.Text;
-                invoiced.quantity = Math.Round(Convert.ToDouble(Qnty_txt.Text), 2);
-                invoiced.units = Units_Cmbx.Text;
-                invoiced.price = Math.Round(Convert.ToDouble(PricePerUnit_txt.Text), 2);
+                invoiced.productName = this.ItemName_txt.Text;
+                invoiced.date = this.Dates_dtd.Text;
+                invoiced.quantity = Math.Round(Convert.ToDouble(this.Qnty_txt.Text), 2);
+                invoiced.units = this.Units_Cmbx.Text;
+                invoiced.price = Math.Round(Convert.ToDouble(this.PricePerUnit_txt.Text), 2);
                 invoiced.subtotal = Math.Round(invoiced.quantity * invoiced.price, 2);
                 this.FullInvoice.Items.Add(invoiced);
                 this.DetailsList.Add(invoiced);
@@ -315,15 +315,15 @@ namespace SMT_UI.Pages
             try
             {
                 InvoiceDetails invoiced = new InvoiceDetails();
-                invoiced.productName = ItemName_txt.Text;
-                invoiced.date = Dates_dtd.Text;
-                invoiced.quantity = Math.Round(Convert.ToDouble(Qnty_txt.Text), 2);
-                invoiced.units = Units_Cmbx.Text;
-                invoiced.price = Math.Round(Convert.ToDouble(PricePerUnit_txt.Text), 2);
+                invoiced.productName = this.ItemName_txt.Text;
+                invoiced.date = this.Dates_dtd.Text;
+                invoiced.quantity = Math.Round(Convert.ToDouble(this.Qnty_txt.Text), 2);
+                invoiced.units = this.Units_Cmbx.Text;
+                invoiced.price = Math.Round(Convert.ToDouble(this.PricePerUnit_txt.Text), 2);
                 invoiced.subtotal = Math.Round(invoiced.quantity * invoiced.price, 2);
                 this.FullInvoice.Items.Add(invoiced);
                 this.DetailsList.Add(invoiced);
-                int indexno = FullInvoice.SelectedIndex;
+                int indexno = this.FullInvoice.SelectedIndex;
                 this.DetailsList.RemoveAt(indexno);
                 this.FullInvoice.Items.RemoveAt(indexno);
                 this.FullInvoice.Items.Refresh();
@@ -346,7 +346,7 @@ namespace SMT_UI.Pages
                 this.Qnty_txt.IsEnabled = false;
                 this.Units_Cmbx.IsEnabled = false;
                 this.PricePerUnit_txt.IsEnabled = false;
-                int indexno = FullInvoice.SelectedIndex;
+                int indexno = this.FullInvoice.SelectedIndex;
                 if (MessageBox.Show("Delete the selected item?", "Conformation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     this.FullInvoice.Items.RemoveAt(indexno);
@@ -378,11 +378,11 @@ namespace SMT_UI.Pages
             try
             {
                 bool IsValid = false;
-                String Item_Name = ItemName_txt.Text;
-                String date = Dates_dtd.Text;
-                String Quantity = Qnty_txt.Text;
-                String Units = Units_Cmbx.SelectedItem.ToString();
-                String PricePerUnit = PricePerUnit_txt.Text;
+                String Item_Name = this.ItemName_txt.Text;
+                String date = this.Dates_dtd.Text;
+                String Quantity = this.Qnty_txt.Text;
+                String Units = this.Units_Cmbx.SelectedItem.ToString();
+                String PricePerUnit = this.PricePerUnit_txt.Text;
                 if (Item_Name.Length < 2)
                 {
                     MessageBox.Show("Enter valid item Name!", "Validation Failed", MessageBoxButton.OK, MessageBoxImage.Warning);

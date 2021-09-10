@@ -22,8 +22,8 @@ namespace SMT_UI.Pages
         public Creditor_Debtor()
         {
             InitializeComponent();
-            CreditorOrDebtorList = new List<CreditorOrDebtor>();
-            repository = new SMT_DataRepository();
+            this.CreditorOrDebtorList = new List<CreditorOrDebtor>();
+            this.repository = new SMT_DataRepository();
             CreditorOrDebtor = "";
         }
 
@@ -138,7 +138,7 @@ namespace SMT_UI.Pages
                 this.AlternateNo_txt.IsEnabled = false;
                 this.Balance_txt.IsEnabled = false;
                 this.ComboBox_lbl.Visibility = Visibility.Visible;
-                this.ComboBox_lbl.Content = "Select the " + CreditorOrDebtor + " to " + radioChecked;
+                this.ComboBox_lbl.Content = "Select the " + this.CreditorOrDebtor + " to " + radioChecked;
                 clearAll();
             }
             catch (Exception ex)
@@ -202,14 +202,14 @@ namespace SMT_UI.Pages
                 {
                     CreditorOrDebtor CredOrDeptObj = new CreditorOrDebtor();
                     CredOrDeptObj.UserIdentity = this.CreditorOrDebtor.Equals("CREDITOR") ? Guid.Parse(Enumeration.Atributes[(int)Details.Creditor]) : Guid.Parse(Enumeration.Atributes[(int)Details.Deptor]);
-                    CredOrDeptObj.name = FullName_txt.Text.ToUpper();
-                    CredOrDeptObj.address = Address_txt.Text.ToUpper();
-                    CredOrDeptObj.phone = MobileNo_txt.Text;
-                    CredOrDeptObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
-                    CredOrDeptObj.standingBalance = Double.Parse(Balance_txt.Text);
-                    if (repository.AddCreditorOrDebtor(CredOrDeptObj))
+                    CredOrDeptObj.name = this.FullName_txt.Text.ToUpper();
+                    CredOrDeptObj.address = this.Address_txt.Text.ToUpper();
+                    CredOrDeptObj.phone = this.MobileNo_txt.Text;
+                    CredOrDeptObj.alternate = string.IsNullOrEmpty(this.AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
+                    CredOrDeptObj.standingBalance = Double.Parse(this.Balance_txt.Text);
+                    if (this.repository.AddCreditorOrDebtor(CredOrDeptObj))
                     {
-                        this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                        this.CreditorOrDebtorList = this.repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
                         this.AllNames = this.CreditorOrDebtorList.Select(x => x.name).ToList();
                         this.Add_Logic_btn.IsEnabled = false;
                         MessageBox.Show("Added "+this.FullName_txt.Text.ToUpper()+" as "+this.CreditorOrDebtor+ " successfully!", "Submitted", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -227,7 +227,7 @@ namespace SMT_UI.Pages
         {
             try
             {
-                bool isValid = FieldValidations();
+                bool isValid = this.FieldValidations();
                 if (isValid == true)
                 {
                     CreditorOrDebtor CredOrDeptObj = new CreditorOrDebtor();
@@ -235,18 +235,18 @@ namespace SMT_UI.Pages
                     ObjId = (CreditorOrDebtor)this.CreditorOrDebtorList.FirstOrDefault(x => x.name == this.Dropdown_Cmbx.SelectedItem.ToString());
                     CredOrDeptObj.id = ObjId.id;
                     CredOrDeptObj.UserIdentity = this.CreditorOrDebtor.Equals("CREDITOR") ? Guid.Parse(Enumeration.Atributes[(int)Details.Creditor]) : Guid.Parse(Enumeration.Atributes[(int)Details.Deptor]);
-                    CredOrDeptObj.name = FullName_txt.Text.ToUpper();
-                    CredOrDeptObj.address = Address_txt.Text.ToUpper();
-                    CredOrDeptObj.phone = MobileNo_txt.Text;
-                    CredOrDeptObj.alternate = string.IsNullOrEmpty(AlternateNo_txt.Text) ? String.Empty : AlternateNo_txt.Text;
-                    CredOrDeptObj.standingBalance = Double.Parse(Balance_txt.Text);
+                    CredOrDeptObj.name = this.FullName_txt.Text.ToUpper();
+                    CredOrDeptObj.address = this.Address_txt.Text.ToUpper();
+                    CredOrDeptObj.phone = this.MobileNo_txt.Text;
+                    CredOrDeptObj.alternate = string.IsNullOrEmpty(this.AlternateNo_txt.Text) ? String.Empty : this.AlternateNo_txt.Text;
+                    CredOrDeptObj.standingBalance = Double.Parse(this.Balance_txt.Text);
                     if (repository.EditCreditorOrDebtor(CredOrDeptObj))
                     {
                         if (MessageBox.Show("Updated " + this.CreditorOrDebtor +" details successfully!", "Updated", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
-                            this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                            this.CreditorOrDebtorList = this.repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
                             this.EditDeleteCommon("Edit");
-                            clearAll();
+                            this.clearAll();
                         }
                     }
                 }
@@ -262,13 +262,13 @@ namespace SMT_UI.Pages
             try
             {
                 Guid credOrDeptId = this.CreditorOrDebtorList.Where(x => x.name == this.FullName_txt.Text).Select(x => x.id).FirstOrDefault();
-                if (repository.DeleteCreditorOrDebtor(credOrDeptId))
+                if (this.repository.DeleteCreditorOrDebtor(credOrDeptId))
                 {
                     if (MessageBox.Show("Deleted " + this.FullName_txt.Text.ToUpper() + " successfully!", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                     {
-                        this.CreditorOrDebtorList = repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
+                        this.CreditorOrDebtorList = this.repository.GetAllCreditorOrDebtor(this.CreditorOrDebtor);
                         this.EditDeleteCommon("Delete");
-                        clearAll();
+                        this.clearAll();
                     }
                 }
             }
@@ -395,7 +395,7 @@ namespace SMT_UI.Pages
         {
             try
             {
-                if (FullName_txt.Text != "" && Address_txt.Text != "" && MobileNo_txt.Text != "" && Balance_txt.Text != "")
+                if (this.FullName_txt.Text != "" && this.Address_txt.Text != "" && this.MobileNo_txt.Text != "" && this.Balance_txt.Text != "")
                 {
                     if (this.Add_radio.IsChecked == true)
                     {
